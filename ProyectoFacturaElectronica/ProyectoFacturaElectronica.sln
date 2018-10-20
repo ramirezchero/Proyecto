@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.CapaEntidad", "FactElec.CapaEntidad\FactElec.CapaEntidad.csproj", "{C0475032-15F9-458C-A892-C0B76A0581AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0475032-15F9-458C-A892-C0B76A0581AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0475032-15F9-458C-A892-C0B76A0581AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0475032-15F9-458C-A892-C0B76A0581AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0475032-15F9-458C-A892-C0B76A0581AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F9C5114-27F4-4A15-AA9C-70521457BBA6}
+	EndGlobalSection
+EndGlobal
