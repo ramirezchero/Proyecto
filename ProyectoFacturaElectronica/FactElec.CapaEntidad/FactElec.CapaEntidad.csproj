@@ -52,6 +52,16 @@
       <SubType>code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistroComprobante\ComprobanteElectronico.cs" />
+    <Compile Include="RegistroComprobante\En_ComprobanteDetalle.cs" />
+    <Compile Include="RegistroComprobante\En_ComprobanteDetalleImpuestos.cs" />
+    <Compile Include="RegistroComprobante\En_Contacto.cs" />
+    <Compile Include="RegistroComprobante\En_DescuentoCargo.cs" />
+    <Compile Include="RegistroComprobante\En_Gravado.cs" />
+    <Compile Include="RegistroComprobante\En_GrabadoIGV.cs" />
+    <Compile Include="RegistroComprobante\En_MontosTotales.cs" />
+    <Compile Include="RegistroComprobante\En_Receptor.cs" />
+    <Compile Include="RegistroComprobante\En_Emisor.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="ebad4377-da96-41eb-beaf-995d7f231c66" activeEnvironment="Default" name="RegistroComprobante" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="4768741e-1397-4e5b-acfb-8a9600cf6749" wsaVersion="NONE" name="BasicHttpBinding_IService1" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IService1" soapVersion="1_1" anonymous="optional" definition="http://localhost:57980/Service1.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:57980/Service1.svc?wsdl"><con:part><con:url>http://localhost:57980/Service1.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/"/>
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_RegistroComprobante_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroComprobante"/>
+  </wsdl:message>
+  <wsdl:message name="IService1_RegistroComprobante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroComprobanteResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="RegistroComprobante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/RegistroComprobante" message="tns:IService1_RegistroComprobante_InputMessage"/>
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/RegistroComprobanteResponse" message="tns:IService1_RegistroComprobante_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RegistroComprobante">
+      <soap:operation soapAction="http://tempuri.org/IService1/RegistroComprobante" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:57980/Service1.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd0</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/">
+  <xs:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+  <xs:element name="RegistroComprobante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Comprobante" nillable="true" type="q1:ComprobanteElectronico" xmlns:q1="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistroComprobanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistroComprobanteResult" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd2</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante">
+  <xs:complexType name="ComprobanteElectronico">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Emisor" nillable="true" type="tns:Emisor"/>
+      <xs:element minOccurs="0" name="FechaEmision" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HoraEmision" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Serie" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComprobanteElectronico" nillable="true" type="tns:ComprobanteElectronico"/>
+  <xs:complexType name="Emisor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoDomicilioFiscal" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoUbigeo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Distrito" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NumeroDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaginaWeb" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TipoDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Urbanizacion" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Emisor" nillable="true" type="tns:Emisor"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd1</con:url><con:content><![CDATA[<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+  <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+  <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+  <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+  <xs:element name="byte" nillable="true" type="xs:byte"/>
+  <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+  <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+  <xs:element name="double" nillable="true" type="xs:double"/>
+  <xs:element name="float" nillable="true" type="xs:float"/>
+  <xs:element name="int" nillable="true" type="xs:int"/>
+  <xs:element name="long" nillable="true" type="xs:long"/>
+  <xs:element name="QName" nillable="true" type="xs:QName"/>
+  <xs:element name="short" nillable="true" type="xs:short"/>
+  <xs:element name="string" nillable="true" type="xs:string"/>
+  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+  <xs:element name="char" nillable="true" type="tns:char"/>
+  <xs:simpleType name="char">
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:element name="duration" nillable="true" type="tns:duration"/>
+  <xs:simpleType name="duration">
+    <xs:restriction base="xs:duration">
+      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+      <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+      <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="guid" nillable="true" type="tns:guid"/>
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="FactoryType" type="xs:QName"/>
+  <xs:attribute name="Id" type="xs:ID"/>
+  <xs:attribute name="Ref" type="xs:IDREF"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint></con:endpoints><con:operation id="4c6013a8-8c5a-4521-9f40-dee951b799bd" isOneWay="false" action="http://tempuri.org/IService1/RegistroComprobante" name="RegistroComprobante" bindingOperationName="RegistroComprobante" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bfdf86d8-26d6-4cbe-b7e7-2135d8bdc990" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:RegistroComprobante>\r
+         <!--Optional:-->\r
+         <tem:Comprobante>\r
+         <fac:ComprobanteDetalle>
+               <!--Zero or more repetitions:-->
+               <fac:En_ComprobanteDetalle>
+                  <!--Optional:-->
+                  <fac:Cantidad>1.00</fac:Cantidad>
+                  <!--Optional:-->
+                  <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>
+                  <!--Optional:-->
+                  <fac:ComprobanteDetalleImpuestos>
+                     <!--Zero or more repetitions:-->
+                     <fac:En_ComprobanteDetalleImpuestos>
+                        <!--Optional:-->
+                        <fac:AfectacionIGV>10</fac:AfectacionIGV>
+                        <!--Optional:-->
+                        <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>
+                        <!--Optional:-->
+                        <fac:CodigoTributo>VAT</fac:CodigoTributo>
+                        <!--Optional:-->
+                        <fac:MontoOperacion>41.93</fac:MontoOperacion>
+                        <!--Optional:-->
+                        <fac:MontoTotalImpuesto>7.55</fac:MontoTotalImpuesto>
+                        <!--Optional:-->
+                        <fac:NombreTributo>IGV</fac:NombreTributo>
+                        <!--Optional:-->
+                        <fac:Porcentaje>18.00</fac:Porcentaje>
+                     </fac:En_ComprobanteDetalleImpuestos>
+                  </fac:ComprobanteDetalleImpuestos>
+                  <!--Optional:-->
+                  <fac:ImpuestoTotal>7.55</fac:ImpuestoTotal>
+                  <!--Optional:-->
+                  <fac:Item>1</fac:Item>
+                  <!--Optional:-->
+                  <fac:Total>41.93</fac:Total>
+                  <!--Optional:-->
+                  <fac:ValorVentaUnitarioIncIgv>49.48</fac:ValorVentaUnitarioIncIgv>
+               </fac:En_ComprobanteDetalle>
+            </fac:ComprobanteDetalle>
+
+            <!--Optional:-->\r
+            <fac:DescuentoCargo>
+               <!--Zero or more repetitions:-->
+               <fac:En_DescuentoCargo>
+                  <!--Optional:-->
+                  <fac:CodigoMotivo>50</fac:CodigoMotivo>
+                  <!--Optional:-->
+                  <fac:Factor>0.01000</fac:Factor>
+                  <!--Optional:-->
+                  <fac:Indicador>true</fac:Indicador>
+                  <!--Optional:-->
+                  <fac:MontoBase>72.01</fac:MontoBase>
+                  <!--Optional:-->
+                  <fac:MontoTotal>0.72</fac:MontoTotal>
+               </fac:En_DescuentoCargo>
+            </fac:DescuentoCargo>
+
+            <fac:Emisor>\r
+               <!--Optional:-->\r
+               <fac:CodigoDomicilioFiscal>0001</fac:CodigoDomicilioFiscal>\r
+               <!--Optional:-->\r
+               <fac:CodigoPais>PE</fac:CodigoPais>\r
+               <!--Optional:-->\r
+               <fac:CodigoUbigeo>010101</fac:CodigoUbigeo>\r
+               <fac:Contacto>
+                  <!--Optional:-->
+                  <fac:Correo>emisor@tci.net.pe</fac:Correo>
+                  <!--Optional:-->
+                  <fac:Nombre>contacto emisor</fac:Nombre>
+                  <!--Optional:-->
+                  <fac:Telefono>988632322</fac:Telefono>
+               </fac:Contacto>
+               <!--Optional:-->\r
+               <fac:Departamento>Lima</fac:Departamento>\r
+               <!--Optional:-->\r
+               <fac:Direccion>Av. los claveles</fac:Direccion>\r
+               <!--Optional:-->\r
+               <fac:Distrito>Miraflores</fac:Distrito>\r
+               <!--Optional:-->\r
+               <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>\r
+               <!--Optional:-->\r
+               <fac:NumeroDocumentoIdentidad>20112811095</fac:NumeroDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:PaginaWeb>http://www.google.com.pe</fac:PaginaWeb>\r
+               <!--Optional:-->\r
+               <fac:Provincia>callao</fac:Provincia>\r
+               <!--Optional:-->\r
+               <fac:RazonSocial>Razon social </fac:RazonSocial>\r
+               <!--Optional:-->\r
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:Urbanizacion>marquez</fac:Urbanizacion>\r
+            </fac:Emisor>\r
+            <!--Optional:-->\r
+            <fac:FechaEmision>2018-10-20</fac:FechaEmision>\r
+            <!--Optional:-->\r
+            <fac:HoraEmision>20:00:00</fac:HoraEmision>\r
+             <fac:ImporteTotal>85.70</fac:ImporteTotal>            
+            <fac:Moneda>PEN</fac:Moneda>
+            <!--Optional:-->
+            <fac:MontoTotales>               
+               <fac:Gravado>                  
+                  <fac:GrabadoIGV>                     
+                     <fac:MontoOperaciones>72.01</fac:MontoOperaciones>                     
+                     <fac:MontoTotalImpuesto>12.97</fac:MontoTotalImpuesto>                     
+                     <fac:Porcentaje>18.00</fac:Porcentaje>
+                  </fac:GrabadoIGV>                  
+                  <fac:Total>0</fac:Total>
+               </fac:Gravado>
+            </fac:MontoTotales>    
+            
+
+            <fac:Numero>1</fac:Numero>\r
+           <fac:Receptor>
+               <!--Optional:-->
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>
+               <!--Optional:-->
+               <fac:CodigoPais>PE</fac:CodigoPais>
+               <!--Optional:-->
+               <fac:CodigoUbigeo>020202</fac:CodigoUbigeo>
+               <fac:Contacto>
+                  <!--Optional:-->
+                  <fac:Correo>receptor@tci.net.pe</fac:Correo>
+                  <!--Optional:-->
+                  <fac:Nombre>contacto receptor</fac:Nombre>
+                  <!--Optional:-->
+                  <fac:Telefono>999999999</fac:Telefono>
+               </fac:Contacto>
+               <!--Optional:-->
+               <fac:Departamento>callao</fac:Departamento>
+               <!--Optional:-->
+               <fac:Direccion>Av. los claveles 2222</fac:Direccion>
+               <!--Optional:-->
+               <fac:Distrito>Miraflores</fac:Distrito>
+               <!--Optional:-->
+               <fac:NombreComercial>Nombre comercial SAC 2222222</fac:NombreComercial>
+               <!--Optional:-->
+               <fac:NumeroDocumentoIdentidad>20511111111</fac:NumeroDocumentoIdentidad>
+               <!--Optional:-->
+               <fac:PaginaWeb>http://www.google222.com.pe</fac:PaginaWeb>
+               <!--Optional:-->
+               <fac:Provincia>callao 2</fac:Provincia>
+               <!--Optional:-->
+               <fac:RazonSocial>Razon social 2</fac:RazonSocial>
+               <!--Optional:-->
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>
+               <!--Optional:-->
+               <fac:Urbanizacion>marquez 2</fac:Urbanizacion>
+            </fac:Receptor>
+            
+            <fac:Serie>F001</fac:Serie>\r
+            <fac:TipoOperacion>01</fac:TipoOperacion> 
+            <fac:TotalCargo>0.72</fac:TotalCargo>
+            <fac:TotalDescuento>0</fac:TotalDescuento>         
+            <fac:TotalImpuesto>12.97</fac:TotalImpuesto>
+            <fac:TotalPrecioVenta>84.98</fac:TotalPrecioVenta>            
+            <fac:TotalValorVenta>72.01</fac:TotalValorVenta>
+
+         </tem:Comprobante>\r
+      </tem:RegistroComprobante>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IService1/RegistroComprobante"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
