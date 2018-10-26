@@ -15,7 +15,7 @@ namespace FactElec.Webervice
     {
                 
         [OperationContract]
-        bool RegistroComprobante(ComprobanteElectronico Comprobante);
+        bool RegistroComprobante(En_ComprobanteElectronico Comprobante);
         
     }
     

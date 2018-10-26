@@ -16,7 +16,7 @@ namespace FactElec.Webervice
     {
         
 
-        public bool RegistroComprobante(ComprobanteElectronico Comprobante)
+        public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
             LogicaProceso.RegistroComprobante.LPMetodos lp = new LogicaProceso.RegistroComprobante.LPMetodos();
             lp.RegistroComprobante(Comprobante);

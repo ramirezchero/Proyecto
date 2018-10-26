@@ -11,7 +11,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 {
     public class LPMetodos
     {
-        public bool RegistroComprobante(ComprobanteElectronico Comprobante)
+        public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
             InvoiceType invoice = new InvoiceType();
             LlenarCabecera(Comprobante, ref invoice);
@@ -77,7 +77,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarDetalle(ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarDetalle(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
             List<InvoiceLineType> oListaDetalle = new List<InvoiceLineType>();
 
@@ -201,7 +201,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         
 
    
-    void LlenarDescuentoCargo(ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+    void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
     {
         List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
 
@@ -242,7 +242,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
     }
 
-    void LlenarMontosTotales(ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+    void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
     {
         MonetaryTotalType oTotal = new MonetaryTotalType
         {
@@ -275,7 +275,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         invoice.LegalMonetaryTotal = oTotal;
 
     }
-    void LlenarMontosIGV(ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+    void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
     {
         List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
 
@@ -378,7 +378,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         File.WriteAllText(ruta, sxml, Encoding.UTF8);
 
     }
-    void LlenarCabecera(CapaEntidad.RegistroComprobante.ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+    void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
     {
         //Serie y Numero          
         invoice.ID = new IDType

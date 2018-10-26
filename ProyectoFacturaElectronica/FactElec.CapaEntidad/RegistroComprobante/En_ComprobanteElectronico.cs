@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FactElec.CapaEntidad.RegistroComprobante
 {
-    public class ComprobanteElectronico
+    public class En_ComprobanteElectronico
     {
         public string Serie { get; set; }
         public string Numero { get; set; }
