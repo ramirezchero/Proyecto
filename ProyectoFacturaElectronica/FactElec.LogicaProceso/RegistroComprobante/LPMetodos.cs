@@ -410,7 +410,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         invoice.CustomizationID = new CustomizationIDType
         {
-            Value = "2.1"
+            Value = "2.0"
         };
 
         invoice.InvoiceTypeCode = new InvoiceTypeCodeType
