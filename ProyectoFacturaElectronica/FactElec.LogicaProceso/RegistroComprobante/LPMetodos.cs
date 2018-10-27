@@ -266,7 +266,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 if (Comprobante.MontoTotales.Gravado.GrabadoIGV != null)
                 {
-                    TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoOperaciones, Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GrabadoIGV.Porcentaje, "1000", "IGV", "VAT");
+                    TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoBase , Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GrabadoIGV.Porcentaje, "1000", "IGV", "VAT");
                     oListaSubtotal.Add(oTotalGravado);
                 }
 
@@ -397,12 +397,12 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         invoice.InvoiceTypeCode = new InvoiceTypeCodeType
         {
             listAgencyName = "PE:SUNAT",
-            listID = "0101",
+            listID = Comprobante.TipoOperacion.Trim(),
             listName = "Tipo de Documento",
             listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
             listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
             name = "Tipo de Operacion",
-            Value = Comprobante.TipoOperacion.Trim()
+            Value = Comprobante.TipoComprobante.Trim()
         };
 
     }

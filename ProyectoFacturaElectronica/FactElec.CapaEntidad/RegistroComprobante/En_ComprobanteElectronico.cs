@@ -16,7 +16,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public string Moneda { get; set; }
 
         public string TipoOperacion { get; set; }
-
+        public string TipoComprobante { get; set; }
         public decimal TotalImpuesto { get; set; }
 
         public decimal TotalValorVenta { get; set; }

@@ -8,7 +8,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 {
     public class En_GrabadoIGV
     {
-        public decimal MontoOperaciones { get; set; }
+        public decimal MontoBase { get; set; }
         public decimal MontoTotalImpuesto { get; set; }
         public decimal Porcentaje { get; set; }
          
