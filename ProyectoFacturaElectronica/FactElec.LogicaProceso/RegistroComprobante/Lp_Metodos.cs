@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace FactElec.LogicaProceso.RegistroComprobante
 {
-    public class LPMetodos
+    public class Lp_Metodos
     {
         public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
