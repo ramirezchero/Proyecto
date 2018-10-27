@@ -26,13 +26,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         }
 
 
-        TaxSubtotalType LlenarSubTotalDetalle(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo, string AfectacionIGV)
+        TaxSubtotalType LlenarSubTotalDetalle(decimal MontoBase, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo, string AfectacionIGV)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
             {
                 TaxableAmount = new TaxableAmountType
                 {
-                    Value = MontoOperaciones,
+                    Value = MontoBase,
                     currencyID = Moneda
                 },
                 TaxAmount = new TaxAmountType
@@ -89,7 +89,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 foreach (En_ComprobanteDetalleImpuestos odetImpuesto in oDet.ComprobanteDetalleImpuestos)
                 {
                     TaxSubtotalType oSubTotal = new TaxSubtotalType();
-                    oSubTotal = LlenarSubTotalDetalle(odetImpuesto.MontoOperacion, odetImpuesto.MontoTotalImpuesto, Comprobante.Moneda.Trim(), odetImpuesto.Porcentaje, odetImpuesto.CodigoInternacionalTributo, odetImpuesto.NombreTributo, odetImpuesto.CodigoTributo, odetImpuesto.AfectacionIGV);
+                    oSubTotal = LlenarSubTotalDetalle(odetImpuesto.MontoBase, odetImpuesto.MontoTotalImpuesto, Comprobante.Moneda.Trim(), odetImpuesto.Porcentaje, odetImpuesto.CodigoInternacionalTributo, odetImpuesto.NombreTributo, odetImpuesto.CodigoTributo, odetImpuesto.AfectacionIGV);
                     oListaSubtotal.Add(oSubTotal);
                 }
 
@@ -166,26 +166,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                                         listName ="Item Classification",
                                         Value =""
                                 }
-                            }
-                            //=new CommodityClassificationType{
-                            //       ItemClassificationCodeType =new ItemClassificationCodeType
-                            //{
-                            //    listAgencyName="GS1 US",
-                            //    listID ="UNSPSC" ,
-                            //    listName ="Item Classification",
-                            //    Value =""
-                            //}
-                            //}
-                            //CommodityClassificationType=new CommodityClassificationType
-                            //{
-                            //    ItemClassificationCodeType =new ItemClassificationCodeType
-                            //{
-                            //    listAgencyName="GS1 US",
-                            //    listID ="UNSPSC" ,
-                            //    listName ="Item Classification",
-                            //    Value =""
-                            //}
-                            //}
+                            }                     
                             
                         }
                     }

@@ -8,7 +8,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 {
     public class En_ComprobanteDetalleImpuestos
     {
-        public decimal MontoOperacion { get; set; }
+        public decimal MontoBase { get; set; }
         public decimal MontoTotalImpuesto { get; set; }
        
         public string  AfectacionIGV { get; set; }
