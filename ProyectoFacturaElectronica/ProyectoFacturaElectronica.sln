@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.Webervice", "FactE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.LogicaProceso", "FactElec.LogicaProcesos\FactElec.LogicaProceso.csproj", "{9235E27F-6AFF-418B-827A-E94E4244F92F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.Log", "FactElec.Log\FactElec.Log.csproj", "{9B8AE09A-8563-48DE-84CB-45827F319816}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9235E27F-6AFF-418B-827A-E94E4244F92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9235E27F-6AFF-418B-827A-E94E4244F92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9235E27F-6AFF-418B-827A-E94E4244F92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8AE09A-8563-48DE-84CB-45827F319816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8AE09A-8563-48DE-84CB-45827F319816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8AE09A-8563-48DE-84CB-45827F319816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8AE09A-8563-48DE-84CB-45827F319816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

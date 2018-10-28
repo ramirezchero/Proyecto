@@ -1,6 +1,5 @@
 ﻿using FactElec.CapaEntidad.ComprobanteElectronico.Invoice;
 using FactElec.CapaEntidad.RegistroComprobante;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -11,8 +10,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 {
     public class Lp_Metodos
     {
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Lp_Metodos));
         public En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
+            log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
 
             InvoiceType invoice = new InvoiceType();
