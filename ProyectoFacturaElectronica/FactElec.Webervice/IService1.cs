@@ -7,7 +7,10 @@ namespace FactElec.Webervice
     [ServiceContract]
     public interface IService1
     {
+                
         [OperationContract]
-        bool RegistroComprobante(En_ComprobanteElectronico Comprobante);
+        En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante);
+        
     }
+    
 }

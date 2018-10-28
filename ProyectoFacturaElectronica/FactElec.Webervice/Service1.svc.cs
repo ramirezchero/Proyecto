@@ -8,13 +8,13 @@ namespace FactElec.Webervice
         readonly log4net.ILog log = null;
         public Service1() => log = log4net.LogManager.GetLogger(typeof(Service1));
 
-        public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
+        public En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
             log.Info("Inicio del proceso.");
             LogicaProceso.RegistroComprobante.Lp_Metodos lp = new LogicaProceso.RegistroComprobante.Lp_Metodos();
-            lp.RegistroComprobante(Comprobante);
-            log.Info("Fin del proceso");
-            return true;
+            En_Respuesta oRespuesta = new En_Respuesta();
+            oRespuesta=lp.RegistroComprobante(Comprobante);
+            return oRespuesta;
         }
     }
 }

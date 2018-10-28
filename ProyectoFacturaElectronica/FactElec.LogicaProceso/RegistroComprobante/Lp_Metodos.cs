@@ -11,8 +11,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 {
     public class Lp_Metodos
     {
-        public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
+        public En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
+            En_Respuesta oRespuesta = new En_Respuesta();
+
             InvoiceType invoice = new InvoiceType();
             LlenarCabecera(Comprobante, ref invoice);
             LlenarEmisor(Comprobante.Emisor, ref invoice);
@@ -22,7 +24,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             LlenarMontosTotales(Comprobante, ref invoice);
             LlenarDetalle(Comprobante, ref invoice);
             CrearXML(ref invoice);
-            return true;
+
+            oRespuesta.Codigo = "0";
+            oRespuesta.Descripcion = "Se registro correctamente";
+            return oRespuesta;
         }
 
 
