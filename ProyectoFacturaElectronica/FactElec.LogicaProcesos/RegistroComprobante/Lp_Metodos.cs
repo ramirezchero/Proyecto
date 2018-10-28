@@ -352,7 +352,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         }
         void CrearXML(ref InvoiceType invoice)
         {
-
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
             xmlNameSpaceNom.Add("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
@@ -364,23 +363,55 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
 
             string ruta = @"D:\XML\PrimeraFactura.xml";
-            string sxml = "";
 
-            using (var sw = new StringWriter())
+            string sxml = "";
+            Encoding utf8noBOM = new UTF8Encoding(false);
+            XmlWriterSettings settings = new XmlWriterSettings
             {
-                using (XmlWriter writter = XmlWriter.Create(sw))
+                Indent = true,
+                Encoding = utf8noBOM
+            };
+
+            // Se ha creado una nueva clase llamada StringWriterWithEncoding que grabaen formato UTF-8
+            // Por defecto la clase StringWriter graba con UTF-16 y no se podía firmar, con UTF-8 ya se puede
+            using (var sw = new StringWriterWithEncoding())
+            {
+                using (XmlWriter writter = XmlWriter.Create(sw, settings))
                 {
                     oxmlSerializer.Serialize(writter, invoice, xmlNameSpaceNom);
                     sxml = sw.ToString();
                 }
-
             }
 
+            // Se elimina el tag temporal creado dentro de ext:ExtensionContent y en su lugar se colocará la firma
+            string cadena = "<Borrar xmlns=\"\" />";
+            int tamanio = cadena.Length;
+            int indice = sxml.IndexOf(cadena);
+            sxml = sxml.Remove(indice, tamanio);
+
+            // Se sigue grabando el archivo como siempre 
             File.WriteAllText(ruta, sxml, Encoding.UTF8);
 
+            // Firma del comprobante
+            var objFirma = new Firma.FirmaComprobante();
+            var codigoHash = "";
+            var document = new XmlDocument();
+            document.Load(ruta);
+            // Enviamos el RUC de la empresa, para ello el certificado debe estar registrado
+            objFirma.FirmarXml(document, "20112811096", ref codigoHash);
+            document.Save(ruta);
         }
         void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
+            UBLExtensionType uBLExtensionType = new UBLExtensionType()
+            {
+                // Se crea un tag temporal llamado "Borrar", esto porque no he conseguido crear el tag
+                // ext:ExtensionContent con un valor vacío
+                ExtensionContent = new XmlDocument().CreateElement("Borrar")
+            };
+            
+            UBLExtensionType[] ublExtensions = { uBLExtensionType };
+            invoice.UBLExtensions = ublExtensions;
             //Serie y Numero          
             invoice.ID = new IDType
             {
@@ -441,20 +472,23 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             List<DocumentReferenceType> oListadocumento = new List<DocumentReferenceType>();
 
-            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferencia) {
+            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferencia)
+            {
                 DocumentReferenceType odocumento = new DocumentReferenceType
                 {
                     ID = new IDType
                     {
                         Value = oreferen.SerieNumero.Trim()
                     },
-                    IssueDate = new IssueDateType {
+                    IssueDate = new IssueDateType
+                    {
                         Value = oreferen.Fecha.Trim()
                     },
-                    DocumentTypeCode =new DocumentTypeCodeType {
-                        Value =oreferen.TipoDocumento.Trim() ,
+                    DocumentTypeCode = new DocumentTypeCodeType
+                    {
+                        Value = oreferen.TipoDocumento.Trim(),
                         listAgencyName = "PE:SUNAT",
-                        listName= "SUNAT:Identificador de guía relacionada",
+                        listName = "SUNAT:Identificador de guía relacionada",
                         listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12"
                     }
                 };
@@ -709,6 +743,23 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             invoice.AccountingCustomerParty = oReceptor;
 
 
+        }
+    }
+
+    public sealed class StringWriterWithEncoding : StringWriter
+    {
+        private readonly Encoding encoding;
+
+        public StringWriterWithEncoding() : this(Encoding.UTF8) { }
+
+        public StringWriterWithEncoding(Encoding encoding)
+        {
+            this.encoding = encoding;
+        }
+
+        public override Encoding Encoding
+        {
+            get { return encoding; }
         }
     }
 }
