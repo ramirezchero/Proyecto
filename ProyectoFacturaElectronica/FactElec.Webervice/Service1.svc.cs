@@ -16,11 +16,12 @@ namespace FactElec.Webervice
     {
         
 
-        public bool RegistroComprobante(En_ComprobanteElectronico Comprobante)
+        public En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
             LogicaProceso.RegistroComprobante.Lp_Metodos lp = new LogicaProceso.RegistroComprobante.Lp_Metodos();
-            lp.RegistroComprobante(Comprobante);
-            return true;
+            En_Respuesta oRespuesta = new En_Respuesta();
+            oRespuesta=lp.RegistroComprobante(Comprobante);
+            return oRespuesta;
         }
 
 
