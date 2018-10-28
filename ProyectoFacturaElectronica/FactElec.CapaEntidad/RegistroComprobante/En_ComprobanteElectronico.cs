@@ -39,7 +39,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 
         public List<En_Leyenda> Leyenda { get; set; }
 
-        public List<En_DocumentoReferencia> DocumentoReferencia { get; set; }
+        public List<En_DocumentoReferencia> DocumentoReferencia = new List<En_DocumentoReferencia>();
 
     }
 }

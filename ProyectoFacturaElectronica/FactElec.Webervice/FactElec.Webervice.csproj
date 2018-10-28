@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FactElec.Webervice</RootNamespace>
     <AssemblyName>FactElec.Webervice</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
@@ -22,6 +22,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,16 +42,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
@@ -65,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Service1.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service1.svc.cs">
@@ -78,7 +78,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -91,13 +90,9 @@
       <Project>{c0475032-15f9-458c-a892-c0b76a0581aa}</Project>
       <Name>FactElec.CapaEntidad</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FactElec.LogicaProceso\FactElec.LogicaProceso.csproj">
-      <Project>{140b35f6-64cc-4c92-83e8-d7f1f3fe96da}</Project>
+    <ProjectReference Include="..\FactElec.LogicaProcesos\FactElec.LogicaProceso.csproj">
+      <Project>{9235e27f-6aff-418b-827a-e94e4244f92f}</Project>
       <Name>FactElec.LogicaProceso</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FactElec.Log\FactElec.Log.csproj">
-      <Project>{9b8ae09a-8563-48de-84cb-45827f319816}</Project>
-      <Name>FactElec.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
