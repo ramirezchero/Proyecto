@@ -36,5 +36,8 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public decimal TotalDescuento { get; set; }
 
         public List<En_ComprobanteDetalle> ComprobanteDetalle { get; set; }
+
+        public List<En_Leyenda> Leyenda { get; set; }
+
     }
 }

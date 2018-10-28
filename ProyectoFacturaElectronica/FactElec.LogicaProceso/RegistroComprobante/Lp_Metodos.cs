@@ -89,9 +89,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 oDescripcion.Value = oDet.Descripcion;
                 oListaDescripcion.Add(oDescripcion);
 
-                foreach (string oDes in oDet.MultiDescripcion) {
+                foreach (string oDes in oDet.MultiDescripcion)
+                {
                     DescriptionType oDescrip = new DescriptionType();
-                    oDescrip.Value =oDes.ToString();
+                    oDescrip.Value = oDes.ToString();
                     oListaDescripcion.Add(oDescrip);
                 }
 
@@ -152,21 +153,23 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
                             }
                         },
-                    Price = new PriceType {
-                        PriceAmount = new PriceAmountType {
+                    Price = new PriceType
+                    {
+                        PriceAmount = new PriceAmountType
+                        {
                             Value = oDet.ValorVentaUnitario,
                             currencyID = Comprobante.Moneda.Trim()
                         }
                     },
                     Item = new ItemType
                     {
-                        Description = oListaDescripcion.ToArray(), 
+                        Description = oListaDescripcion.ToArray(),
 
                         SellersItemIdentification = new ItemIdentificationType
                         {
                             ID = new IDType
                             {
-                                Value = oDet .Codigo 
+                                Value = oDet.Codigo
                             }
                         },
                         CommodityClassification = new CommodityClassificationType[]
@@ -177,10 +180,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                                         listAgencyName="GS1 US",
                                         listID ="UNSPSC" ,
                                         listName ="Item Classification",
-                                        Value =oDet.CodigoSunat 
+                                        Value =oDet.CodigoSunat
                                 }
-                            }                     
-                            
+                            }
+
                         }
                     }
 
@@ -189,484 +192,497 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
 
             };
-            invoice.InvoiceLine = oListaDetalle.ToArray();          
+            invoice.InvoiceLine = oListaDetalle.ToArray();
 
         }
-        
 
-   
-    void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
-    {
-        List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
 
-        foreach (En_DescuentoCargo oDescar in Comprobante.DescuentoCargo)
+
+        void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
-            AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
+            List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
+
+            foreach (En_DescuentoCargo oDescar in Comprobante.DescuentoCargo)
             {
-                ChargeIndicator = new ChargeIndicatorType
+                AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
                 {
-                    Value = oDescar.Indicador
-                },
-                AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
+                    ChargeIndicator = new ChargeIndicatorType
+                    {
+                        Value = oDescar.Indicador
+                    },
+                    AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
+                    {
+                        listAgencyName = "PE:SUNAT",
+                        listName = "Cargo/descuento",
+                        listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
+                        Value = oDescar.CodigoMotivo
+                    },
+                    MultiplierFactorNumeric = new MultiplierFactorNumericType
+                    {
+                        Value = oDescar.Factor
+                    },
+                    Amount = new AmountType2
+                    {
+                        Value = oDescar.MontoTotal,
+                        currencyID = Comprobante.Moneda.Trim()
+                    },
+                    BaseAmount = new BaseAmountType
+                    {
+                        Value = oDescar.MontoBase,
+                        currencyID = Comprobante.Moneda.Trim()
+                    }
+
+                };
+                oListaDescuentoCargo.Add(oDescuentoCargo);
+            }
+            invoice.AllowanceCharge = oListaDescuentoCargo.ToArray();
+
+        }
+
+        void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        {
+            MonetaryTotalType oTotal = new MonetaryTotalType
+            {
+                LineExtensionAmount = new LineExtensionAmountType
                 {
-                    listAgencyName = "PE:SUNAT",
-                    listName = "Cargo/descuento",
-                    listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
-                    Value = oDescar.CodigoMotivo
-                },
-                MultiplierFactorNumeric = new MultiplierFactorNumericType
-                {
-                    Value = oDescar.Factor
-                },
-                Amount = new AmountType2
-                {
-                    Value = oDescar.MontoTotal,
+                    Value = Comprobante.TotalValorVenta,
                     currencyID = Comprobante.Moneda.Trim()
                 },
-                BaseAmount = new BaseAmountType
+                TaxInclusiveAmount = new TaxInclusiveAmountType
                 {
-                    Value = oDescar.MontoBase,
+                    Value = Comprobante.TotalPrecioVenta,
+                    currencyID = Comprobante.Moneda.Trim()
+                },
+                PayableAmount = new PayableAmountType
+                {
+                    Value = Comprobante.ImporteTotal,
+                    currencyID = Comprobante.Moneda.Trim()
+                },
+                ChargeTotalAmount = new ChargeTotalAmountType
+                {
+                    Value = Comprobante.TotalCargo,
+                    currencyID = Comprobante.Moneda.Trim()
+                },
+                AllowanceTotalAmount = new AllowanceTotalAmountType
+                {
+                    Value = Comprobante.TotalDescuento,
                     currencyID = Comprobante.Moneda.Trim()
                 }
-
             };
-            oListaDescuentoCargo.Add(oDescuentoCargo);
+            invoice.LegalMonetaryTotal = oTotal;
+
         }
-        invoice.AllowanceCharge = oListaDescuentoCargo.ToArray();
-
-    }
-
-    void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
-    {
-        MonetaryTotalType oTotal = new MonetaryTotalType
+        void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
-            LineExtensionAmount = new LineExtensionAmountType
-            {
-                Value = Comprobante.TotalValorVenta,
-                currencyID = Comprobante.Moneda.Trim()
-            },
-            TaxInclusiveAmount = new TaxInclusiveAmountType
-            {
-                Value = Comprobante.TotalPrecioVenta,
-                currencyID = Comprobante.Moneda.Trim()
-            },
-            PayableAmount = new PayableAmountType
-            {
-                Value = Comprobante.ImporteTotal,
-                currencyID = Comprobante.Moneda.Trim()
-            },
-            ChargeTotalAmount = new ChargeTotalAmountType
-            {
-                Value = Comprobante.TotalCargo,
-                currencyID = Comprobante.Moneda.Trim()
-            },
-            AllowanceTotalAmount = new AllowanceTotalAmountType
-            {
-                Value = Comprobante.TotalDescuento,
-                currencyID = Comprobante.Moneda.Trim()
-            }
-        };
-        invoice.LegalMonetaryTotal = oTotal;
+            List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
 
-    }
-    void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
-    {
-        List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
-
-        if (Comprobante.MontoTotales != null)
-        {
-            if (Comprobante.MontoTotales.Gravado != null)
+            if (Comprobante.MontoTotales != null)
             {
-                if (Comprobante.MontoTotales.Gravado.GrabadoIGV != null)
+                if (Comprobante.MontoTotales.Gravado != null)
                 {
-                    TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoBase , Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GrabadoIGV.Porcentaje, "1000", "IGV", "VAT");
-                    oListaSubtotal.Add(oTotalGravado);
+                    if (Comprobante.MontoTotales.Gravado.GrabadoIGV != null)
+                    {
+                        TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoBase, Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GrabadoIGV.Porcentaje, "1000", "IGV", "VAT");
+                        oListaSubtotal.Add(oTotalGravado);
+                    }
+
+                }
+            }
+
+
+            TaxTotalType oTaxTotal = new TaxTotalType
+            {
+                TaxAmount = new TaxAmountType
+                {
+                    Value = Comprobante.TotalImpuesto,
+                    currencyID = Comprobante.Moneda
+                },
+                TaxSubtotal = oListaSubtotal.ToArray()
+            };
+
+            invoice.TaxTotal = new TaxTotalType[] { oTaxTotal };
+
+        }
+        TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
+        {
+            TaxSubtotalType oSubtotal = new TaxSubtotalType
+            {
+                TaxableAmount = new TaxableAmountType
+                {
+                    Value = MontoOperaciones,
+                    currencyID = Moneda
+                },
+                TaxAmount = new TaxAmountType
+                {
+                    Value = MontoTotalImpuesto,
+                    currencyID = Moneda
+                },
+                Percent = new PercentType1
+                {
+                    Value = PorcentajeImpuesto
+                },
+                TaxCategory = new TaxCategoryType
+                {
+                    TaxScheme = new TaxSchemeType
+                    {
+                        ID = new IDType
+                        {
+                            schemeAgencyName = "PE:SUNAT",
+                            schemeName = "Codigo de tributos",
+                            schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05",
+                            Value = CodigoInternacionalTributo
+                        },
+                        Name = new NameType1
+                        {
+                            Value = NombreTributo
+                        },
+                        TaxTypeCode = new TaxTypeCodeType
+                        {
+                            Value = CodigoTributo
+                        }
+                    }
+                }
+            };
+            return oSubtotal;
+
+        }
+        void CrearXML(ref InvoiceType invoice)
+        {
+
+            XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
+            var xmlNameSpaceNom = new XmlSerializerNamespaces();
+            xmlNameSpaceNom.Add("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
+            xmlNameSpaceNom.Add("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+            xmlNameSpaceNom.Add("ds", "http://www.w3.org/2000/09/xmldsig#");
+            xmlNameSpaceNom.Add("ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
+            xmlNameSpaceNom.Add("qdt", "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2");
+            xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
+            xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
+
+            string ruta = @"D:\XML\PrimeraFactura.xml";
+            string sxml = "";
+
+            using (var sw = new StringWriter())
+            {
+                using (XmlWriter writter = XmlWriter.Create(sw))
+                {
+                    oxmlSerializer.Serialize(writter, invoice, xmlNameSpaceNom);
+                    sxml = sw.ToString();
                 }
 
             }
+
+            File.WriteAllText(ruta, sxml, Encoding.UTF8);
+
+        }
+        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        {
+            //Serie y Numero          
+            invoice.ID = new IDType
+            {
+                Value = String.Format("{0}-{1}", Comprobante.Serie.Trim(), Comprobante.Numero.Trim())
+            };
+
+            invoice.UBLVersionID = new UBLVersionIDType
+            {
+                Value = "2.1"
+            };
+
+            invoice.IssueDate = new IssueDateType
+            {
+                Value = Convert.ToDateTime(Comprobante.FechaEmision)
+            };
+            invoice.IssueTime = new IssueTimeType
+            {
+                Value = Comprobante.HoraEmision
+            };
+
+            invoice.DocumentCurrencyCode = new DocumentCurrencyCodeType
+            {
+                listAgencyName = "United Nations Economic Commission for Europe",
+                listID = "ISO 4217 Alpha",
+                listName = "Currency",
+                Value = Comprobante.Moneda.Trim()
+            };
+
+            List<NoteType> oListaNota = new List<NoteType>();
+            foreach (En_Leyenda oNote in Comprobante.Leyenda)
+            {
+                NoteType oNota = new NoteType
+                {
+                    Value = oNote.Codigo,
+                    languageLocaleID = oNote.Valor
+                };
+                oListaNota.Add(oNota);
+            };
+
+            invoice.Note = oListaNota.ToArray();
+
+            invoice.CustomizationID = new CustomizationIDType
+            {
+                Value = "2.0"
+            };
+
+            invoice.InvoiceTypeCode = new InvoiceTypeCodeType
+            {
+                listAgencyName = "PE:SUNAT",
+                listID = Comprobante.TipoOperacion.Trim(),
+                listName = "Tipo de Documento",
+                listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
+                listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
+                name = "Tipo de Operacion",
+                Value = Comprobante.TipoComprobante.Trim()
+            };
+
         }
 
 
-        TaxTotalType oTaxTotal = new TaxTotalType
+        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref InvoiceType invoice)
         {
-            TaxAmount = new TaxAmountType
-            {
-                Value = Comprobante.TotalImpuesto,
-                currencyID = Comprobante.Moneda
-            },
-            TaxSubtotal = oListaSubtotal.ToArray()
-        };
 
-        invoice.TaxTotal = new TaxTotalType[] { oTaxTotal };
+            WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
+            {
+                Value = Emisor.PaginaWeb.Trim()
+            };
 
-    }
-    TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
-    {
-        TaxSubtotalType oSubtotal = new TaxSubtotalType
-        {
-            TaxableAmount = new TaxableAmountType
+            List<PartyNameType> oListaNombreComercial = new List<PartyNameType>();
+            PartyNameType PartyName = new PartyNameType
             {
-                Value = MontoOperaciones,
-                currencyID = Moneda
-            },
-            TaxAmount = new TaxAmountType
+                Name = new NameType1
+                {
+                    Value = Emisor.NombreComercial.Trim()
+                }
+            };
+            oListaNombreComercial.Add(PartyName);
+
+
+            PartyIdentificationType EmisorIdentificacion = new PartyIdentificationType();
+            List<PartyIdentificationType> EmisorListaIdentificacion = new List<PartyIdentificationType>();
+            EmisorIdentificacion.ID = new IDType
             {
-                Value = MontoTotalImpuesto,
-                currencyID = Moneda
-            },
-            Percent = new PercentType1
+                Value = Emisor.NumeroDocumentoIdentidad.Trim(),
+                schemeAgencyID = "PE:SUNAT",
+                schemeID = Emisor.TipoDocumentoIdentidad.Trim(),
+                schemeName = "Documento de Identidad",
+                schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06"
+            };
+            EmisorListaIdentificacion.Add(EmisorIdentificacion);
+
+            //Razon social
+            PartyLegalEntityType oRazonSocial = new PartyLegalEntityType
             {
-                Value = PorcentajeImpuesto
-            },
-            TaxCategory = new TaxCategoryType
-            {
-                TaxScheme = new TaxSchemeType
+                RegistrationName = new RegistrationNameType
+                {
+                    Value = Emisor.RazonSocial,
+                },
+
+                RegistrationAddress = new AddressType
                 {
                     ID = new IDType
                     {
-                        schemeAgencyName = "PE:SUNAT",
-                        schemeName = "Codigo de tributos",
-                        schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05",
-                        Value = CodigoInternacionalTributo
+                        Value = Emisor.CodigoUbigeo.Trim(),
+                        schemeAgencyName = "PE:INEI",
+                        schemeName = "Ubigeos"
                     },
-                    Name = new NameType1
+                    AddressTypeCode = new AddressTypeCodeType
                     {
-                        Value = NombreTributo
+                        Value = Emisor.CodigoDomicilioFiscal.Trim(),
+                        listAgencyName = "PE:SUNAT",
+                        listName = "Establecimientos anexos"
                     },
-                    TaxTypeCode = new TaxTypeCodeType
+                    CitySubdivisionName = new CitySubdivisionNameType
                     {
-                        Value = CodigoTributo
-                    }
-                }
-            }
-        };
-        return oSubtotal;
-
-    }
-    void CrearXML(ref InvoiceType invoice)
-    {
-
-        XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
-        var xmlNameSpaceNom = new XmlSerializerNamespaces();
-        xmlNameSpaceNom.Add("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
-        xmlNameSpaceNom.Add("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
-        xmlNameSpaceNom.Add("ds", "http://www.w3.org/2000/09/xmldsig#");
-        xmlNameSpaceNom.Add("ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
-        xmlNameSpaceNom.Add("qdt", "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2");
-        xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
-        xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
-
-        string ruta = @"D:\XML\PrimeraFactura.xml";
-        string sxml = "";
-
-        using (var sw = new StringWriter())
-        {
-            using (XmlWriter writter = XmlWriter.Create(sw))
-            {                    
-               oxmlSerializer.Serialize(writter, invoice, xmlNameSpaceNom);                
-                sxml = sw.ToString();
-            }
-            
-        }
-
-        File.WriteAllText(ruta, sxml, Encoding.UTF8);
-
-    }
-    void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
-    {
-        //Serie y Numero          
-        invoice.ID = new IDType
-        {
-            Value = String.Format("{0}-{1}", Comprobante.Serie.Trim(), Comprobante.Numero.Trim())
-        };
-
-        invoice.UBLVersionID = new UBLVersionIDType
-        {
-            Value = "2.1"
-        };
-
-        invoice.IssueDate = new IssueDateType
-        {
-            Value = Convert.ToDateTime(Comprobante.FechaEmision)
-        };
-        invoice.IssueTime = new IssueTimeType
-        {
-            Value = Comprobante.HoraEmision
-        };
-
-        invoice.DocumentCurrencyCode = new DocumentCurrencyCodeType
-        {
-            listAgencyName = "United Nations Economic Commission for Europe",
-            listID = "ISO 4217 Alpha",
-            listName = "Currency",
-            Value = Comprobante.Moneda.Trim()
-        };
-
-        invoice.CustomizationID = new CustomizationIDType
-        {
-            Value = "2.0"
-        };
-
-        invoice.InvoiceTypeCode = new InvoiceTypeCodeType
-        {
-            listAgencyName = "PE:SUNAT",
-            listID = Comprobante.TipoOperacion.Trim(),
-            listName = "Tipo de Documento",
-            listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
-            listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
-            name = "Tipo de Operacion",
-            Value = Comprobante.TipoComprobante.Trim()
-        };
-
-    }
-
-
-    void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref InvoiceType invoice)
-    {
-
-        WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
-        {
-            Value = Emisor.PaginaWeb.Trim()
-        };
-
-        List<PartyNameType> oListaNombreComercial = new List<PartyNameType>();
-        PartyNameType PartyName = new PartyNameType
-        {
-            Name = new NameType1
-            {
-                Value = Emisor.NombreComercial.Trim()
-            }
-        };
-        oListaNombreComercial.Add(PartyName);
-
-
-        PartyIdentificationType EmisorIdentificacion = new PartyIdentificationType();
-        List<PartyIdentificationType> EmisorListaIdentificacion = new List<PartyIdentificationType>();
-        EmisorIdentificacion.ID = new IDType
-        {
-            Value = Emisor.NumeroDocumentoIdentidad.Trim(),
-            schemeAgencyID = "PE:SUNAT",
-            schemeID = Emisor.TipoDocumentoIdentidad.Trim(),
-            schemeName = "Documento de Identidad",
-            schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06"
-        };
-        EmisorListaIdentificacion.Add(EmisorIdentificacion);
-
-        //Razon social
-        PartyLegalEntityType oRazonSocial = new PartyLegalEntityType
-        {
-            RegistrationName = new RegistrationNameType
-            {
-                Value = Emisor.RazonSocial,
-            },
-
-            RegistrationAddress = new AddressType
-            {
-                ID = new IDType
-                {
-                    Value = Emisor.CodigoUbigeo.Trim(),
-                    schemeAgencyName = "PE:INEI",
-                    schemeName = "Ubigeos"
-                },
-                AddressTypeCode = new AddressTypeCodeType
-                {
-                    Value = Emisor.CodigoDomicilioFiscal.Trim(),
-                    listAgencyName = "PE:SUNAT",
-                    listName = "Establecimientos anexos"
-                },
-                CitySubdivisionName = new CitySubdivisionNameType
-                {
-                    Value = Emisor.Urbanizacion.Trim()
-                },
-                CityName = new CityNameType
-                {
-                    Value = Emisor.Provincia.Trim()
-                },
-                CountrySubentity = new CountrySubentityType
-                {
-                    Value = Emisor.Departamento.Trim()
-                },
-                District = new DistrictType
-                {
-                    Value = Emisor.Distrito.Trim()
-                },
-                AddressLine = new AddressLineType[] {
+                        Value = Emisor.Urbanizacion.Trim()
+                    },
+                    CityName = new CityNameType
+                    {
+                        Value = Emisor.Provincia.Trim()
+                    },
+                    CountrySubentity = new CountrySubentityType
+                    {
+                        Value = Emisor.Departamento.Trim()
+                    },
+                    District = new DistrictType
+                    {
+                        Value = Emisor.Distrito.Trim()
+                    },
+                    AddressLine = new AddressLineType[] {
                         new AddressLineType {
                             Line =new LineType{
                                 Value =Emisor.Direccion.Trim()
                             }
                         }
                     },
-                Country = new CountryType
-                {
-                    IdentificationCode = new IdentificationCodeType
+                    Country = new CountryType
                     {
-                        listAgencyName = "United Nations Economic Commission for Europe",
-                        listID = "ISO 3166-1",
-                        listName = "Country",
-                        Value = Emisor.CodigoPais.Trim()
+                        IdentificationCode = new IdentificationCodeType
+                        {
+                            listAgencyName = "United Nations Economic Commission for Europe",
+                            listID = "ISO 3166-1",
+                            listName = "Country",
+                            Value = Emisor.CodigoPais.Trim()
+                        }
                     }
+
                 }
+            };
 
-            }
-        };
-
-        ContactType oContacto = new ContactType
-        {
-            ElectronicMail = new ElectronicMailType()
+            ContactType oContacto = new ContactType
             {
-                Value = Emisor.Contacto.Correo.Trim()
-            },
-            Name = new NameType1
-            {
-                Value = Emisor.Contacto.Nombre.Trim()
-            },
-            Telephone = new TelephoneType
-            {
-                Value = Emisor.Contacto.Telefono.Trim()
-            }
-        };
-
-        SupplierPartyType oEmisor = new SupplierPartyType
-        {
-            Party = new PartyType
-            {
-                WebsiteURI = EmisorPaginaWeb,
-                PartyIdentification = EmisorListaIdentificacion.ToArray(),
-                PartyName = oListaNombreComercial.ToArray(),
-                PartyLegalEntity = new PartyLegalEntityType[] { oRazonSocial },
-                Contact = oContacto
-
-            }
-        };
-
-        invoice.AccountingSupplierParty = oEmisor;
-
-
-    }
-
-    void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref InvoiceType invoice)
-    {
-
-        WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
-        {
-            Value = Receptor.PaginaWeb.Trim()
-        };
-
-        List<PartyNameType> oListaNombreComercial = new List<PartyNameType>();
-        PartyNameType PartyName = new PartyNameType
-        {
-            Name = new NameType1
-            {
-                Value = Receptor.NombreComercial.Trim()
-            }
-        };
-        oListaNombreComercial.Add(PartyName);
-
-
-        PartyIdentificationType EmisorIdentificacion = new PartyIdentificationType();
-        List<PartyIdentificationType> EmisorListaIdentificacion = new List<PartyIdentificationType>();
-        EmisorIdentificacion.ID = new IDType
-        {
-            Value = Receptor.NumeroDocumentoIdentidad.Trim(),
-            schemeAgencyID = "PE:SUNAT",
-            schemeID = Receptor.TipoDocumentoIdentidad.Trim(),
-            schemeName = "Documento de Identidad",
-            schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06"
-        };
-        EmisorListaIdentificacion.Add(EmisorIdentificacion);
-
-        //Razon social
-        PartyLegalEntityType oRazonSocial = new PartyLegalEntityType
-        {
-            RegistrationName = new RegistrationNameType
-            {
-                Value = Receptor.RazonSocial,
-            },
-
-            RegistrationAddress = new AddressType
-            {
-                ID = new IDType
+                ElectronicMail = new ElectronicMailType()
                 {
-                    Value = Receptor.CodigoUbigeo.Trim(),
-                    schemeAgencyName = "PE:INEI",
-                    schemeName = "Ubigeos"
+                    Value = Emisor.Contacto.Correo.Trim()
                 },
-                AddressTypeCode = new AddressTypeCodeType
+                Name = new NameType1
                 {
-                    Value = Receptor.CodigoDomicilioFiscal.Trim(),
-                    listAgencyName = "PE:SUNAT",
-                    listName = "Establecimientos anexos"
+                    Value = Emisor.Contacto.Nombre.Trim()
                 },
-                CitySubdivisionName = new CitySubdivisionNameType
+                Telephone = new TelephoneType
                 {
-                    Value = Receptor.Urbanizacion.Trim()
-                },
-                CityName = new CityNameType
+                    Value = Emisor.Contacto.Telefono.Trim()
+                }
+            };
+
+            SupplierPartyType oEmisor = new SupplierPartyType
+            {
+                Party = new PartyType
                 {
-                    Value = Receptor.Provincia.Trim()
-                },
-                CountrySubentity = new CountrySubentityType
+                    WebsiteURI = EmisorPaginaWeb,
+                    PartyIdentification = EmisorListaIdentificacion.ToArray(),
+                    PartyName = oListaNombreComercial.ToArray(),
+                    PartyLegalEntity = new PartyLegalEntityType[] { oRazonSocial },
+                    Contact = oContacto
+
+                }
+            };
+
+            invoice.AccountingSupplierParty = oEmisor;
+
+
+        }
+
+        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref InvoiceType invoice)
+        {
+
+            WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
+            {
+                Value = Receptor.PaginaWeb.Trim()
+            };
+
+            List<PartyNameType> oListaNombreComercial = new List<PartyNameType>();
+            PartyNameType PartyName = new PartyNameType
+            {
+                Name = new NameType1
                 {
-                    Value = Receptor.Departamento.Trim()
-                },
-                District = new DistrictType
+                    Value = Receptor.NombreComercial.Trim()
+                }
+            };
+            oListaNombreComercial.Add(PartyName);
+
+
+            PartyIdentificationType EmisorIdentificacion = new PartyIdentificationType();
+            List<PartyIdentificationType> EmisorListaIdentificacion = new List<PartyIdentificationType>();
+            EmisorIdentificacion.ID = new IDType
+            {
+                Value = Receptor.NumeroDocumentoIdentidad.Trim(),
+                schemeAgencyID = "PE:SUNAT",
+                schemeID = Receptor.TipoDocumentoIdentidad.Trim(),
+                schemeName = "Documento de Identidad",
+                schemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06"
+            };
+            EmisorListaIdentificacion.Add(EmisorIdentificacion);
+
+            //Razon social
+            PartyLegalEntityType oRazonSocial = new PartyLegalEntityType
+            {
+                RegistrationName = new RegistrationNameType
                 {
-                    Value = Receptor.Distrito.Trim()
+                    Value = Receptor.RazonSocial,
                 },
-                AddressLine = new AddressLineType[] {
+
+                RegistrationAddress = new AddressType
+                {
+                    ID = new IDType
+                    {
+                        Value = Receptor.CodigoUbigeo.Trim(),
+                        schemeAgencyName = "PE:INEI",
+                        schemeName = "Ubigeos"
+                    },
+                    AddressTypeCode = new AddressTypeCodeType
+                    {
+                        Value = Receptor.CodigoDomicilioFiscal.Trim(),
+                        listAgencyName = "PE:SUNAT",
+                        listName = "Establecimientos anexos"
+                    },
+                    CitySubdivisionName = new CitySubdivisionNameType
+                    {
+                        Value = Receptor.Urbanizacion.Trim()
+                    },
+                    CityName = new CityNameType
+                    {
+                        Value = Receptor.Provincia.Trim()
+                    },
+                    CountrySubentity = new CountrySubentityType
+                    {
+                        Value = Receptor.Departamento.Trim()
+                    },
+                    District = new DistrictType
+                    {
+                        Value = Receptor.Distrito.Trim()
+                    },
+                    AddressLine = new AddressLineType[] {
                         new AddressLineType {
                             Line =new LineType{
                                 Value =Receptor.Direccion.Trim()
                             }
                         }
                     },
-                Country = new CountryType
-                {
-                    IdentificationCode = new IdentificationCodeType
+                    Country = new CountryType
                     {
-                        listAgencyName = "United Nations Economic Commission for Europe",
-                        listID = "ISO 3166-1",
-                        listName = "Country",
-                        Value = Receptor.CodigoPais.Trim()
+                        IdentificationCode = new IdentificationCodeType
+                        {
+                            listAgencyName = "United Nations Economic Commission for Europe",
+                            listID = "ISO 3166-1",
+                            listName = "Country",
+                            Value = Receptor.CodigoPais.Trim()
+                        }
                     }
+
                 }
+            };
 
-            }
-        };
-
-        ContactType oContacto = new ContactType
-        {
-            ElectronicMail = new ElectronicMailType()
+            ContactType oContacto = new ContactType
             {
-                Value = Receptor.Contacto.Correo.Trim()
-            },
-            Name = new NameType1
+                ElectronicMail = new ElectronicMailType()
+                {
+                    Value = Receptor.Contacto.Correo.Trim()
+                },
+                Name = new NameType1
+                {
+                    Value = Receptor.Contacto.Nombre.Trim()
+                },
+                Telephone = new TelephoneType
+                {
+                    Value = Receptor.Contacto.Telefono.Trim()
+                }
+            };
+
+            CustomerPartyType oReceptor = new CustomerPartyType
             {
-                Value = Receptor.Contacto.Nombre.Trim()
-            },
-            Telephone = new TelephoneType
-            {
-                Value = Receptor.Contacto.Telefono.Trim()
-            }
-        };
+                Party = new PartyType
+                {
+                    WebsiteURI = EmisorPaginaWeb,
+                    PartyIdentification = EmisorListaIdentificacion.ToArray(),
+                    PartyName = oListaNombreComercial.ToArray(),
+                    PartyLegalEntity = new PartyLegalEntityType[] { oRazonSocial },
+                    Contact = oContacto
 
-        CustomerPartyType oReceptor = new CustomerPartyType
-        {
-            Party = new PartyType
-            {
-                WebsiteURI = EmisorPaginaWeb,
-                PartyIdentification = EmisorListaIdentificacion.ToArray(),
-                PartyName = oListaNombreComercial.ToArray(),
-                PartyLegalEntity = new PartyLegalEntityType[] { oRazonSocial },
-                Contact = oContacto
+                }
+            };
 
-            }
-        };
-
-        invoice.AccountingCustomerParty = oReceptor;
+            invoice.AccountingCustomerParty = oReceptor;
 
 
+        }
     }
-}
 }

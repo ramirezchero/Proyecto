@@ -59,6 +59,7 @@
     <Compile Include="RegistroComprobante\En_DescuentoCargo.cs" />
     <Compile Include="RegistroComprobante\En_Gravado.cs" />
     <Compile Include="RegistroComprobante\En_GrabadoIGV.cs" />
+    <Compile Include="RegistroComprobante\En_Leyenda.cs" />
     <Compile Include="RegistroComprobante\En_MontosTotales.cs" />
     <Compile Include="RegistroComprobante\En_Receptor.cs" />
     <Compile Include="RegistroComprobante\En_Emisor.cs" />
