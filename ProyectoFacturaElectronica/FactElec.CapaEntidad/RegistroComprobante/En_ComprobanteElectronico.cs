@@ -8,8 +8,8 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 {
     public class En_ComprobanteElectronico
     {
-        public string Serie { get; set; }
-        public string Numero { get; set; }
+        public string SerieNumero { get; set; }
+        
         public string FechaEmision { get; set; }
         public string HoraEmision { get; set; }
 
@@ -38,6 +38,8 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public List<En_ComprobanteDetalle> ComprobanteDetalle { get; set; }
 
         public List<En_Leyenda> Leyenda { get; set; }
+
+        public List<En_DocumentoReferencia> DocumentoReferencia { get; set; }
 
     }
 }

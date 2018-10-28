@@ -196,8 +196,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-
-
         void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
             List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
@@ -380,7 +378,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             //Serie y Numero          
             invoice.ID = new IDType
             {
-                Value = String.Format("{0}-{1}", Comprobante.Serie.Trim(), Comprobante.Numero.Trim())
+                Value = Comprobante.SerieNumero.Trim()
             };
 
             invoice.UBLVersionID = new UBLVersionIDType
@@ -390,7 +388,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             invoice.IssueDate = new IssueDateType
             {
-                Value = Convert.ToDateTime(Comprobante.FechaEmision)
+                Value = Comprobante.FechaEmision
             };
             invoice.IssueTime = new IssueTimeType
             {
@@ -410,8 +408,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 NoteType oNota = new NoteType
                 {
-                    Value = oNote.Codigo,
-                    languageLocaleID = oNote.Valor
+                    Value = oNote.Valor,
+                    languageLocaleID = oNote.Codigo
                 };
                 oListaNota.Add(oNota);
             };
@@ -434,8 +432,30 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 Value = Comprobante.TipoComprobante.Trim()
             };
 
-        }
 
+            List<DocumentReferenceType> oListadocumento = new List<DocumentReferenceType>();
+
+            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferencia) {
+                DocumentReferenceType odocumento = new DocumentReferenceType
+                {
+                    ID = new IDType
+                    {
+                        Value = oreferen.SerieNumero.Trim()
+                    },
+                    IssueDate = new IssueDateType {
+                        Value = oreferen.Fecha.Trim()
+                    },
+                    DocumentTypeCode =new DocumentTypeCodeType {
+                        Value =oreferen.TipoDocumento.Trim() ,
+                        listAgencyName = "PE:SUNAT",
+                        listName= "SUNAT:Identificador de guía relacionada",
+                        listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12"
+                    }
+                };
+                oListadocumento.Add(odocumento);
+            };
+            invoice.DespatchDocumentReference = oListadocumento.ToArray();
+        }
 
         void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref InvoiceType invoice)
         {
