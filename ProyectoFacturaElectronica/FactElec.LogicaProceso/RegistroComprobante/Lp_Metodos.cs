@@ -83,6 +83,19 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             foreach (En_ComprobanteDetalle oDet in Comprobante.ComprobanteDetalle)
             {
+                List<DescriptionType> oListaDescripcion = new List<DescriptionType>();
+
+                DescriptionType oDescripcion = new DescriptionType();
+                oDescripcion.Value = oDet.Descripcion;
+                oListaDescripcion.Add(oDescripcion);
+
+                foreach (string oDes in oDet.MultiDescripcion) {
+                    DescriptionType oDescrip = new DescriptionType();
+                    oDescrip.Value =oDes.ToString();
+                    oListaDescripcion.Add(oDescrip);
+                }
+
+
 
                 List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
 
@@ -101,7 +114,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     },
                     InvoicedQuantity = new InvoicedQuantityType
                     {
-                        unitCode = "NIU",
+                        unitCode = oDet.UnidadMedida.Trim().ToUpper(),
                         unitCodeListAgencyName = "United Nations Economic Commission for Europe",
                         unitCodeListID = "UN/ECE rec 20",
                         Value = oDet.Cantidad
@@ -147,13 +160,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     },
                     Item = new ItemType
                     {
-                        Description = new DescriptionType[] {
-                        },
+                        Description = oListaDescripcion.ToArray(), 
+
                         SellersItemIdentification = new ItemIdentificationType
                         {
                             ID = new IDType
                             {
-                                Value = ""
+                                Value = oDet .Codigo 
                             }
                         },
                         CommodityClassification = new CommodityClassificationType[]
@@ -164,7 +177,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                                         listAgencyName="GS1 US",
                                         listID ="UNSPSC" ,
                                         listName ="Item Classification",
-                                        Value =""
+                                        Value =oDet.CodigoSunat 
                                 }
                             }                     
                             
@@ -378,7 +391,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         };
         invoice.IssueTime = new IssueTimeType
         {
-            Value = Convert.ToDateTime(Comprobante.HoraEmision)
+            Value = Comprobante.HoraEmision
         };
 
         invoice.DocumentCurrencyCode = new DocumentCurrencyCodeType
