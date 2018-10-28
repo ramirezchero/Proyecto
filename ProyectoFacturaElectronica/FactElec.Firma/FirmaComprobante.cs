@@ -51,7 +51,7 @@ namespace FactElec.Firma
                 }
                 else
                 {
-                    log.Info("Se firmó satisfactoriamente el comprobante.")
+                    log.Info("Se firmó satisfactoriamente el comprobante.");
                 }
                 codigoHash = xmlDigitalSignature.ChildNodes[0].ChildNodes[2].ChildNodes[2].InnerText;
                 keyInfo = null;
