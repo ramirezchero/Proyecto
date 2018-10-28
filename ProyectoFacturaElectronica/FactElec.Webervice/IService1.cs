@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
+﻿using System.ServiceModel;
 using FactElec.CapaEntidad.RegistroComprobante;
 
 namespace FactElec.Webervice
@@ -13,10 +7,7 @@ namespace FactElec.Webervice
     [ServiceContract]
     public interface IService1
     {
-                
         [OperationContract]
         bool RegistroComprobante(En_ComprobanteElectronico Comprobante);
-        
     }
-    
 }
