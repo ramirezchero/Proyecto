@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.CapaEntidad", "FactElec.CapaEntidad\FactElec.CapaEntidad.csproj", "{C0475032-15F9-458C-A892-C0B76A0581AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.Webervice", "FactElec.Webervice\FactElec.Webervice.csproj", "{FC65A94B-6FB5-4691-A1AA-FF34DD0E7DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.WebService", "FactElec.Webervice\FactElec.WebService.csproj", "{FC65A94B-6FB5-4691-A1AA-FF34DD0E7DD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.LogicaProceso", "FactElec.LogicaProcesos\FactElec.LogicaProceso.csproj", "{9235E27F-6AFF-418B-827A-E94E4244F92F}"
 EndProject

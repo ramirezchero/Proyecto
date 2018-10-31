@@ -1,7 +1,7 @@
 ﻿using FactElec.CapaEntidad.RegistroComprobante;
 
 [assembly: FactElec.Log.Configuracion("WCFService")]
-namespace FactElec.Webervice
+namespace FactElec.WebService
 {
     public class Service1 : IService1
     {

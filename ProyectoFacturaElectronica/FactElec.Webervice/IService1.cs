@@ -7,7 +7,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using FactElec.CapaEntidad.RegistroComprobante;
 
-namespace FactElec.Webervice
+namespace FactElec.WebService
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IService1" en el código y en el archivo de configuración a la vez.
     [ServiceContract]
