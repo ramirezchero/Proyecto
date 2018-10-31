@@ -24,7 +24,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             LlenarMontosIGV(Comprobante, ref invoice);
             LlenarMontosTotales(Comprobante, ref invoice);
             LlenarDetalle(Comprobante, ref invoice);
-            CrearXML(ref invoice);
+            CrearXML(ref invoice, Comprobante);
 
             oRespuesta.Codigo = "0";
             oRespuesta.Descripcion = "Se registro correctamente";
@@ -350,7 +350,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oSubtotal;
 
         }
-        void CrearXML(ref InvoiceType invoice)
+        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -362,7 +362,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
 
-            string ruta = @"D:\XML\PrimeraFactura.xml";
+            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml",Comprobante.Emisor.NumeroDocumentoIdentidad,Comprobante.TipoComprobante,Comprobante.SerieNumero);
 
             string sxml = "";
             Encoding utf8noBOM = new UTF8Encoding(false);

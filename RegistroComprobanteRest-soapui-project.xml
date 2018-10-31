@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="b2a7f43c-6d3c-4af5-9f90-8696326a8cb6" activeEnvironment="Default" name="RegistroComprobanteRest" resourceRoot="" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="33eb5839-517a-4fb5-bb23-96f4443eac8a" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:59033" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:59033</con:endpoint></con:endpoints><con:resource name="Comprobante" path="/api/Comprobante" id="27761e6b-7ca3-494e-b700-42b5da4e5427"><con:settings/><con:parameters/><con:method name="Comprobante 1" id="760c2101-e7a0-45c4-8578-5f1d1e51ab25" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>application/json; charset=utf-8</con:mediaType><con:status>500</con:status><con:params/><con:element xmlns:com="http://localhost/api/Comprobante">com:Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=utf-8</con:mediaType><con:status>200 201</con:status><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>204</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="554b0827-ff2d-4b7c-bc3b-6601d8103d6a" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:59033</con:endpoint><con:request>{
+   "ComprobanteDetalle":[
+      {
+         "Cantidad":"1.00",
+         "Codigo":"196",
+         "CodigoSunat":"90101500",
+         "CodigoTipoPrecio":"01",
+         "ComprobanteDetalleImpuestos":[
+            {
+               "AfectacionIGV":"10",
+               "CodigoInternacionalTributo":"1000",
+               "CodigoTributo":"VAT",
+               "MontoBase":"19.24",
+               "MontoTotalImpuesto":"3.46",
+               "NombreTributo":"IGV",
+               "Porcentaje":"18.00"
+            }
+         ],
+         "Descripcion":"Descripcion 1",
+         "ImpuestoTotal":"3.46",
+         "Item":"1",
+         "MultiDescripcion":[
+               "MultiDescripcion 1",
+               "MultiDescripcion 2",
+               "MultiDescripcion 3"
+		]
+         ,
+         "Total":"19.24",
+         "UnidadMedida":"NIU",
+         "ValorVentaUnitario":"19.24",
+         "ValorVentaUnitarioIncIgv":"22.71"
+      }
+   ],
+   "DescuentoCargo":[
+      {
+         "CodigoMotivo":"50",
+         "Factor":"0.01000",
+         "Indicador":"true",
+         "MontoBase":"19.24",
+         "MontoTotal":"0.19"
+      }
+   ],
+   "DocumentoReferencia":[
+      {
+         "Fecha":"2018-10-01",
+         "SerieNumero":"00001-123456",
+         "TipoDocumento":"09"
+      }
+   ],
+   "Emisor":{
+      "CodigoDomicilioFiscal":"0002",
+      "CodigoPais":"PE",
+      "CodigoUbigeo":"150116",
+      "Contacto":{
+         "Correo":"contactoemisor@tci.net.pe",
+         "Nombre":"contacto emisor",
+         "Telefono":"(511)207-8000"
+      },
+      "Departamento":"Lima",
+      "Direccion":"JR. Domingo cuoto 780",
+      "Distrito":"Lince",
+      "NombreComercial":"Nombre comercial SAC",
+      "NumeroDocumentoIdentidad":"20112811096",
+      "PaginaWeb":"http://tci.com.pe",
+      "Provincia":"callao",
+      "RazonSocial":"Razon social TCI",
+      "TipoDocumentoIdentidad":"6",
+      "Urbanizacion":"Urbanizacion"
+   },
+   "FechaEmision":"2018-10-20",
+   "HoraEmision":"20:00:00",
+   "ImporteTotal":"22.89",
+   "Leyenda":[
+	{
+         "Codigo":"10000",
+         "Valor":"VEINTIDOS CON 89/100 SOLES"
+     }
+   ],
+   "Moneda":"PEN",
+   "MontoTotales":{
+      "Gravado":{
+         "GrabadoIGV":{
+            "MontoBase":"19.24",
+            "MontoTotalImpuesto":"3.46",
+            "Porcentaje":"18.00"
+         },
+         "Total":"3.46"
+      }
+   },
+   "Receptor":{
+      "CodigoDomicilioFiscal":"0002",
+      "CodigoPais":"PE",
+      "CodigoUbigeo":"020202",
+      "Contacto":{
+         "Correo":"receptor@tci.net.pe",
+         "Nombre":"contacto receptor",
+         "Telefono":"999999999"
+      },
+      "Departamento":"Departamento callao",
+      "Direccion":"Av. los claveles 2222",
+      "Distrito":"Distrito Miraflores",
+      "NombreComercial":"Nombre comercial SAC 2222222",
+      "NumeroDocumentoIdentidad":"20511111111",
+      "PaginaWeb":"http://www.google222.com.pe",
+      "Provincia":"Provincia callao 2",
+      "RazonSocial":"Razon social 2",
+      "TipoDocumentoIdentidad":"6",
+      "Urbanizacion":"Urbanizacion marquez 2"
+   },
+   "SerieNumero":"F001",
+   "TipoComprobante":"01",
+   "TipoOperacion":"0101",
+   "TotalCargo":"0.19",
+   "TotalDescuento":"0",
+   "TotalImpuesto":"3.46",
+   "TotalPrecioVenta":"22.71",
+   "TotalValorVenta":"19.24"
+}</con:request><con:originalUri>http://localhost/api/Comprobante</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
