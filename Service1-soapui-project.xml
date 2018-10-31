@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d8f560c7-a20e-481a-953e-a0f647300ca8" activeEnvironment="Default" name="Service1" resourceRoot="" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8f91a90d-e03d-47ab-9627-bc9ec98a62e7" wsaVersion="NONE" name="BasicHttpBinding_IService1" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IService1" soapVersion="1_1" anonymous="optional" definition="http://localhost:57980/Service1.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:57980/Service1.svc?wsdl"><con:part><con:url>http://localhost:57980/Service1.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/"/>
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+      <xsd:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_RegistroComprobante_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroComprobante"/>
+  </wsdl:message>
+  <wsdl:message name="IService1_RegistroComprobante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroComprobanteResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="RegistroComprobante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/RegistroComprobante" message="tns:IService1_RegistroComprobante_InputMessage"/>
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/RegistroComprobanteResponse" message="tns:IService1_RegistroComprobante_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RegistroComprobante">
+      <soap:operation soapAction="http://tempuri.org/IService1/RegistroComprobante" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:57980/Service1.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd0</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://tempuri.org/">
+  <xs:import schemaLocation="http://localhost:57980/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+  <xs:element name="RegistroComprobante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Comprobante" nillable="true" type="q1:En_ComprobanteElectronico" xmlns:q1="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistroComprobanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistroComprobanteResult" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd2</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante">
+  <xs:complexType name="En_ComprobanteElectronico">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ComprobanteDetalle" nillable="true" type="tns:ArrayOfEn_ComprobanteDetalle"/>
+      <xs:element minOccurs="0" name="DescuentoCargo" nillable="true" type="tns:ArrayOfEn_DescuentoCargo"/>
+      <xs:element minOccurs="0" name="Emisor" nillable="true" type="tns:En_Emisor"/>
+      <xs:element minOccurs="0" name="FechaEmision" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HoraEmision" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Moneda" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MontoTotales" nillable="true" type="tns:En_MontosTotales"/>
+      <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Receptor" nillable="true" type="tns:En_Receptor"/>
+      <xs:element minOccurs="0" name="Serie" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TipoComprobante" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TipoOperacion" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalCargo" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalDescuento" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalImpuesto" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalPrecioVenta" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalValorVenta" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_ComprobanteElectronico" nillable="true" type="tns:En_ComprobanteElectronico"/>
+  <xs:complexType name="ArrayOfEn_ComprobanteDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="En_ComprobanteDetalle" nillable="true" type="tns:En_ComprobanteDetalle"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEn_ComprobanteDetalle" nillable="true" type="tns:ArrayOfEn_ComprobanteDetalle"/>
+  <xs:complexType name="En_ComprobanteDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CodigoTipoPrecio" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ComprobanteDetalleImpuestos" nillable="true" type="tns:ArrayOfEn_ComprobanteDetalleImpuestos"/>
+      <xs:element minOccurs="0" name="ImpuestoTotal" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Item" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Total" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ValorVentaUnitario" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ValorVentaUnitarioIncIgv" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_ComprobanteDetalle" nillable="true" type="tns:En_ComprobanteDetalle"/>
+  <xs:complexType name="ArrayOfEn_ComprobanteDetalleImpuestos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="En_ComprobanteDetalleImpuestos" nillable="true" type="tns:En_ComprobanteDetalleImpuestos"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEn_ComprobanteDetalleImpuestos" nillable="true" type="tns:ArrayOfEn_ComprobanteDetalleImpuestos"/>
+  <xs:complexType name="En_ComprobanteDetalleImpuestos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AfectacionIGV" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoInternacionalTributo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoTributo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MontoBase" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="MontoTotalImpuesto" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="NombreTributo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Porcentaje" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_ComprobanteDetalleImpuestos" nillable="true" type="tns:En_ComprobanteDetalleImpuestos"/>
+  <xs:complexType name="ArrayOfEn_DescuentoCargo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="En_DescuentoCargo" nillable="true" type="tns:En_DescuentoCargo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEn_DescuentoCargo" nillable="true" type="tns:ArrayOfEn_DescuentoCargo"/>
+  <xs:complexType name="En_DescuentoCargo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoMotivo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Factor" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Indicador" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="MontoBase" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_DescuentoCargo" nillable="true" type="tns:En_DescuentoCargo"/>
+  <xs:complexType name="En_Emisor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoDomicilioFiscal" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoUbigeo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Contacto" nillable="true" type="tns:En_Contacto"/>
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Distrito" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NumeroDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaginaWeb" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TipoDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Urbanizacion" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_Emisor" nillable="true" type="tns:En_Emisor"/>
+  <xs:complexType name="En_Contacto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_Contacto" nillable="true" type="tns:En_Contacto"/>
+  <xs:complexType name="En_MontosTotales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Gravado" nillable="true" type="tns:En_Gravado"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_MontosTotales" nillable="true" type="tns:En_MontosTotales"/>
+  <xs:complexType name="En_Gravado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GrabadoIGV" nillable="true" type="tns:En_GrabadoIGV"/>
+      <xs:element minOccurs="0" name="Total" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_Gravado" nillable="true" type="tns:En_Gravado"/>
+  <xs:complexType name="En_GrabadoIGV">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MontoBase" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="MontoTotalImpuesto" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="Porcentaje" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_GrabadoIGV" nillable="true" type="tns:En_GrabadoIGV"/>
+  <xs:complexType name="En_Receptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoDomicilioFiscal" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoPais" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodigoUbigeo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Contacto" nillable="true" type="tns:En_Contacto"/>
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Distrito" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NumeroDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaginaWeb" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TipoDocumentoIdentidad" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Urbanizacion" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="En_Receptor" nillable="true" type="tns:En_Receptor"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:57980/Service1.svc?xsd=xsd1</con:url><con:content><![CDATA[<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+  <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+  <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+  <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+  <xs:element name="byte" nillable="true" type="xs:byte"/>
+  <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+  <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+  <xs:element name="double" nillable="true" type="xs:double"/>
+  <xs:element name="float" nillable="true" type="xs:float"/>
+  <xs:element name="int" nillable="true" type="xs:int"/>
+  <xs:element name="long" nillable="true" type="xs:long"/>
+  <xs:element name="QName" nillable="true" type="xs:QName"/>
+  <xs:element name="short" nillable="true" type="xs:short"/>
+  <xs:element name="string" nillable="true" type="xs:string"/>
+  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+  <xs:element name="char" nillable="true" type="tns:char"/>
+  <xs:simpleType name="char">
+    <xs:restriction base="xs:int"/>
+  </xs:simpleType>
+  <xs:element name="duration" nillable="true" type="tns:duration"/>
+  <xs:simpleType name="duration">
+    <xs:restriction base="xs:duration">
+      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+      <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+      <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="guid" nillable="true" type="tns:guid"/>
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="FactoryType" type="xs:QName"/>
+  <xs:attribute name="Id" type="xs:ID"/>
+  <xs:attribute name="Ref" type="xs:IDREF"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint></con:endpoints><con:operation id="977e1a60-8097-4fc4-bf0f-8fb6fa56aefe" isOneWay="false" action="http://tempuri.org/IService1/RegistroComprobante" name="RegistroComprobante" bindingOperationName="RegistroComprobante" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="22079354-4cc5-482c-9744-af45bdd4bb74" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:RegistroComprobante>\r
+         <!--Optional:-->\r
+         <tem:Comprobante>\r
+            <!--Optional:-->\r
+            <fac:ComprobanteDetalle>\r
+               <!--Zero or more repetitions:-->\r
+               <fac:En_ComprobanteDetalle>\r
+                  <!--Optional:-->\r
+                  <fac:Cantidad>?</fac:Cantidad>\r
+                  <!--Optional:-->\r
+                  <fac:CodigoTipoPrecio>?</fac:CodigoTipoPrecio>\r
+                  <!--Optional:-->\r
+                  <fac:ComprobanteDetalleImpuestos>\r
+                     <!--Zero or more repetitions:-->\r
+                     <fac:En_ComprobanteDetalleImpuestos>\r
+                        <!--Optional:-->\r
+                        <fac:AfectacionIGV>?</fac:AfectacionIGV>\r
+                        <!--Optional:-->\r
+                        <fac:CodigoInternacionalTributo>?</fac:CodigoInternacionalTributo>\r
+                        <!--Optional:-->\r
+                        <fac:CodigoTributo>?</fac:CodigoTributo>\r
+                        <!--Optional:-->\r
+                        <fac:MontoBase>?</fac:MontoBase>\r
+                        <!--Optional:-->\r
+                        <fac:MontoTotalImpuesto>?</fac:MontoTotalImpuesto>\r
+                        <!--Optional:-->\r
+                        <fac:NombreTributo>?</fac:NombreTributo>\r
+                        <!--Optional:-->\r
+                        <fac:Porcentaje>?</fac:Porcentaje>\r
+                     </fac:En_ComprobanteDetalleImpuestos>\r
+                  </fac:ComprobanteDetalleImpuestos>\r
+                  <!--Optional:-->\r
+                  <fac:ImpuestoTotal>?</fac:ImpuestoTotal>\r
+                  <!--Optional:-->\r
+                  <fac:Item>?</fac:Item>\r
+                  <!--Optional:-->\r
+                  <fac:Total>?</fac:Total>\r
+                  <!--Optional:-->\r
+                  <fac:ValorVentaUnitario>?</fac:ValorVentaUnitario>\r
+                  <!--Optional:-->\r
+                  <fac:ValorVentaUnitarioIncIgv>?</fac:ValorVentaUnitarioIncIgv>\r
+               </fac:En_ComprobanteDetalle>\r
+            </fac:ComprobanteDetalle>\r
+            <!--Optional:-->\r
+            <fac:DescuentoCargo>\r
+               <!--Zero or more repetitions:-->\r
+               <fac:En_DescuentoCargo>\r
+                  <!--Optional:-->\r
+                  <fac:CodigoMotivo>?</fac:CodigoMotivo>\r
+                  <!--Optional:-->\r
+                  <fac:Factor>?</fac:Factor>\r
+                  <!--Optional:-->\r
+                  <fac:Indicador>?</fac:Indicador>\r
+                  <!--Optional:-->\r
+                  <fac:MontoBase>?</fac:MontoBase>\r
+                  <!--Optional:-->\r
+                  <fac:MontoTotal>?</fac:MontoTotal>\r
+               </fac:En_DescuentoCargo>\r
+            </fac:DescuentoCargo>\r
+            <!--Optional:-->\r
+            <fac:Emisor>\r
+               <!--Optional:-->\r
+               <fac:CodigoDomicilioFiscal>?</fac:CodigoDomicilioFiscal>\r
+               <!--Optional:-->\r
+               <fac:CodigoPais>?</fac:CodigoPais>\r
+               <!--Optional:-->\r
+               <fac:CodigoUbigeo>?</fac:CodigoUbigeo>\r
+               <!--Optional:-->\r
+               <fac:Contacto>\r
+                  <!--Optional:-->\r
+                  <fac:Correo>?</fac:Correo>\r
+                  <!--Optional:-->\r
+                  <fac:Nombre>?</fac:Nombre>\r
+                  <!--Optional:-->\r
+                  <fac:Telefono>?</fac:Telefono>\r
+               </fac:Contacto>\r
+               <!--Optional:-->\r
+               <fac:Departamento>?</fac:Departamento>\r
+               <!--Optional:-->\r
+               <fac:Direccion>?</fac:Direccion>\r
+               <!--Optional:-->\r
+               <fac:Distrito>?</fac:Distrito>\r
+               <!--Optional:-->\r
+               <fac:NombreComercial>?</fac:NombreComercial>\r
+               <!--Optional:-->\r
+               <fac:NumeroDocumentoIdentidad>?</fac:NumeroDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:PaginaWeb>?</fac:PaginaWeb>\r
+               <!--Optional:-->\r
+               <fac:Provincia>?</fac:Provincia>\r
+               <!--Optional:-->\r
+               <fac:RazonSocial>?</fac:RazonSocial>\r
+               <!--Optional:-->\r
+               <fac:TipoDocumentoIdentidad>?</fac:TipoDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:Urbanizacion>?</fac:Urbanizacion>\r
+            </fac:Emisor>\r
+            <!--Optional:-->\r
+            <fac:FechaEmision>?</fac:FechaEmision>\r
+            <!--Optional:-->\r
+            <fac:HoraEmision>?</fac:HoraEmision>\r
+            <!--Optional:-->\r
+            <fac:ImporteTotal>?</fac:ImporteTotal>\r
+            <!--Optional:-->\r
+            <fac:Moneda>?</fac:Moneda>\r
+            <!--Optional:-->\r
+            <fac:MontoTotales>\r
+               <!--Optional:-->\r
+               <fac:Gravado>\r
+                  <!--Optional:-->\r
+                  <fac:GrabadoIGV>\r
+                     <!--Optional:-->\r
+                     <fac:MontoBase>?</fac:MontoBase>\r
+                     <!--Optional:-->\r
+                     <fac:MontoTotalImpuesto>?</fac:MontoTotalImpuesto>\r
+                     <!--Optional:-->\r
+                     <fac:Porcentaje>?</fac:Porcentaje>\r
+                  </fac:GrabadoIGV>\r
+                  <!--Optional:-->\r
+                  <fac:Total>?</fac:Total>\r
+               </fac:Gravado>\r
+            </fac:MontoTotales>\r
+            <!--Optional:-->\r
+            <fac:Numero>?</fac:Numero>\r
+            <!--Optional:-->\r
+            <fac:Receptor>\r
+               <!--Optional:-->\r
+               <fac:CodigoDomicilioFiscal>?</fac:CodigoDomicilioFiscal>\r
+               <!--Optional:-->\r
+               <fac:CodigoPais>?</fac:CodigoPais>\r
+               <!--Optional:-->\r
+               <fac:CodigoUbigeo>?</fac:CodigoUbigeo>\r
+               <!--Optional:-->\r
+               <fac:Contacto>\r
+                  <!--Optional:-->\r
+                  <fac:Correo>?</fac:Correo>\r
+                  <!--Optional:-->\r
+                  <fac:Nombre>?</fac:Nombre>\r
+                  <!--Optional:-->\r
+                  <fac:Telefono>?</fac:Telefono>\r
+               </fac:Contacto>\r
+               <!--Optional:-->\r
+               <fac:Departamento>?</fac:Departamento>\r
+               <!--Optional:-->\r
+               <fac:Direccion>?</fac:Direccion>\r
+               <!--Optional:-->\r
+               <fac:Distrito>?</fac:Distrito>\r
+               <!--Optional:-->\r
+               <fac:NombreComercial>?</fac:NombreComercial>\r
+               <!--Optional:-->\r
+               <fac:NumeroDocumentoIdentidad>?</fac:NumeroDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:PaginaWeb>?</fac:PaginaWeb>\r
+               <!--Optional:-->\r
+               <fac:Provincia>?</fac:Provincia>\r
+               <!--Optional:-->\r
+               <fac:RazonSocial>?</fac:RazonSocial>\r
+               <!--Optional:-->\r
+               <fac:TipoDocumentoIdentidad>?</fac:TipoDocumentoIdentidad>\r
+               <!--Optional:-->\r
+               <fac:Urbanizacion>?</fac:Urbanizacion>\r
+            </fac:Receptor>\r
+            <!--Optional:-->\r
+            <fac:Serie>?</fac:Serie>\r
+            <!--Optional:-->\r
+            <fac:TipoComprobante>?</fac:TipoComprobante>\r
+            <!--Optional:-->\r
+            <fac:TipoOperacion>?</fac:TipoOperacion>\r
+            <!--Optional:-->\r
+            <fac:TotalCargo>?</fac:TotalCargo>\r
+            <!--Optional:-->\r
+            <fac:TotalDescuento>?</fac:TotalDescuento>\r
+            <!--Optional:-->\r
+            <fac:TotalImpuesto>?</fac:TotalImpuesto>\r
+            <!--Optional:-->\r
+            <fac:TotalPrecioVenta>?</fac:TotalPrecioVenta>\r
+            <!--Optional:-->\r
+            <fac:TotalValorVenta>?</fac:TotalValorVenta>\r
+         </tem:Comprobante>\r
+      </tem:RegistroComprobante>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IService1/RegistroComprobante"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
