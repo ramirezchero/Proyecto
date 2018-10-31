@@ -58,7 +58,9 @@
     <Compile Include="RegistroComprobante\En_ComprobanteDetalleImpuestos.cs" />
     <Compile Include="RegistroComprobante\En_Contacto.cs" />
     <Compile Include="RegistroComprobante\En_DescuentoCargo.cs" />
-    <Compile Include="RegistroComprobante\En_DocumentoReferencia.cs" />
+    <Compile Include="RegistroComprobante\En_DocumentoReferenciaDespacho.cs" />
+    <Compile Include="RegistroComprobante\En_DocumentoReferenciaNota.cs" />
+    <Compile Include="RegistroComprobante\En_DocumentoSustentoNota.cs" />
     <Compile Include="RegistroComprobante\En_Gravado.cs" />
     <Compile Include="RegistroComprobante\En_GrabadoIGV.cs" />
     <Compile Include="RegistroComprobante\En_Leyenda.cs" />

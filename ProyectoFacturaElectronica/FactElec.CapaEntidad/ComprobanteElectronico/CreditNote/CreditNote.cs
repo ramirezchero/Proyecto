@@ -6665,11 +6665,11 @@ namespace FactElec.CapaEntidad.ComprobanteElectronico.CreditNote
     public partial class DateType
     {
 
-        private System.DateTime valueField;
+        private System.String valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute(DataType = "date")]
-        public System.DateTime Value
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "string")]
+        public System.String Value
         {
             get
             {
@@ -11148,11 +11148,11 @@ namespace FactElec.CapaEntidad.ComprobanteElectronico.CreditNote
     public partial class TimeType
     {
 
-        private System.DateTime valueField;
+        private System.String valueField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute(DataType = "time")]
-        public System.DateTime Value
+        [System.Xml.Serialization.XmlTextAttribute(DataType = "string")]
+        public System.String  Value
         {
             get
             {

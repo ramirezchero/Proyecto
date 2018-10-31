@@ -1,4 +1,4 @@
-﻿using FactElec.CapaEntidad.ComprobanteElectronico.Invoice;
+﻿using FactElec.CapaEntidad.ComprobanteElectronico.DebitNote;
 using FactElec.CapaEntidad.RegistroComprobante;
 using System.Collections.Generic;
 using System.IO;
@@ -8,23 +8,24 @@ using System.Xml.Serialization;
 
 namespace FactElec.LogicaProceso.RegistroComprobante
 {
-    public class Lp_Metodos
+    public class Lp_Metodo_DebitNote
     {
-        readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Lp_Metodos));
+        readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Lp_Metodo_CreditNote));
         public En_Respuesta RegistroComprobante(En_ComprobanteElectronico Comprobante)
         {
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
 
-            InvoiceType invoice = new InvoiceType();
-            LlenarCabecera(Comprobante, ref invoice);
-            LlenarEmisor(Comprobante.Emisor, ref invoice);
-            LlenarReceptor(Comprobante.Receptor, ref invoice);
-            LlenarDescuentoCargo(Comprobante, ref invoice);
-            LlenarMontosIGV(Comprobante, ref invoice);
-            LlenarMontosTotales(Comprobante, ref invoice);
-            LlenarDetalle(Comprobante, ref invoice);
-            CrearXML(ref invoice, Comprobante);
+            DebitNoteType debitNote = new DebitNoteType();
+            LlenarCabecera(Comprobante, ref debitNote);
+            LlenarDocumentoRefenciado(Comprobante, ref debitNote);
+            LlenarEmisor(Comprobante.Emisor, ref debitNote);
+            LlenarReceptor(Comprobante.Receptor, ref debitNote);
+            LlenarDescuentoCargo(Comprobante, ref debitNote);
+            LlenarMontosIGV(Comprobante, ref debitNote);
+            LlenarMontosTotales(Comprobante, ref debitNote);
+            LlenarDetalle(Comprobante, ref debitNote);
+            CrearXML(ref debitNote, Comprobante);
 
             oRespuesta.Codigo = "0";
             oRespuesta.Descripcion = "Se registro correctamente";
@@ -32,6 +33,72 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         }
 
 
+
+        void LlenarDocumentoRefenciado(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
+        {
+            if (Comprobante.DocumentoSustentoNota != null)
+            {
+                debitNote.DiscrepancyResponse = new ResponseType[]
+            {
+                    new ResponseType{
+                        Description=new DescriptionType[]{
+                           new DescriptionType
+                            {
+                                Value=Comprobante.DocumentoSustentoNota.MotivoAnulacion
+                            }
+                        },
+                        ResponseCode=new ResponseCodeType
+                        {
+                            listName="Tipo de nota de credito" ,
+                            listAgencyName="PE:SUNAT",
+                            listURI ="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09",
+                            Value =Comprobante.DocumentoSustentoNota.CodigoMotivoAnulacion
+                        },
+                        ReferenceID =new ReferenceIDType{
+                            Value =Comprobante.DocumentoSustentoNota.SerieNumero
+                        }
+                    }
+                };
+            }
+
+            if (Comprobante.DocumentoReferenciaNota != null)
+            {
+                List<BillingReferenceType> oListaReferencia = new List<BillingReferenceType>();
+
+                foreach (En_DocumentoReferenciaNota oDoc in Comprobante.DocumentoReferenciaNota)
+                {
+                    BillingReferenceType oreferencia = new BillingReferenceType();
+                    oreferencia.InvoiceDocumentReference = new DocumentReferenceType
+                    {
+                        ID = new IDType
+                        {
+                            Value = oDoc.SerieNumero
+                        },
+                        IssueDate = new IssueDateType
+                        {
+                            Value = oDoc.Fecha
+                        },
+                        DocumentTypeCode = new DocumentTypeCodeType
+                        {
+                            listName = "Tipo de Documento",
+                            listAgencyName = "PE:SUNAT",
+                            listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
+                            Value = oDoc.TipoDocumento
+                        }
+                    };
+
+                    oListaReferencia.Add(oreferencia);
+                }
+
+                if (oListaReferencia.Count > 0)
+                {
+                    debitNote.BillingReference = oListaReferencia.ToArray();
+                }
+
+
+
+            }
+        }
         TaxSubtotalType LlenarSubTotalDetalle(decimal MontoBase, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo, string AfectacionIGV)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -83,9 +150,9 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarDetalle(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarDetalle(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
-            List<InvoiceLineType> oListaDetalle = new List<InvoiceLineType>();
+            List<DebitNoteLineType> oListaDetalle = new List<DebitNoteLineType>();
 
             foreach (En_ComprobanteDetalle oDet in Comprobante.ComprobanteDetalle)
             {
@@ -113,18 +180,19 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     oListaSubtotal.Add(oSubTotal);
                 }
 
-                InvoiceLineType oInvoiceLine = new InvoiceLineType
+                DebitNoteLineType oInvoiceLine = new DebitNoteLineType
                 {
                     ID = new IDType
                     {
                         Value = oDet.Item
                     },
-                    InvoicedQuantity = new InvoicedQuantityType
+                    DebitedQuantity = new DebitedQuantityType
                     {
                         unitCode = oDet.UnidadMedida.Trim().ToUpper(),
                         unitCodeListAgencyName = "United Nations Economic Commission for Europe",
                         unitCodeListID = "UN/ECE rec 20",
                         Value = oDet.Cantidad
+
                     },
                     LineExtensionAmount = new LineExtensionAmountType
                     {
@@ -198,11 +266,11 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
 
             };
-            invoice.InvoiceLine = oListaDetalle.ToArray();
+            debitNote.DebitNoteLine = oListaDetalle.ToArray();
 
         }
 
-        void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarDescuentoCargo(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
 
@@ -239,11 +307,11 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 };
                 oListaDescuentoCargo.Add(oDescuentoCargo);
             }
-            invoice.AllowanceCharge = oListaDescuentoCargo.ToArray();
+            debitNote.AllowanceCharge = oListaDescuentoCargo.ToArray();
 
         }
 
-        void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             MonetaryTotalType oTotal = new MonetaryTotalType
             {
@@ -273,10 +341,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     currencyID = Comprobante.Moneda.Trim()
                 }
             };
-            invoice.LegalMonetaryTotal = oTotal;
+            debitNote.RequestedMonetaryTotal = oTotal;
 
         }
-        void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
 
@@ -304,7 +372,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 TaxSubtotal = oListaSubtotal.ToArray()
             };
 
-            invoice.TaxTotal = new TaxTotalType[] { oTaxTotal };
+            debitNote.TaxTotal = new TaxTotalType[] { oTaxTotal };
 
         }
         TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
@@ -350,19 +418,22 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oSubtotal;
 
         }
-        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante)
+        void CrearXML(ref DebitNoteType creditNote, En_ComprobanteElectronico Comprobante)
         {
-            XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
+            XmlSerializer oxmlSerializer = new XmlSerializer(typeof(DebitNoteType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
             xmlNameSpaceNom.Add("cac", "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2");
             xmlNameSpaceNom.Add("cbc", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2");
+            xmlNameSpaceNom.Add("ccts", "urn:un:unece:uncefact:documentation:2");
             xmlNameSpaceNom.Add("ds", "http://www.w3.org/2000/09/xmldsig#");
             xmlNameSpaceNom.Add("ext", "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2");
             xmlNameSpaceNom.Add("qdt", "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2");
             xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
+            xmlNameSpaceNom.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
-            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml",Comprobante.Emisor.NumeroDocumentoIdentidad,Comprobante.TipoComprobante,Comprobante.SerieNumero);
+          
+            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
 
             string sxml = "";
             Encoding utf8noBOM = new UTF8Encoding(false);
@@ -378,7 +449,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 using (XmlWriter writter = XmlWriter.Create(sw, settings))
                 {
-                    oxmlSerializer.Serialize(writter, invoice, xmlNameSpaceNom);
+                    oxmlSerializer.Serialize(writter, creditNote, xmlNameSpaceNom);
                     sxml = sw.ToString();
                 }
             }
@@ -401,7 +472,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             objFirma.FirmarXml(document, "20112811096", ref codigoHash);
             document.Save(ruta);
         }
-        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             UBLExtensionType uBLExtensionType = new UBLExtensionType()
             {
@@ -409,30 +480,30 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 // ext:ExtensionContent con un valor vacío
                 ExtensionContent = new XmlDocument().CreateElement("Borrar")
             };
-            
+
             UBLExtensionType[] ublExtensions = { uBLExtensionType };
-            invoice.UBLExtensions = ublExtensions;
+            debitNote.UBLExtensions = ublExtensions;
             //Serie y Numero          
-            invoice.ID = new IDType
+            debitNote.ID = new IDType
             {
                 Value = Comprobante.SerieNumero.Trim()
             };
 
-            invoice.UBLVersionID = new UBLVersionIDType
+            debitNote.UBLVersionID = new UBLVersionIDType
             {
                 Value = "2.1"
             };
 
-            invoice.IssueDate = new IssueDateType
+            debitNote.IssueDate = new IssueDateType
             {
                 Value = Comprobante.FechaEmision
             };
-            invoice.IssueTime = new IssueTimeType
+            debitNote.IssueTime = new IssueTimeType
             {
                 Value = Comprobante.HoraEmision
             };
 
-            invoice.DocumentCurrencyCode = new DocumentCurrencyCodeType
+            debitNote.DocumentCurrencyCode = new DocumentCurrencyCodeType
             {
                 listAgencyName = "United Nations Economic Commission for Europe",
                 listID = "ISO 4217 Alpha",
@@ -451,28 +522,18 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 oListaNota.Add(oNota);
             };
 
-            invoice.Note = oListaNota.ToArray();
+            debitNote.Note = oListaNota.ToArray();
 
-            invoice.CustomizationID = new CustomizationIDType
+            debitNote.CustomizationID = new CustomizationIDType
             {
                 Value = "2.0"
             };
 
-            invoice.InvoiceTypeCode = new InvoiceTypeCodeType
-            {
-                listAgencyName = "PE:SUNAT",
-                listID = Comprobante.TipoOperacion.Trim(),
-                listName = "Tipo de Documento",
-                listSchemeURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
-                listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
-                name = "Tipo de Operacion",
-                Value = Comprobante.TipoComprobante.Trim()
-            };
 
 
             List<DocumentReferenceType> oListadocumento = new List<DocumentReferenceType>();
 
-            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferencia)
+            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferenciaDespacho)
             {
                 DocumentReferenceType odocumento = new DocumentReferenceType
                 {
@@ -494,10 +555,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 };
                 oListadocumento.Add(odocumento);
             };
-            invoice.DespatchDocumentReference = oListadocumento.ToArray();
+            debitNote.DespatchDocumentReference = oListadocumento.ToArray();
+
+
+
         }
 
-        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref InvoiceType invoice)
+        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref DebitNoteType debitNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -616,12 +680,12 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 }
             };
 
-            invoice.AccountingSupplierParty = oEmisor;
+            debitNote.AccountingSupplierParty = oEmisor;
 
 
         }
 
-        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref InvoiceType invoice)
+        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref DebitNoteType debitNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -740,26 +804,26 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 }
             };
 
-            invoice.AccountingCustomerParty = oReceptor;
+            debitNote.AccountingCustomerParty = oReceptor;
 
 
         }
     }
 
-    public sealed class StringWriterWithEncoding : StringWriter
-    {
-        private readonly Encoding encoding;
+    //public sealed class StringWriterWithEncoding : StringWriter
+    //{
+    //    private readonly Encoding encoding;
 
-        public StringWriterWithEncoding() : this(Encoding.UTF8) { }
+    //    public StringWriterWithEncoding() : this(Encoding.UTF8) { }
 
-        public StringWriterWithEncoding(Encoding encoding)
-        {
-            this.encoding = encoding;
-        }
+    //    public StringWriterWithEncoding(Encoding encoding)
+    //    {
+    //        this.encoding = encoding;
+    //    }
 
-        public override Encoding Encoding
-        {
-            get { return encoding; }
-        }
-    }
+    //    public override Encoding Encoding
+    //    {
+    //        get { return encoding; }
+    //    }
+    //}
 }

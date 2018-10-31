@@ -33,7 +33,7 @@ namespace FactElec.WebApi.Controllers
             try
             {
                 log.Info("Inicio del proceso.");
-                LogicaProceso.RegistroComprobante.Lp_Metodos lp = new LogicaProceso.RegistroComprobante.Lp_Metodos();
+                LogicaProceso.RegistroComprobante.Lp_Metodo_Invoice lp = new LogicaProceso.RegistroComprobante.Lp_Metodo_Invoice();
                 En_Respuesta oRespuesta = new En_Respuesta();
                 oRespuesta = lp.RegistroComprobante(comprobante);
                 log.Info("Fin del proceso");

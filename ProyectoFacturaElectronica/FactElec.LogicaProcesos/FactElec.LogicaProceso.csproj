@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistroComprobante\Lp_Metodos.cs" />
+    <Compile Include="RegistroComprobante\Lp_Metodo_DebitNote.cs" />
+    <Compile Include="RegistroComprobante\Lp_Metodo_Invoice.cs" />
+    <Compile Include="RegistroComprobante\Lp_Metodo_CreditNote.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FactElec.CapaEntidad\FactElec.CapaEntidad.csproj">

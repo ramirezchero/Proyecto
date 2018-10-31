@@ -22,12 +22,12 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public decimal TotalValorVenta { get; set; }
         public decimal TotalPrecioVenta { get; set; }
         public decimal ImporteTotal { get; set; }
-       
-        public En_Emisor Emisor { get; set; }
 
-        public En_Receptor Receptor { get; set; }
+        public En_Emisor Emisor = new En_Emisor();
 
-        public En_MontosTotales MontoTotales { get; set; }
+        public En_Receptor Receptor = new En_Receptor();
+
+        public En_MontosTotales MontoTotales = new En_MontosTotales();
 
         public List<En_DescuentoCargo> DescuentoCargo { get; set; }
 
@@ -35,11 +35,14 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 
         public decimal TotalDescuento { get; set; }
 
-        public List<En_ComprobanteDetalle> ComprobanteDetalle { get; set; }
+        public List<En_ComprobanteDetalle> ComprobanteDetalle = new List<En_ComprobanteDetalle>();
 
         public List<En_Leyenda> Leyenda { get; set; }
 
-        public List<En_DocumentoReferencia> DocumentoReferencia = new List<En_DocumentoReferencia>();
+        public List<En_DocumentoReferencia> DocumentoReferenciaDespacho = new List<En_DocumentoReferencia>();
+
+        public En_DocumentoSustentoNota DocumentoSustentoNota = new En_DocumentoSustentoNota();
+        public List<En_DocumentoReferenciaNota> DocumentoReferenciaNota = new List<En_DocumentoReferenciaNota>();
 
     }
 }
