@@ -335,14 +335,14 @@
                </fac:En_DescuentoCargo>
             </fac:DescuentoCargo>
 
-            <!-- <fac:DocumentoReferencia>               
+            <fac:DocumentoReferencia>               
                <fac:En_DocumentoReferencia>                  
                   <fac:Fecha>2018-10-01</fac:Fecha>                  
                   <fac:SerieNumero>00001-123456</fac:SerieNumero>                  
                   <fac:TipoDocumento>09</fac:TipoDocumento>
                </fac:En_DocumentoReferencia>
             </fac:DocumentoReferencia>
-            -->
+            
             <fac:Emisor>               
                <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
                <fac:CodigoPais>PE</fac:CodigoPais>               
