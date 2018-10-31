@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 [assembly: FactElec.Log.Configuracion("WebApi")]
-namespace FactElec.WebApi.Controllers
+namespace FactElec.WebApis.Controllers
 {
     public class ComprobanteController : ApiController
     {

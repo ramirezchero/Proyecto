@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.Log", "FactElec.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.Firma", "FactElec.Firma\FactElec.Firma.csproj", "{11062437-5E83-443B-A50B-35D96EB62C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.WebApi", "FactElec.WebApi\FactElec.WebApi.csproj", "{515A4A59-C216-44AC-A50E-616AA1EC73B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactElec.WebApis", "FactElec.WebApi\FactElec.WebApis.csproj", "{515A4A59-C216-44AC-A50E-616AA1EC73B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
