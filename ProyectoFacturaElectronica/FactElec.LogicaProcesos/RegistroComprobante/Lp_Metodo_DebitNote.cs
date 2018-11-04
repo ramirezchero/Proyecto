@@ -527,6 +527,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             debitNote.Note = oListaNota.ToArray();
 
+           
+
             debitNote.CustomizationID = new CustomizationIDType
             {
                 Value = "2.0"

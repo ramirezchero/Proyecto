@@ -11,6 +11,8 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public string SerieNumero { get; set; }
         
         public string FechaEmision { get; set; }
+
+        public string FechaVencimiento { get; set; }
         public string HoraEmision { get; set; }
 
         public string Moneda { get; set; }
@@ -29,7 +31,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
 
         public En_MontosTotales MontoTotales = new En_MontosTotales();
 
-        public List<En_DescuentoCargo> DescuentoCargo { get; set; }
+        public List<En_DescuentoCargo> DescuentoCargo = new List<En_DescuentoCargo>();
 
         public decimal TotalCargo { get; set; }
 
