@@ -45,12 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lp_Validacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroComprobante\Lp_Metodo_DebitNote.cs" />
     <Compile Include="RegistroComprobante\Lp_Metodo_Invoice.cs" />
     <Compile Include="RegistroComprobante\Lp_Metodo_CreditNote.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FactElec.CapaDatos\FactElec.CapaDatos.csproj">
+      <Project>{4acdc3b1-c16e-4351-ab8f-3af0e94c7fd6}</Project>
+      <Name>FactElec.CapaDatos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FactElec.CapaEntidad\FactElec.CapaEntidad.csproj">
       <Project>{c0475032-15f9-458c-a892-c0b76a0581aa}</Project>
       <Name>FactElec.CapaEntidad</Name>

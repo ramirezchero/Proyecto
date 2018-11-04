@@ -117,7 +117,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 {
                     ID = new IDType
                     {
-                        Value = oDet.Item
+                        Value = oDet.Item.ToString()
                     },
                     InvoicedQuantity = new InvoicedQuantityType
                     {
@@ -276,6 +276,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             invoice.LegalMonetaryTotal = oTotal;
 
         }
+
         void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
             List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
@@ -307,6 +308,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             invoice.TaxTotal = new TaxTotalType[] { oTaxTotal };
 
         }
+
         TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -350,6 +352,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oSubtotal;
 
         }
+
         void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
@@ -401,7 +404,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             objFirma.FirmarXml(document, "20112811096", ref codigoHash);
             document.Save(ruta);
         }
-        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
+
+        void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
         {
             UBLExtensionType uBLExtensionType = new UBLExtensionType()
             {
@@ -497,7 +501,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             invoice.DespatchDocumentReference = oListadocumento.ToArray();
         }
 
-        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref InvoiceType invoice)
+        void LlenarEmisor(En_Emisor Emisor, ref InvoiceType invoice)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -621,7 +625,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref InvoiceType invoice)
+        void LlenarReceptor(En_Receptor Receptor, ref InvoiceType invoice)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType

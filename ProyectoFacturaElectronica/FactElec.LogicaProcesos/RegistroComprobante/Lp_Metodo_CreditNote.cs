@@ -32,8 +32,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oRespuesta;
         }
 
-
-
         void LlenarDocumentoRefenciado(En_ComprobanteElectronico Comprobante,ref CreditNoteType creditNote)
         {
             if (Comprobante.DocumentoSustentoNota != null)
@@ -98,6 +96,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             }
         }
+
         TaxSubtotalType LlenarSubTotalDetalle(decimal MontoBase, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo, string AfectacionIGV)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -183,7 +182,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 {
                     ID = new IDType
                     {
-                        Value = oDet.Item
+                        Value = oDet.Item.ToString()
                     },
                     CreditedQuantity = new CreditedQuantityType
                     {
@@ -343,6 +342,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             creditNote.LegalMonetaryTotal = oTotal;
 
         }
+
         void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref CreditNoteType creditNote)
         {
             List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
@@ -374,6 +374,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             creditNote.TaxTotal = new TaxTotalType[] { oTaxTotal };
 
         }
+
         TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -417,6 +418,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oSubtotal;
 
         }
+
         void CrearXML(ref CreditNoteType creditNote, En_ComprobanteElectronico Comprobante)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(CreditNoteType));
@@ -472,7 +474,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             objFirma.FirmarXml(document, "20112811096", ref codigoHash);
             document.Save(ruta);
         }
-        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref CreditNoteType creditNote)
+
+        void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref CreditNoteType creditNote)
         {
             UBLExtensionType uBLExtensionType = new UBLExtensionType()
             {
@@ -561,7 +564,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref CreditNoteType creditNote)
+        void LlenarEmisor(En_Emisor Emisor, ref CreditNoteType creditNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -685,7 +688,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref CreditNoteType creditNote)
+        void LlenarReceptor(En_Receptor Receptor, ref CreditNoteType creditNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -809,21 +812,4 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
     }
-
-    //public sealed class StringWriterWithEncoding : StringWriter
-    //{
-    //    private readonly Encoding encoding;
-
-    //    public StringWriterWithEncoding() : this(Encoding.UTF8) { }
-
-    //    public StringWriterWithEncoding(Encoding encoding)
-    //    {
-    //        this.encoding = encoding;
-    //    }
-
-    //    public override Encoding Encoding
-    //    {
-    //        get { return encoding; }
-    //    }
-    //}
 }

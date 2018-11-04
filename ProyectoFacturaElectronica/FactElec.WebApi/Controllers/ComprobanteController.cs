@@ -1,4 +1,6 @@
 ﻿using FactElec.CapaEntidad.RegistroComprobante;
+using FactElec.LogicaProceso;
+using FactElec.LogicaProceso.RegistroComprobante;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -32,10 +34,30 @@ namespace FactElec.WebApi.Controllers
         {
             try
             {
-                log.Info("Inicio del proceso.");
-                LogicaProceso.RegistroComprobante.Lp_Metodo_Invoice lp = new LogicaProceso.RegistroComprobante.Lp_Metodo_Invoice();
-                En_Respuesta oRespuesta = new En_Respuesta();
-                oRespuesta = lp.RegistroComprobante(comprobante);
+                log.Info("Inicio del proceso.");                
+                En_Respuesta oRespuesta = null;
+
+                bool esValido = true;
+                oRespuesta = Lp_Validacion.ComprobanteValido(comprobante, ref esValido);
+                
+                if (esValido)
+                {
+                    if (comprobante.TipoComprobante.Trim() == "01" || comprobante.TipoComprobante.Trim() == "03")
+                    {
+                        Lp_Metodo_Invoice lp = new Lp_Metodo_Invoice();
+                        oRespuesta = lp.RegistroComprobante(comprobante);
+                    }
+                    if (comprobante.TipoComprobante.Trim() == "07")
+                    {
+                        Lp_Metodo_CreditNote lp = new Lp_Metodo_CreditNote();
+                        oRespuesta = lp.RegistroComprobante(comprobante);
+                    }
+                    if (comprobante.TipoComprobante.Trim() == "08")
+                    {
+                        Lp_Metodo_DebitNote lp = new Lp_Metodo_DebitNote();
+                        oRespuesta = lp.RegistroComprobante(comprobante);
+                    }
+                }
                 log.Info("Fin del proceso");
                 return Request.CreateResponse(HttpStatusCode.Created, oRespuesta);
             }

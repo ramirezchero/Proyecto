@@ -32,8 +32,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oRespuesta;
         }
 
-
-
         void LlenarDocumentoRefenciado(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             if (Comprobante.DocumentoSustentoNota != null)
@@ -99,6 +97,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             }
         }
+
         TaxSubtotalType LlenarSubTotalDetalle(decimal MontoBase, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo, string AfectacionIGV)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -184,7 +183,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 {
                     ID = new IDType
                     {
-                        Value = oDet.Item
+                        Value = oDet.Item.ToString()
                     },
                     DebitedQuantity = new DebitedQuantityType
                     {
@@ -344,6 +343,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             debitNote.RequestedMonetaryTotal = oTotal;
 
         }
+
         void LlenarMontosIGV(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             List<TaxSubtotalType> oListaSubtotal = new List<TaxSubtotalType>();
@@ -375,6 +375,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             debitNote.TaxTotal = new TaxTotalType[] { oTaxTotal };
 
         }
+
         TaxSubtotalType LlenarSubTotalCabecera(decimal MontoOperaciones, decimal MontoTotalImpuesto, string Moneda, decimal PorcentajeImpuesto, string CodigoInternacionalTributo, string NombreTributo, string CodigoTributo)
         {
             TaxSubtotalType oSubtotal = new TaxSubtotalType
@@ -418,7 +419,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             return oSubtotal;
 
         }
-        void CrearXML(ref DebitNoteType creditNote, En_ComprobanteElectronico Comprobante)
+
+        void CrearXML(ref DebitNoteType debitNote, En_ComprobanteElectronico Comprobante)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(DebitNoteType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -449,7 +451,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 using (XmlWriter writter = XmlWriter.Create(sw, settings))
                 {
-                    oxmlSerializer.Serialize(writter, creditNote, xmlNameSpaceNom);
+                    oxmlSerializer.Serialize(writter, debitNote, xmlNameSpaceNom);
                     sxml = sw.ToString();
                 }
             }
@@ -472,7 +474,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             objFirma.FirmarXml(document, "20112811096", ref codigoHash);
             document.Save(ruta);
         }
-        void LlenarCabecera(CapaEntidad.RegistroComprobante.En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
+
+        void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
         {
             UBLExtensionType uBLExtensionType = new UBLExtensionType()
             {
@@ -561,7 +564,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarEmisor(CapaEntidad.RegistroComprobante.En_Emisor Emisor, ref DebitNoteType debitNote)
+        void LlenarEmisor(En_Emisor Emisor, ref DebitNoteType debitNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -685,7 +688,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void LlenarReceptor(CapaEntidad.RegistroComprobante.En_Receptor Receptor, ref DebitNoteType debitNote)
+        void LlenarReceptor(En_Receptor Receptor, ref DebitNoteType debitNote)
         {
 
             WebsiteURIType EmisorPaginaWeb = new WebsiteURIType
@@ -809,21 +812,4 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
     }
-
-    //public sealed class StringWriterWithEncoding : StringWriter
-    //{
-    //    private readonly Encoding encoding;
-
-    //    public StringWriterWithEncoding() : this(Encoding.UTF8) { }
-
-    //    public StringWriterWithEncoding(Encoding encoding)
-    //    {
-    //        this.encoding = encoding;
-    //    }
-
-    //    public override Encoding Encoding
-    //    {
-    //        get { return encoding; }
-    //    }
-    //}
 }
