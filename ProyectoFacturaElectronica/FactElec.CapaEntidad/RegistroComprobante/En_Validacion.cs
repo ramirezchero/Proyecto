@@ -1,16 +1,18 @@
 ﻿namespace FactElec.CapaEntidad.RegistroComprobante
 {
     public class En_Validacion
-    { 
-        public En_Validacion(string propiedad, Condicion condicion, TipoDato tipoDeDato, int tamanioMax, string formato)
+    {
+        public En_Validacion(string clase, string propiedad, Condicion condicion, TipoDato tipoDeDato, int tamanioMax, string formato)
         {
-            Propiedad = propiedad;            
+            Clase = clase;
+            Propiedad = propiedad;
             Condicion = condicion;
             TipoDeDato = tipoDeDato;
             TamanioMax = tamanioMax;
             Formato = formato;
         }
-        public string Propiedad { get; set; }        
+        public string Clase { get; set; }
+        public string Propiedad { get; set; }
         public Condicion Condicion { get; set; }
         public TipoDato TipoDeDato { get; set; }
         public int TamanioMax { get; set; }

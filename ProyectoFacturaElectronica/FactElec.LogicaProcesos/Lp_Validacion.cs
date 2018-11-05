@@ -58,6 +58,21 @@ namespace FactElec.LogicaProceso
                     }
                 }
 
+                if (comprobante.DocumentoReferenciaNota != null)
+                {
+                    foreach (En_DocumentoReferenciaNota documentoReferenciaNota in comprobante.DocumentoReferenciaNota)
+                    {
+                        respuesta = ValidarEntidad(validaciones, documentoReferenciaNota, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.DocumentoSustentoNota != null)
+                {
+                    respuesta = ValidarEntidad(validaciones, comprobante.DocumentoSustentoNota, ref esValido);
+                    if (!esValido) return respuesta;
+                }
+
                 if (comprobante.Emisor != null)
                 {
                     respuesta = ValidarEntidad(validaciones, comprobante.Emisor, ref esValido);
@@ -66,6 +81,39 @@ namespace FactElec.LogicaProceso
                     if (comprobante.Emisor.Contacto != null)
                     {
                         respuesta = ValidarEntidad(validaciones, comprobante.Emisor.Contacto, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.Receptor != null)
+                {
+                    respuesta = ValidarEntidad(validaciones, comprobante.Receptor, ref esValido);
+                    if (!esValido) return respuesta;
+
+                    if (comprobante.Receptor.Contacto != null)
+                    {
+                        respuesta = ValidarEntidad(validaciones, comprobante.Receptor.Contacto, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.Leyenda != null)
+                {
+                    foreach (var leyenda in comprobante.Leyenda)
+                    {
+                        respuesta = ValidarEntidad(validaciones, leyenda, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.MontoTotales != null && comprobante.MontoTotales.Gravado != null)
+                {
+                    respuesta = ValidarEntidad(validaciones, comprobante.MontoTotales.Gravado, ref esValido);
+                    if (!esValido) return respuesta;
+
+                    if (comprobante.MontoTotales.Gravado.GrabadoIGV != null)
+                    {
+                        respuesta = ValidarEntidad(validaciones, comprobante.MontoTotales.Gravado.GrabadoIGV, ref esValido);
                         if (!esValido) return respuesta;
                     }
                 }
@@ -84,9 +132,12 @@ namespace FactElec.LogicaProceso
             PropertyInfo[] propiedades = entidad.GetType().GetProperties();
             string nombreEntidad = entidad.GetType().Name;
             string nombrePropiedad = "";
+            List<En_Validacion> validacionesFiltradas = (from v in validaciones
+                                                         where v.Clase == nombreEntidad
+                                                         select v).ToList();
             try
             {
-                foreach (En_Validacion validacion in validaciones)
+                foreach (En_Validacion validacion in validacionesFiltradas)
                 {
                     PropertyInfo propiedad = (from p in propiedades
                                               where p.Name == validacion.Propiedad
