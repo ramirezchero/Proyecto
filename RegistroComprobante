@@ -287,7 +287,7 @@
          </tem:Comprobante>\r
       </tem:RegistroComprobante>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IService1/RegistroComprobante"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="ec5cb2be-8439-4c72-b538-ba30a96c252b" name="CasosFacturacion"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="3b1c7f1d-74e0-4611-a19a-32cec8a9e63a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="001_FactrurasBoletas" searchProperties="true"><con:settings/><con:testStep type="request" name="001_Gravada_1Item_cargo" id="043dbfdd-47d7-492f-9d5b-b44944705593"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="001_Gravada_1Item_cargo" id="3dfded94-96ec-4100-8f22-fb7ebf915ede"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IService1/RegistroComprobante"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="ec5cb2be-8439-4c72-b538-ba30a96c252b" name="CasosFacturacion"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="3b1c7f1d-74e0-4611-a19a-32cec8a9e63a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="001_FactrurasBoletas" searchProperties="true"><con:settings/><con:testStep type="request" name="001_Gravada_1_Item" id="bc6d0827-b10f-40a4-af8e-959b22117b85"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="001_Gravada_1_Item" id="34d090b5-87bf-41f3-8e84-7a936d12ddda"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
    <soapenv:Header/>
    <soapenv:Body>
       <tem:RegistroComprobante>         
@@ -295,22 +295,22 @@
          <fac:ComprobanteDetalle>               
                <fac:En_ComprobanteDetalle>                  
                   <fac:Cantidad>1.00</fac:Cantidad>                  
-                  <fac:Codigo>196</fac:Codigo>
-                  <fac:CodigoSunat>90101500</fac:CodigoSunat>
+                  <fac:Codigo>617000093</fac:Codigo>
+                  <fac:CodigoSunat>80161504</fac:CodigoSunat>
                   <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>                                   
                   <fac:ComprobanteDetalleImpuestos>                     
                      <fac:En_ComprobanteDetalleImpuestos>                        
                         <fac:AfectacionIGV>10</fac:AfectacionIGV>                        
                         <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>                        
                         <fac:CodigoTributo>VAT</fac:CodigoTributo>                        
-                        <fac:MontoBase>19.24</fac:MontoBase>  <!--Precio sin IGV-->                      
-                        <fac:MontoTotalImpuesto>3.46</fac:MontoTotalImpuesto> <!--IGV-->                       
+                        <fac:MontoBase>286.08</fac:MontoBase>  <!--Precio sin IGV-->                      
+                        <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto> <!--IGV-->                       
                         <fac:NombreTributo>IGV</fac:NombreTributo>                        
                         <fac:Porcentaje>18.00</fac:Porcentaje>
                      </fac:En_ComprobanteDetalleImpuestos>                  
                   </fac:ComprobanteDetalleImpuestos>      
                   <fac:Descripcion>Descripcion 1</fac:Descripcion>            
-                  <fac:ImpuestoTotal>3.46</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
+                  <fac:ImpuestoTotal>51.49</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
                   <fac:Item>1</fac:Item> <!--Correlativo-->   
                   <fac:MultiDescripcion>
                      <arr:string>MultiDescripcion 1</arr:string>
@@ -318,30 +318,14 @@
                      <arr:string>MultiDescripcion 3</arr:string>
                   </fac:MultiDescripcion>
                
-                  <fac:Total>19.24</fac:Total> <!--Precio sin IGV x Cantidad-->
+                  <fac:Total>286.08</fac:Total> <!--Precio sin IGV x Cantidad-->
                   <fac:UnidadMedida>NIU</fac:UnidadMedida>                  
-                  <fac:ValorVentaUnitario>19.24</fac:ValorVentaUnitario> <!--Precio sin IGV-->
-                  <fac:ValorVentaUnitarioIncIgv>22.71</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
+                  <fac:ValorVentaUnitario>286.08</fac:ValorVentaUnitario> <!--Precio sin IGV-->
+                  <fac:ValorVentaUnitarioIncIgv>337.57</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
                </fac:En_ComprobanteDetalle>
             </fac:ComprobanteDetalle>
-
-            <fac:DescuentoCargo>            
-               <fac:En_DescuentoCargo>                  
-                  <fac:CodigoMotivo>50</fac:CodigoMotivo>                  
-                  <fac:Factor>0.01000</fac:Factor>                  
-                  <fac:Indicador>true</fac:Indicador>                  
-                  <fac:MontoBase>19.24</fac:MontoBase>                  
-                  <fac:MontoTotal>0.19</fac:MontoTotal>
-               </fac:En_DescuentoCargo>
-            </fac:DescuentoCargo>
-            <!-- <fac:DocumentoReferencia>               
-               <fac:En_DocumentoReferencia>                  
-                  <fac:Fecha>2018-10-01</fac:Fecha>                  
-                  <fac:SerieNumero>00001-123456</fac:SerieNumero>                  
-                  <fac:TipoDocumento>09</fac:TipoDocumento>
-               </fac:En_DocumentoReferencia>
-            </fac:DocumentoReferencia>
-            -->
+         
+          
             <fac:Emisor>               
                <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
                <fac:CodigoPais>PE</fac:CodigoPais>               
@@ -363,14 +347,15 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>            
+            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
-            <fac:ImporteTotal>22.89</fac:ImporteTotal>  
+            <fac:ImporteTotal>337.57</fac:ImporteTotal>  
 
             <fac:Leyenda>
                <fac:En_Leyenda>                  
                   <fac:Codigo>10000</fac:Codigo>                  
-                  <fac:Valor>VEINTIDOS CON 89/100 SOLES</fac:Valor>
+                  <fac:Valor>TRESCIENTOS TREINTA Y SIETE Y 57/100 SOLES</fac:Valor>
                </fac:En_Leyenda>
             </fac:Leyenda>
 
@@ -378,11 +363,11 @@
             <fac:MontoTotales>               
                <fac:Gravado>                  
                   <fac:GrabadoIGV>                     
-                     <fac:MontoBase>19.24</fac:MontoBase>                     
-                     <fac:MontoTotalImpuesto>3.46</fac:MontoTotalImpuesto>                     
+                     <fac:MontoBase>286.08</fac:MontoBase>                     
+                     <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
                   </fac:GrabadoIGV>                  
-                  <fac:Total>3.46</fac:Total>
+                  <fac:Total>51.49</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
           
@@ -407,18 +392,415 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>F003-1</fac:SerieNumero>
+            <fac:SerieNumero>FV01-50</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
-            <fac:TotalCargo>0.19</fac:TotalCargo>
-            <fac:TotalDescuento>0</fac:TotalDescuento>         
-            <fac:TotalImpuesto>3.46</fac:TotalImpuesto>
-            <fac:TotalPrecioVenta>22.71</fac:TotalPrecioVenta>            
-            <fac:TotalValorVenta>19.24</fac:TotalValorVenta>
+                    
+            <fac:TotalImpuesto>51.49</fac:TotalImpuesto>
+            <fac:TotalPrecioVenta>337.57</fac:TotalPrecioVenta>            
+            <fac:TotalValorVenta>286.08</fac:TotalValorVenta>
          </tem:Comprobante>
       </tem:RegistroComprobante>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="59fa4eab-1c60-49e7-bb09-430fdf9e6a68"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="baece305-7703-46ca-a438-15a54caecd12" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="002_NotaCredito" searchProperties="true"><con:settings/><con:testStep type="request" name="001_gravada_Item" id="7e60cb1e-188d-4454-b352-ae5906681ec9"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="001_gravada_Item" id="f91da8e0-8c6a-4e01-8b72-bac16446df04"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="66659490-277c-4bf0-a68d-1496f98a8155"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="002_Gravada_2_Item" id="7135ff85-1218-4df6-adee-8e9fa4dcc63c"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="002_Gravada_2_Item" id="1ef8812e-a576-47f5-93ea-1b8dba9c5b1f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:RegistroComprobante>         
+         <tem:Comprobante>
+         <fac:ComprobanteDetalle>               
+               <fac:En_ComprobanteDetalle>                  
+                  <fac:Cantidad>1.00</fac:Cantidad>                  
+                  <fac:Codigo>617000093</fac:Codigo>
+                  <fac:CodigoSunat>80161504</fac:CodigoSunat>
+                  <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>                                   
+                  <fac:ComprobanteDetalleImpuestos>                     
+                     <fac:En_ComprobanteDetalleImpuestos>                        
+                        <fac:AfectacionIGV>10</fac:AfectacionIGV>                        
+                        <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>                        
+                        <fac:CodigoTributo>VAT</fac:CodigoTributo>                        
+                        <fac:MontoBase>286.08</fac:MontoBase>  <!--Precio sin IGV-->                      
+                        <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto> <!--IGV-->                       
+                        <fac:NombreTributo>IGV</fac:NombreTributo>                        
+                        <fac:Porcentaje>18.00</fac:Porcentaje>
+                     </fac:En_ComprobanteDetalleImpuestos>                  
+                  </fac:ComprobanteDetalleImpuestos>      
+                  <fac:Descripcion>Descripcion 1</fac:Descripcion>            
+                  <fac:ImpuestoTotal>51.49</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
+                  <fac:Item>1</fac:Item> <!--Correlativo-->   
+                  <fac:MultiDescripcion>
+                     <arr:string>MultiDescripcion 1</arr:string>
+                     <arr:string>MultiDescripcion 2</arr:string>
+                     <arr:string>MultiDescripcion 3</arr:string>
+                  </fac:MultiDescripcion>
+               
+                  <fac:Total>286.08</fac:Total> <!--Precio sin IGV x Cantidad-->
+                  <fac:UnidadMedida>NIU</fac:UnidadMedida>                  
+                  <fac:ValorVentaUnitario>286.08</fac:ValorVentaUnitario> <!--Precio sin IGV-->
+                  <fac:ValorVentaUnitarioIncIgv>337.57</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
+               </fac:En_ComprobanteDetalle>
+
+               <fac:En_ComprobanteDetalle>                  
+                  <fac:Cantidad>1.00</fac:Cantidad>                  
+                  <fac:Codigo>617000093</fac:Codigo>
+                  <fac:CodigoSunat>80161504</fac:CodigoSunat>
+                  <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>                                   
+                  <fac:ComprobanteDetalleImpuestos>                     
+                     <fac:En_ComprobanteDetalleImpuestos>                        
+                        <fac:AfectacionIGV>10</fac:AfectacionIGV>                        
+                        <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>                        
+                        <fac:CodigoTributo>VAT</fac:CodigoTributo>                        
+                        <fac:MontoBase>286.08</fac:MontoBase>  <!--Precio sin IGV-->                      
+                        <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto> <!--IGV-->                       
+                        <fac:NombreTributo>IGV</fac:NombreTributo>                        
+                        <fac:Porcentaje>18.00</fac:Porcentaje>
+                     </fac:En_ComprobanteDetalleImpuestos>                  
+                  </fac:ComprobanteDetalleImpuestos>      
+                  <fac:Descripcion>Descripcion 2</fac:Descripcion>            
+                  <fac:ImpuestoTotal>51.49</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
+                  <fac:Item>2</fac:Item> <!--Correlativo-->   
+                  <fac:MultiDescripcion>
+                     <arr:string>MultiDescripcion 2.1</arr:string>
+                     <arr:string>MultiDescripcion 2.2</arr:string>
+                     <arr:string>MultiDescripcion 2.3</arr:string>
+                  </fac:MultiDescripcion>
+               
+                  <fac:Total>286.08</fac:Total> <!--Precio sin IGV x Cantidad-->
+                  <fac:UnidadMedida>NIU</fac:UnidadMedida>                  
+                  <fac:ValorVentaUnitario>286.08</fac:ValorVentaUnitario> <!--Precio sin IGV-->
+                  <fac:ValorVentaUnitarioIncIgv>337.57</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
+               </fac:En_ComprobanteDetalle>
+            </fac:ComprobanteDetalle>
+         
+          
+            <fac:Emisor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>150116</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>contactoemisor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto emisor</fac:Nombre>                  
+                  <fac:Telefono>(511)207-8000</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Lima</fac:Departamento>               
+               <fac:Direccion>JR. Domingo cuoto 780</fac:Direccion>               
+               <fac:Distrito>Lince</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20112811096</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://tci.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>callao</fac:Provincia>               
+               <fac:RazonSocial>Razon social TCI</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
+            </fac:Emisor>
+            
+            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>            
+            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>
+            <fac:HoraEmision>09:00:00</fac:HoraEmision>
+            <fac:ImporteTotal>1012.72</fac:ImporteTotal>  
+
+            <fac:Leyenda>
+               <fac:En_Leyenda>                  
+                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Valor>TRESCIENTOS TREINTA Y SIETE Y 57/100 SOLES</fac:Valor>
+               </fac:En_Leyenda>
+            </fac:Leyenda>
+
+            <fac:Moneda>PEN</fac:Moneda>            
+            <fac:MontoTotales>               
+               <fac:Gravado>                  
+                  <fac:GrabadoIGV>                     
+                     <fac:MontoBase>858.24</fac:MontoBase>                     
+                     <fac:MontoTotalImpuesto>154.48</fac:MontoTotalImpuesto>                     
+                     <fac:Porcentaje>18.00</fac:Porcentaje>
+                  </fac:GrabadoIGV>                  
+                  <fac:Total>154.48</fac:Total>
+               </fac:Gravado>
+            </fac:MontoTotales>           
+          
+           <fac:Receptor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>020202</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>receptor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto receptor</fac:Nombre>                  
+                  <fac:Telefono>999999999</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Departamento callao</fac:Departamento>
+               <fac:Direccion>Av. los claveles 2222</fac:Direccion>               
+               <fac:Distrito>Distrito Miraflores</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC 2222222</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20511111111</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://www.google222.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>Provincia callao 2</fac:Provincia>               
+               <fac:RazonSocial>Razon social 2</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
+            </fac:Receptor>
+            
+            <fac:SerieNumero>FV01-52</fac:SerieNumero>
+            <fac:TipoComprobante>01</fac:TipoComprobante>
+            <fac:TipoOperacion>0101</fac:TipoOperacion> 
+                    
+            <fac:TotalImpuesto>154.48</fac:TotalImpuesto>
+            <fac:TotalPrecioVenta>1012.71</fac:TotalPrecioVenta>            
+            <fac:TotalValorVenta>858.24</fac:TotalValorVenta>
+         </tem:Comprobante>
+      </tem:RegistroComprobante>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="cc99b4ff-9a61-4d92-9486-6011010e45ea"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="003_Gravada_Cargo" id="03640203-25d6-4e6b-8bfe-7a9ce5b1cb2e"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="003_Gravada_Cargo" id="ee3c64ed-c0fa-4938-b5be-2cf4215ec9e4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:RegistroComprobante>         
+         <tem:Comprobante>
+         <fac:ComprobanteDetalle>               
+               <fac:En_ComprobanteDetalle>                  
+                  <fac:Cantidad>1.00</fac:Cantidad>                  
+                  <fac:Codigo>617000093</fac:Codigo>
+                  <fac:CodigoSunat>80161504</fac:CodigoSunat>
+                  <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>                                   
+                  <fac:ComprobanteDetalleImpuestos>                     
+                     <fac:En_ComprobanteDetalleImpuestos>                        
+                        <fac:AfectacionIGV>10</fac:AfectacionIGV>                        
+                        <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>                        
+                        <fac:CodigoTributo>VAT</fac:CodigoTributo>                        
+                        <fac:MontoBase>286.08</fac:MontoBase>  <!--Precio sin IGV-->                      
+                        <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto> <!--IGV-->                       
+                        <fac:NombreTributo>IGV</fac:NombreTributo>                        
+                        <fac:Porcentaje>18.00</fac:Porcentaje>
+                     </fac:En_ComprobanteDetalleImpuestos>                  
+                  </fac:ComprobanteDetalleImpuestos>      
+                  <fac:Descripcion>Descripcion 1</fac:Descripcion>            
+                  <fac:ImpuestoTotal>51.49</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
+                  <fac:Item>1</fac:Item> <!--Correlativo-->   
+                  <fac:MultiDescripcion>
+                     <arr:string>MultiDescripcion 1</arr:string>
+                     <arr:string>MultiDescripcion 2</arr:string>
+                     <arr:string>MultiDescripcion 3</arr:string>
+                  </fac:MultiDescripcion>
+               
+                  <fac:Total>286.08</fac:Total> <!--Precio sin IGV x Cantidad-->
+                  <fac:UnidadMedida>NIU</fac:UnidadMedida>                  
+                  <fac:ValorVentaUnitario>286.08</fac:ValorVentaUnitario> <!--Precio sin IGV-->
+                  <fac:ValorVentaUnitarioIncIgv>337.57</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
+               </fac:En_ComprobanteDetalle>
+            </fac:ComprobanteDetalle>
+         
+            <fac:DescuentoCargo>            
+               <fac:En_DescuentoCargo>                  
+                  <fac:CodigoMotivo>50</fac:CodigoMotivo>                  
+                  <fac:Factor>0.0593</fac:Factor>                  
+                  <fac:Indicador>true</fac:Indicador>                  
+                  <fac:MontoBase>337.57</fac:MontoBase>                  
+                  <fac:MontoTotal>20.00</fac:MontoTotal>
+                  <fac:Motivo>Cargo</fac:Motivo>
+               </fac:En_DescuentoCargo>
+            </fac:DescuentoCargo>
+            
+            <fac:Emisor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>150116</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>contactoemisor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto emisor</fac:Nombre>                  
+                  <fac:Telefono>(511)207-8000</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Lima</fac:Departamento>               
+               <fac:Direccion>JR. Domingo cuoto 780</fac:Direccion>               
+               <fac:Distrito>Lince</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20112811096</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://tci.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>callao</fac:Provincia>               
+               <fac:RazonSocial>Razon social TCI</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
+            </fac:Emisor>
+            
+            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
+            <fac:HoraEmision>09:00:00</fac:HoraEmision>
+            <fac:ImporteTotal>357.57</fac:ImporteTotal>  
+
+            <fac:Leyenda>
+               <fac:En_Leyenda>                  
+                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Valor>TRESCIENTOS TREINTA Y SIETE Y 57/100 SOLES</fac:Valor>
+               </fac:En_Leyenda>
+            </fac:Leyenda>
+
+            <fac:Moneda>PEN</fac:Moneda>            
+            <fac:MontoTotales>               
+               <fac:Gravado>                  
+                  <fac:GrabadoIGV>                     
+                     <fac:MontoBase>286.08</fac:MontoBase>                     
+                     <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
+                     <fac:Porcentaje>18.00</fac:Porcentaje>
+                  </fac:GrabadoIGV>                  
+                  <fac:Total>51.49</fac:Total>
+               </fac:Gravado>
+            </fac:MontoTotales>           
+          
+           <fac:Receptor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>020202</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>receptor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto receptor</fac:Nombre>                  
+                  <fac:Telefono>999999999</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Departamento callao</fac:Departamento>
+               <fac:Direccion>Av. los claveles 2222</fac:Direccion>               
+               <fac:Distrito>Distrito Miraflores</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC 2222222</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20511111111</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://www.google222.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>Provincia callao 2</fac:Provincia>               
+               <fac:RazonSocial>Razon social 2</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
+            </fac:Receptor>
+            
+            <fac:SerieNumero>FV01-53</fac:SerieNumero>
+            <fac:TipoComprobante>01</fac:TipoComprobante>
+            <fac:TipoOperacion>0101</fac:TipoOperacion> 
+            <fac:TotalCargo>20.00</fac:TotalCargo>
+            <fac:TotalDescuento>0</fac:TotalDescuento>   
+            <fac:TotalImpuesto>51.49</fac:TotalImpuesto>
+            <fac:TotalPrecioVenta>337.57</fac:TotalPrecioVenta>            
+            <fac:TotalValorVenta>286.08</fac:TotalValorVenta>
+         </tem:Comprobante>
+      </tem:RegistroComprobante>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="9862c868-b270-4eb4-ba04-8f1a2e8e4f8e"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="004_Gravada_Descuento" id="c12a25ec-9e86-4f05-9ce3-fb4ed2129550"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="004_Gravada_Descuento" id="b8d47a67-5be8-47ed-b616-d361dfc02733"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:RegistroComprobante>         
+         <tem:Comprobante>
+         <fac:ComprobanteDetalle>               
+               <fac:En_ComprobanteDetalle>                  
+                  <fac:Cantidad>1.00</fac:Cantidad>                  
+                  <fac:Codigo>617000093</fac:Codigo>
+                  <fac:CodigoSunat>80161504</fac:CodigoSunat>
+                  <fac:CodigoTipoPrecio>01</fac:CodigoTipoPrecio>                                   
+                  <fac:ComprobanteDetalleImpuestos>                     
+                     <fac:En_ComprobanteDetalleImpuestos>                        
+                        <fac:AfectacionIGV>10</fac:AfectacionIGV>                        
+                        <fac:CodigoInternacionalTributo>1000</fac:CodigoInternacionalTributo>                        
+                        <fac:CodigoTributo>VAT</fac:CodigoTributo>                        
+                        <fac:MontoBase>286.08</fac:MontoBase>  <!--Precio sin IGV-->                      
+                        <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto> <!--IGV-->                       
+                        <fac:NombreTributo>IGV</fac:NombreTributo>                        
+                        <fac:Porcentaje>18.00</fac:Porcentaje>
+                     </fac:En_ComprobanteDetalleImpuestos>                  
+                  </fac:ComprobanteDetalleImpuestos>      
+                  <fac:Descripcion>Descripcion 1</fac:Descripcion>            
+                  <fac:ImpuestoTotal>51.49</fac:ImpuestoTotal>  <!--Sumatoria del monto total impuesto-->                  
+                  <fac:Item>1</fac:Item> <!--Correlativo-->   
+                  <fac:MultiDescripcion>
+                     <arr:string>MultiDescripcion 1</arr:string>
+                     <arr:string>MultiDescripcion 2</arr:string>
+                     <arr:string>MultiDescripcion 3</arr:string>
+                  </fac:MultiDescripcion>
+               
+                  <fac:Total>286.08</fac:Total> <!--Precio sin IGV x Cantidad-->
+                  <fac:UnidadMedida>NIU</fac:UnidadMedida>                  
+                  <fac:ValorVentaUnitario>286.08</fac:ValorVentaUnitario> <!--Precio sin IGV-->
+                  <fac:ValorVentaUnitarioIncIgv>337.57</fac:ValorVentaUnitarioIncIgv><!--Precio con IGV-->
+               </fac:En_ComprobanteDetalle>
+            </fac:ComprobanteDetalle>
+         
+            <fac:DescuentoCargo>            
+               <fac:En_DescuentoCargo>                  
+                  <fac:CodigoMotivo>03</fac:CodigoMotivo>                  
+                  <fac:Factor>0.0593</fac:Factor>                  
+                  <fac:Indicador>false</fac:Indicador>                  
+                  <fac:MontoBase>337.57</fac:MontoBase>                  
+                  <fac:MontoTotal>20.00</fac:MontoTotal>
+                  <fac:Motivo>Descuento</fac:Motivo>
+               </fac:En_DescuentoCargo>
+            </fac:DescuentoCargo>
+            
+            <fac:Emisor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>150116</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>contactoemisor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto emisor</fac:Nombre>                  
+                  <fac:Telefono>(511)207-8000</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Lima</fac:Departamento>               
+               <fac:Direccion>JR. Domingo cuoto 780</fac:Direccion>               
+               <fac:Distrito>Lince</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20112811096</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://tci.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>callao</fac:Provincia>               
+               <fac:RazonSocial>Razon social TCI</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
+            </fac:Emisor>
+            
+            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
+            <fac:HoraEmision>09:00:00</fac:HoraEmision>
+            <fac:ImporteTotal>317.57</fac:ImporteTotal>  
+
+            <fac:Leyenda>
+               <fac:En_Leyenda>                  
+                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Valor>TRESCIENTOS TREINTA Y SIETE Y 57/100 SOLES</fac:Valor>
+               </fac:En_Leyenda>
+            </fac:Leyenda>
+
+            <fac:Moneda>PEN</fac:Moneda>            
+            <fac:MontoTotales>               
+               <fac:Gravado>                  
+                  <fac:GrabadoIGV>                     
+                     <fac:MontoBase>286.08</fac:MontoBase>                     
+                     <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
+                     <fac:Porcentaje>18.00</fac:Porcentaje>
+                  </fac:GrabadoIGV>                  
+                  <fac:Total>51.49</fac:Total>
+               </fac:Gravado>
+            </fac:MontoTotales>           
+          
+           <fac:Receptor>               
+               <fac:CodigoDomicilioFiscal>0002</fac:CodigoDomicilioFiscal>               
+               <fac:CodigoPais>PE</fac:CodigoPais>               
+               <fac:CodigoUbigeo>020202</fac:CodigoUbigeo>
+               <fac:Contacto>                  
+                  <fac:Correo>receptor@tci.net.pe</fac:Correo>                  
+                  <fac:Nombre>contacto receptor</fac:Nombre>                  
+                  <fac:Telefono>999999999</fac:Telefono>
+               </fac:Contacto>               
+               <fac:Departamento>Departamento callao</fac:Departamento>
+               <fac:Direccion>Av. los claveles 2222</fac:Direccion>               
+               <fac:Distrito>Distrito Miraflores</fac:Distrito>               
+               <fac:NombreComercial>Nombre comercial SAC 2222222</fac:NombreComercial>               
+               <fac:NumeroDocumentoIdentidad>20511111111</fac:NumeroDocumentoIdentidad>               
+               <fac:PaginaWeb>http://www.google222.com.pe</fac:PaginaWeb>               
+               <fac:Provincia>Provincia callao 2</fac:Provincia>               
+               <fac:RazonSocial>Razon social 2</fac:RazonSocial>               
+               <fac:TipoDocumentoIdentidad>6</fac:TipoDocumentoIdentidad>               
+               <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
+            </fac:Receptor>
+            
+            <fac:SerieNumero>FV01-30</fac:SerieNumero>
+            <fac:TipoComprobante>01</fac:TipoComprobante>
+            <fac:TipoOperacion>0101</fac:TipoOperacion> 
+            <fac:TotalCargo>0.00</fac:TotalCargo>
+            <fac:TotalDescuento>20.00</fac:TotalDescuento>   
+            <fac:TotalImpuesto>51.49</fac:TotalImpuesto>
+            <fac:TotalPrecioVenta>337.57</fac:TotalPrecioVenta>            
+            <fac:TotalValorVenta>286.08</fac:TotalValorVenta>
+         </tem:Comprobante>
+      </tem:RegistroComprobante>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="4e5fb04c-d462-45f2-8654-6ce3b4ed8625"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="baece305-7703-46ca-a438-15a54caecd12" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="002_NotaCredito" searchProperties="true"><con:settings/><con:testStep type="request" name="001_gravada_Item" id="7e60cb1e-188d-4454-b352-ae5906681ec9"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IService1</con:interface><con:operation>RegistroComprobante</con:operation><con:request name="001_gravada_Item" id="f91da8e0-8c6a-4e01-8b72-bac16446df04"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:57980/Service1.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:fac="http://schemas.datacontract.org/2004/07/FactElec.CapaEntidad.RegistroComprobante" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
    <soapenv:Header/>
    <soapenv:Body>
       <tem:RegistroComprobante>         
@@ -708,4 +1090,4 @@
          </tem:Comprobante>
       </tem:RegistroComprobante>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ffee8193-fff6-452e-ae2f-37b720dec7db"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-10-28</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ffee8193-fff6-452e-ae2f-37b720dec7db"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-10-28</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-11-04</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

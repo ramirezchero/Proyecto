@@ -506,6 +506,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 Value = Comprobante.HoraEmision
             };
 
+            
+
             creditNote.DocumentCurrencyCode = new DocumentCurrencyCodeType
             {
                 listAgencyName = "United Nations Economic Commission for Europe",

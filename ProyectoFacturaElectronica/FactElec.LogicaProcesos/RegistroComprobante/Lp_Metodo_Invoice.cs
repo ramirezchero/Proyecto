@@ -210,17 +210,22 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
                 {
+                    AllowanceChargeReason =new AllowanceChargeReasonType[]
+                    {
+                        new AllowanceChargeReasonType{ Value =oDescar.Motivo }
+                    },
                     ChargeIndicator = new ChargeIndicatorType
                     {
                         Value = oDescar.Indicador
                     },
+                   
                     AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
                     {
                         listAgencyName = "PE:SUNAT",
                         listName = "Cargo/descuento",
                         listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
                         Value = oDescar.CodigoMotivo
-                    },
+                    },                    
                     MultiplierFactorNumeric = new MultiplierFactorNumericType
                     {
                         Value = oDescar.Factor
@@ -261,18 +266,28 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 {
                     Value = Comprobante.ImporteTotal,
                     currencyID = Comprobante.Moneda.Trim()
-                },
-                ChargeTotalAmount = new ChargeTotalAmountType
+                }
+            };
+
+            if (Comprobante.TotalCargo > 0) {
+                ChargeTotalAmountType oChargeTotalAmount = new ChargeTotalAmountType
                 {
                     Value = Comprobante.TotalCargo,
                     currencyID = Comprobante.Moneda.Trim()
-                },
-                AllowanceTotalAmount = new AllowanceTotalAmountType
+                };
+                oTotal.ChargeTotalAmount = oChargeTotalAmount;
+            }
+
+            if (Comprobante.TotalDescuento > 0)
+            {
+                AllowanceTotalAmountType oAllowanceTotalAmount = new AllowanceTotalAmountType
                 {
                     Value = Comprobante.TotalDescuento,
                     currencyID = Comprobante.Moneda.Trim()
-                }
-            };
+                };
+                oTotal.AllowanceTotalAmount = oAllowanceTotalAmount;
+            }
+
             invoice.LegalMonetaryTotal = oTotal;
 
         }
@@ -427,6 +442,10 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 Value = "2.1"
             };
 
+            invoice.DueDate = new DueDateType
+            {
+                Value = Comprobante.FechaVencimiento
+            };
             invoice.IssueDate = new IssueDateType
             {
                 Value = Comprobante.FechaEmision
