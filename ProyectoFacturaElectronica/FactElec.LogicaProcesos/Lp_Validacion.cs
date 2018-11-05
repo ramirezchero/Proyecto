@@ -2,6 +2,7 @@
 using FactElec.CapaEntidad.RegistroComprobante;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,12 +19,54 @@ namespace FactElec.LogicaProceso
             try
             {
                 List<En_Validacion> validaciones = new Da_Validacion().ListarValidaciones();
-                //respuesta = ValidarEntidad(validaciones, ref esValido, comprobante);
+                respuesta = ValidarEntidad(validaciones, comprobante, ref esValido);
+                if (!esValido) return respuesta;
+
                 if (comprobante.ComprobanteDetalle != null)
                 {
                     foreach (En_ComprobanteDetalle detalle in comprobante.ComprobanteDetalle)
                     {
                         respuesta = ValidarEntidad(validaciones, detalle, ref esValido);
+                        if (!esValido) return respuesta;
+
+                        if (detalle.ComprobanteDetalleImpuestos != null)
+                        {
+                            foreach (En_ComprobanteDetalleImpuestos detalleImpuesto in detalle.ComprobanteDetalleImpuestos)
+                            {
+                                respuesta = ValidarEntidad(validaciones, detalleImpuesto, ref esValido);
+                                if (!esValido) return respuesta;
+                            }
+                        }
+                    }
+                }
+
+                if (comprobante.DescuentoCargo != null)
+                {
+                    foreach (En_DescuentoCargo descuentoCargo in comprobante.DescuentoCargo)
+                    {
+                        respuesta = ValidarEntidad(validaciones, descuentoCargo, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.DocumentoReferenciaDespacho != null)
+                {
+                    foreach (En_DocumentoReferencia documentoReferenciaDespacho in comprobante.DocumentoReferenciaDespacho)
+                    {
+                        respuesta = ValidarEntidad(validaciones, documentoReferenciaDespacho, ref esValido);
+                        if (!esValido) return respuesta;
+                    }
+                }
+
+                if (comprobante.Emisor != null)
+                {
+                    respuesta = ValidarEntidad(validaciones, comprobante.Emisor, ref esValido);
+                    if (!esValido) return respuesta;
+
+                    if (comprobante.Emisor.Contacto != null)
+                    {
+                        respuesta = ValidarEntidad(validaciones, comprobante.Emisor.Contacto, ref esValido);
+                        if (!esValido) return respuesta;
                     }
                 }
             }
@@ -56,7 +99,21 @@ namespace FactElec.LogicaProceso
                         switch (validacion.TipoDeDato)
                         {
                             case TipoDato.Boolean: break;
-                            case TipoDato.Date: break;
+                            case TipoDato.Date:
+                                {
+                                    string valorString = (string)valor;
+                                    if (!EsTextoVacio(validacion.Formato))
+                                    {
+                                        DateTime dt = new DateTime();
+                                        CultureInfo ci = new CultureInfo("es-PE");
+                                        if (!DateTime.TryParseExact(valorString, validacion.Formato, ci, DateTimeStyles.None, out dt))
+                                        {
+                                            esValido = false;
+                                            return Respuesta("01", $"La propiedad {nombrePropiedad} de la entidad {nombreEntidad} no cumple con el formato \"{validacion.Formato}\".");
+                                        }
+                                    }
+                                    break;
+                                }
                             case TipoDato.Decimal:
                                 {
                                     if (valor != null)

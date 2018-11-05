@@ -407,7 +407,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FC03-1</fac:SerieNumero>
+            <fac:SerieNumero>F003-1</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
             <fac:TotalCargo>0.19</fac:TotalCargo>

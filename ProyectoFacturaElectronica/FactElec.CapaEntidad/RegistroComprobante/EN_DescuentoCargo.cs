@@ -12,8 +12,6 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public string CodigoMotivo { get; set; }
         public decimal MontoBase { get; set; }
         public decimal MontoTotal { get; set; }
-
         public decimal Factor { get; set; }
-
     }
 }
