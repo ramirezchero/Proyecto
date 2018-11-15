@@ -1,0 +1,12 @@
+Estimados :
+ 
+Ejemplos de trama SOAP para enviar y consultar las respuesta de comprobantes
+ 
+http://proy.ose.tci.net.pe:80/ol-ti-itcpe/billService
+ 
+Envío de comprobantes sendBill
+Obtener respuesta getStatusCdr
+ 
+ 
+Para ver el arreglo de bytes de OSE usar la siguiente URL  https://www.freeformatter.com/base64-encoder.html#ad-output
+ 
