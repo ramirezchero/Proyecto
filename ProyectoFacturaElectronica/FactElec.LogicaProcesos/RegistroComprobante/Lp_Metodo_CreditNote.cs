@@ -1,5 +1,6 @@
 ﻿using FactElec.CapaEntidad.ComprobanteElectronico.CreditNote;
 using FactElec.CapaEntidad.RegistroComprobante;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,23 +17,38 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
 
-            CreditNoteType creditNote = new CreditNoteType();
-            LlenarCabecera(Comprobante, ref creditNote);
-            LlenarDocumentoRefenciado(Comprobante, ref creditNote);
-            LlenarEmisor(Comprobante.Emisor, ref creditNote);
-            LlenarReceptor(Comprobante.Receptor, ref creditNote);
-            LlenarDescuentoCargo(Comprobante, ref creditNote);
-            LlenarMontosIGV(Comprobante, ref creditNote);
-            LlenarMontosTotales(Comprobante, ref creditNote);
-            LlenarDetalle(Comprobante, ref creditNote);
-            CrearXML(ref creditNote, Comprobante);
+            try
+            {
+                CreditNoteType creditNote = new CreditNoteType();
+                LlenarCabecera(Comprobante, ref creditNote);
+                LlenarDocumentoRefenciado(Comprobante, ref creditNote);
+                LlenarEmisor(Comprobante.Emisor, ref creditNote);
+                LlenarReceptor(Comprobante.Receptor, ref creditNote);
+                LlenarDescuentoCargo(Comprobante, ref creditNote);
+                LlenarMontosIGV(Comprobante, ref creditNote);
+                LlenarMontosTotales(Comprobante, ref creditNote);
+                LlenarDetalle(Comprobante, ref creditNote);
+                string codigoHASH = "", codigoQR = "", nombreXML = "";
+                byte[] archivoXML = null;
+                nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+                CrearXML(ref creditNote, Comprobante, ref codigoHASH, ref archivoXML);
 
-            oRespuesta.Codigo = "0";
-            oRespuesta.Descripcion = "Se registro correctamente";
+                string mensajeRetorno = "";
+                Lp_Comprobante lpComprobante = new Lp_Comprobante();
+                bool resultado = lpComprobante.InsertarComprobante(Comprobante, nombreXML, archivoXML, codigoHASH, codigoQR, ref mensajeRetorno);
+
+                oRespuesta.Codigo = (resultado) ? "0" : "99";
+                oRespuesta.Descripcion = mensajeRetorno;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Codigo = "99";
+                oRespuesta.Descripcion = "Ocurrió un error general, mensaje: " + ex.Message.ToString();
+            }
             return oRespuesta;
         }
 
-        void LlenarDocumentoRefenciado(En_ComprobanteElectronico Comprobante,ref CreditNoteType creditNote)
+        void LlenarDocumentoRefenciado(En_ComprobanteElectronico Comprobante, ref CreditNoteType creditNote)
         {
             if (Comprobante.DocumentoSustentoNota != null)
             {
@@ -88,10 +104,11 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     oListaReferencia.Add(oreferencia);
                 }
 
-                if (oListaReferencia.Count > 0) {
+                if (oListaReferencia.Count > 0)
+                {
                     creditNote.BillingReference = oListaReferencia.ToArray();
                 }
-                
+
 
 
             }
@@ -419,7 +436,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void CrearXML(ref CreditNoteType creditNote, En_ComprobanteElectronico Comprobante)
+        void CrearXML(ref CreditNoteType creditNote, En_ComprobanteElectronico Comprobante, ref string codigoHASH, ref byte[] archivoXML)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(CreditNoteType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -432,8 +449,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
             xmlNameSpaceNom.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-
-
 
             string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
 
@@ -467,12 +482,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             // Firma del comprobante
             var objFirma = new Firma.FirmaComprobante();
-            var codigoHash = "";
             var document = new XmlDocument();
             document.Load(ruta);
             // Enviamos el RUC de la empresa, para ello el certificado debe estar registrado
-            objFirma.FirmarXml(document, "20112811096", ref codigoHash);
+            objFirma.FirmarXml(document, Comprobante.Emisor.NumeroDocumentoIdentidad, ref codigoHASH);
             document.Save(ruta);
+
+            archivoXML = File.ReadAllBytes(ruta);
         }
 
         void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref CreditNoteType creditNote)
@@ -506,7 +522,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 Value = Comprobante.HoraEmision
             };
 
-            
+
 
             creditNote.DocumentCurrencyCode = new DocumentCurrencyCodeType
             {

@@ -1,5 +1,6 @@
 ﻿using FactElec.CapaEntidad.ComprobanteElectronico.Invoice;
 using FactElec.CapaEntidad.RegistroComprobante;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,18 +17,33 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
 
-            InvoiceType invoice = new InvoiceType();
-            LlenarCabecera(Comprobante, ref invoice);
-            LlenarEmisor(Comprobante.Emisor, ref invoice);
-            LlenarReceptor(Comprobante.Receptor, ref invoice);
-            LlenarDescuentoCargo(Comprobante, ref invoice);
-            LlenarMontosIGV(Comprobante, ref invoice);
-            LlenarMontosTotales(Comprobante, ref invoice);
-            LlenarDetalle(Comprobante, ref invoice);
-            CrearXML(ref invoice, Comprobante);
+            try
+            {
+                InvoiceType invoice = new InvoiceType();
+                LlenarCabecera(Comprobante, ref invoice);
+                LlenarEmisor(Comprobante.Emisor, ref invoice);
+                LlenarReceptor(Comprobante.Receptor, ref invoice);
+                LlenarDescuentoCargo(Comprobante, ref invoice);
+                LlenarMontosIGV(Comprobante, ref invoice);
+                LlenarMontosTotales(Comprobante, ref invoice);
+                LlenarDetalle(Comprobante, ref invoice);
+                string codigoHASH = "", codigoQR = "", nombreXML = "";
+                byte[] archivoXML = null;
+                nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+                CrearXML(ref invoice, Comprobante, ref codigoHASH, ref archivoXML);
 
-            oRespuesta.Codigo = "0";
-            oRespuesta.Descripcion = "Se registro correctamente";
+                string mensajeRetorno = "";
+                Lp_Comprobante lpComprobante = new Lp_Comprobante();
+                bool resultado = lpComprobante.InsertarComprobante(Comprobante, nombreXML, archivoXML, codigoHASH, codigoQR, ref mensajeRetorno);
+
+                oRespuesta.Codigo = (resultado) ? "0" : "99";
+                oRespuesta.Descripcion = mensajeRetorno;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Codigo = "99";
+                oRespuesta.Descripcion = "Ocurrió un error general, mensaje: " + ex.Message.ToString();
+            }
             return oRespuesta;
         }
 
@@ -210,7 +226,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
                 {
-                    AllowanceChargeReason =new AllowanceChargeReasonType[]
+                    AllowanceChargeReason = new AllowanceChargeReasonType[]
                     {
                         new AllowanceChargeReasonType{ Value =oDescar.Motivo }
                     },
@@ -218,14 +234,14 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                     {
                         Value = oDescar.Indicador
                     },
-                   
+
                     AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
                     {
                         listAgencyName = "PE:SUNAT",
                         listName = "Cargo/descuento",
                         listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
                         Value = oDescar.CodigoMotivo
-                    },                    
+                    },
                     MultiplierFactorNumeric = new MultiplierFactorNumericType
                     {
                         Value = oDescar.Factor
@@ -269,7 +285,8 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 }
             };
 
-            if (Comprobante.TotalCargo > 0) {
+            if (Comprobante.TotalCargo > 0)
+            {
                 ChargeTotalAmountType oChargeTotalAmount = new ChargeTotalAmountType
                 {
                     Value = Comprobante.TotalCargo,
@@ -368,7 +385,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante)
+        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante, ref string codigoHASH, ref byte[] archivoXML)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -380,7 +397,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
 
-            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml",Comprobante.Emisor.NumeroDocumentoIdentidad,Comprobante.TipoComprobante,Comprobante.SerieNumero);
+            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
 
             string sxml = "";
             Encoding utf8noBOM = new UTF8Encoding(false);
@@ -412,12 +429,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             // Firma del comprobante
             var objFirma = new Firma.FirmaComprobante();
-            var codigoHash = "";
             var document = new XmlDocument();
             document.Load(ruta);
             // Enviamos el RUC de la empresa, para ello el certificado debe estar registrado
-            objFirma.FirmarXml(document, "20112811096", ref codigoHash);
+            objFirma.FirmarXml(document, Comprobante.Emisor.NumeroDocumentoIdentidad, ref codigoHASH);
             document.Save(ruta);
+
+            archivoXML = File.ReadAllBytes(ruta);
         }
 
         void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
@@ -428,7 +446,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 // ext:ExtensionContent con un valor vacío
                 ExtensionContent = new XmlDocument().CreateElement("Borrar")
             };
-            
+
             UBLExtensionType[] ublExtensions = { uBLExtensionType };
             invoice.UBLExtensions = ublExtensions;
             //Serie y Numero          

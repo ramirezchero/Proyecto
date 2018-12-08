@@ -17,16 +17,10 @@ namespace FactElec.CapaEntidad.RegistroComprobante
         public string Departamento { get; set; }
         public string Provincia { get; set; }
         public string CodigoUbigeo { get; set; }
-
         public string CodigoDomicilioFiscal { get; set; }
-
         public string Urbanizacion { get; set; }
-
         public string Direccion { get; set; }
-
         public string CodigoPais { get; set; }
-
         public En_Contacto Contacto { get; set; }
-
     }
 }

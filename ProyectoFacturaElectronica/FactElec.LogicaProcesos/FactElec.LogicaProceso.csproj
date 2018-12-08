@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lp_Comprobante.cs" />
     <Compile Include="Lp_Validacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroComprobante\Lp_Metodo_DebitNote.cs" />

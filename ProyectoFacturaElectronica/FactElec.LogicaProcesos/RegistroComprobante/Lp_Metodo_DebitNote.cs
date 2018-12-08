@@ -1,5 +1,6 @@
 ﻿using FactElec.CapaEntidad.ComprobanteElectronico.DebitNote;
 using FactElec.CapaEntidad.RegistroComprobante;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,19 +17,35 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
 
-            DebitNoteType debitNote = new DebitNoteType();
-            LlenarCabecera(Comprobante, ref debitNote);
-            LlenarDocumentoRefenciado(Comprobante, ref debitNote);
-            LlenarEmisor(Comprobante.Emisor, ref debitNote);
-            LlenarReceptor(Comprobante.Receptor, ref debitNote);
-            LlenarDescuentoCargo(Comprobante, ref debitNote);
-            LlenarMontosIGV(Comprobante, ref debitNote);
-            LlenarMontosTotales(Comprobante, ref debitNote);
-            LlenarDetalle(Comprobante, ref debitNote);
-            CrearXML(ref debitNote, Comprobante);
+            try
+            {
+                DebitNoteType debitNote = new DebitNoteType();
+                LlenarCabecera(Comprobante, ref debitNote);
+                LlenarDocumentoRefenciado(Comprobante, ref debitNote);
+                LlenarEmisor(Comprobante.Emisor, ref debitNote);
+                LlenarReceptor(Comprobante.Receptor, ref debitNote);
+                LlenarDescuentoCargo(Comprobante, ref debitNote);
+                LlenarMontosIGV(Comprobante, ref debitNote);
+                LlenarMontosTotales(Comprobante, ref debitNote);
+                LlenarDetalle(Comprobante, ref debitNote);
 
-            oRespuesta.Codigo = "0";
-            oRespuesta.Descripcion = "Se registro correctamente";
+                string codigoHASH = "", codigoQR = "", nombreXML = "";
+                byte[] archivoXML = null;
+                nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+                CrearXML(ref debitNote, Comprobante, ref codigoHASH, ref archivoXML);
+
+                string mensajeRetorno = "";
+                Lp_Comprobante lpComprobante = new Lp_Comprobante();
+                bool resultado = lpComprobante.InsertarComprobante(Comprobante, nombreXML, archivoXML, codigoHASH, codigoQR, ref mensajeRetorno);
+
+                oRespuesta.Codigo = (resultado) ? "0" : "99";
+                oRespuesta.Descripcion = mensajeRetorno;
+            }
+            catch (Exception ex)
+            {
+                oRespuesta.Codigo = "99";
+                oRespuesta.Descripcion = "Ocurrió un error general, mensaje: " + ex.Message.ToString();
+            }
             return oRespuesta;
         }
 
@@ -420,7 +437,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void CrearXML(ref DebitNoteType debitNote, En_ComprobanteElectronico Comprobante)
+        void CrearXML(ref DebitNoteType debitNote, En_ComprobanteElectronico Comprobante, ref string codigoHASH, ref byte[] archivoXML)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(DebitNoteType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -434,7 +451,6 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
             xmlNameSpaceNom.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
-          
             string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
 
             string sxml = "";
@@ -467,12 +483,13 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             // Firma del comprobante
             var objFirma = new Firma.FirmaComprobante();
-            var codigoHash = "";
             var document = new XmlDocument();
             document.Load(ruta);
             // Enviamos el RUC de la empresa, para ello el certificado debe estar registrado
-            objFirma.FirmarXml(document, "20112811096", ref codigoHash);
+            objFirma.FirmarXml(document, Comprobante.Emisor.NumeroDocumentoIdentidad, ref codigoHASH);
             document.Save(ruta);
+
+            archivoXML = File.ReadAllBytes(ruta);
         }
 
         void LlenarCabecera(En_ComprobanteElectronico Comprobante, ref DebitNoteType debitNote)
@@ -527,7 +544,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             debitNote.Note = oListaNota.ToArray();
 
-           
+
 
             debitNote.CustomizationID = new CustomizationIDType
             {

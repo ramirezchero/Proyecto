@@ -63,6 +63,7 @@ namespace FactElec.Firma
             catch (Exception exception)
             {
                 log.Error(exception.Message, exception);
+                throw;
             }
             return xmlDocument;
         }

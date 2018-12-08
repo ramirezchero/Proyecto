@@ -339,7 +339,7 @@
                <fac:Direccion>JR. Domingo cuoto 780</fac:Direccion>               
                <fac:Distrito>Lince</fac:Distrito>               
                <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>               
-               <fac:NumeroDocumentoIdentidad>20112811096</fac:NumeroDocumentoIdentidad>               
+               <fac:NumeroDocumentoIdentidad>20045124245</fac:NumeroDocumentoIdentidad>               
                <fac:PaginaWeb>http://tci.com.pe</fac:PaginaWeb>               
                <fac:Provincia>callao</fac:Provincia>               
                <fac:RazonSocial>Razon social TCI</fac:RazonSocial>               
@@ -354,7 +354,7 @@
 
             <fac:Leyenda>
                <fac:En_Leyenda>                  
-                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Codigo>1000</fac:Codigo>                  
                   <fac:Valor>TRESCIENTOS TREINTA Y SIETE Y 57/100 SOLES</fac:Valor>
                </fac:En_Leyenda>
             </fac:Leyenda>
@@ -392,7 +392,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FV01-50</fac:SerieNumero>
+            <fac:SerieNumero>FV01-51</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
                     
