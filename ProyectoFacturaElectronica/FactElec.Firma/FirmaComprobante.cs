@@ -18,6 +18,7 @@ namespace FactElec.Firma
                     ArgumentException nex = new ArgumentException("El documento XML generado es nulo.");
                     throw nex;
                 }
+                
                 SignedXml signedXml = new SignedXml(xmlDoc);
                 Reference reference = new Reference()
                 {
@@ -59,6 +60,7 @@ namespace FactElec.Firma
                 signedXml = null;
                 xmlDigitalSignature = null;
                 xmlDocument = xmlDoc;
+                xmlDocument.PreserveWhitespace = true;
             }
             catch (Exception exception)
             {

@@ -339,7 +339,7 @@
                <fac:Direccion>JR. Domingo cuoto 780</fac:Direccion>               
                <fac:Distrito>Lince</fac:Distrito>               
                <fac:NombreComercial>Nombre comercial SAC</fac:NombreComercial>               
-               <fac:NumeroDocumentoIdentidad>20045124245</fac:NumeroDocumentoIdentidad>               
+               <fac:NumeroDocumentoIdentidad>20112811096</fac:NumeroDocumentoIdentidad>               
                <fac:PaginaWeb>http://tci.com.pe</fac:PaginaWeb>               
                <fac:Provincia>callao</fac:Provincia>               
                <fac:RazonSocial>Razon social TCI</fac:RazonSocial>               
@@ -347,8 +347,8 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
-            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
+            <fac:FechaEmision>2018-12-12</fac:FechaEmision>   
+            <fac:FechaVencimiento>2018-12-30</fac:FechaVencimiento>         
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>337.57</fac:ImporteTotal>  
 
@@ -392,12 +392,12 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FV01-51</fac:SerieNumero>
+            <fac:SerieNumero>FV01-72</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
                     
             <fac:TotalImpuesto>51.49</fac:TotalImpuesto>
-            <fac:TotalPrecioVenta>337.57</fac:TotalPrecioVenta>            
+            <fac:TotalPrecioVenta>999337.57</fac:TotalPrecioVenta>            
             <fac:TotalValorVenta>286.08</fac:TotalValorVenta>
          </tem:Comprobante>
       </tem:RegistroComprobante>

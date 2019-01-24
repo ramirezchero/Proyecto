@@ -76,6 +76,9 @@ BEGIN
 			([IdComprobante], [NombreXML], [ArchivoXML], [CodigoHash], [CodigoQR], [FechaRegistro])
 		VALUES
 			(@IdComprobante, @NombreXML, @ArchivoXML, @CodigoHash, @CodigoQR, @FechaRegistro)
+		
+		INSERT INTO PendienteEnvio (IdComprobante, Estado, Prioridad, TipoDocumento, FechaRegistro)
+		VALUES (@IdComprobante, 1, 1, 'CO', GETDATE())
 
 		-- DELETE FROM dbo.ControlRegistro WHERE IdEmpresa = @IdEmpresa AND TipoComprobante = @TipoComprobante AND SerieNumero = @SerieNumero
 		COMMIT TRANSACTION
