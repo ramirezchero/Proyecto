@@ -15,8 +15,23 @@ namespace FactElec.CapaDatos
         readonly string connectionString = ConfigurationManager.ConnectionStrings["cnx"].ConnectionString;
         readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Da_Comprobante));
 
-        public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string codigoQR, ref string mensajeRetorno)
+        public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string firma, ref string mensajeRetorno)
         {
+            StringBuilder firmaQR = new StringBuilder();
+            string[] serieNumero = comprobante.SerieNumero.Split('-');
+
+            firmaQR.Append(comprobante.Emisor.NumeroDocumentoIdentidad).Append('|');
+            firmaQR.Append(comprobante.TipoComprobante).Append('|');
+            firmaQR.Append(serieNumero[0]).Append('|');
+            firmaQR.Append(serieNumero[1]).Append('|');
+            firmaQR.Append(comprobante.TotalImpuesto.ToString()).Append('|');
+            firmaQR.Append(comprobante.ImporteTotal).Append('|');
+            firmaQR.Append(comprobante.FechaEmision).Append('|');
+            firmaQR.Append(comprobante.Receptor.TipoDocumentoIdentidad).Append('|');
+            firmaQR.Append(comprobante.Receptor.NumeroDocumentoIdentidad).Append('|');
+            firmaQR.Append(codigoHASH).Append('|');
+            firmaQR.Append(firma);
+
             SqlConnection cn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("dbo.usp_InsertarComprobante", cn)
             {
@@ -43,8 +58,8 @@ namespace FactElec.CapaDatos
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@NombreXML", SqlDbType = SqlDbType.VarChar, Size = 50, Value = nombreXML });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@ArchivoXML", SqlDbType = SqlDbType.VarBinary, Value = archivoXML });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoHash", SqlDbType = SqlDbType.VarChar, Value = codigoHASH });
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoQR", SqlDbType = SqlDbType.VarChar, Value = codigoQR });
-
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoQR", SqlDbType = SqlDbType.VarChar, Value = firmaQR.ToString() });
+            
             try
             {
                 cn.Open();

@@ -10,10 +10,10 @@ namespace FactElec.LogicaProceso
 {
     public class Lp_Comprobante
     {
-        public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string codigoQR, ref string mensajeRetorno)
+        public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string firma, ref string mensajeRetorno)
         {
             Da_Comprobante daComprobante = new Da_Comprobante();
-            return daComprobante.InsertarComprobante(comprobante, nombreXML, archivoXML, codigoHASH, codigoQR, ref mensajeRetorno);
+            return daComprobante.InsertarComprobante(comprobante, nombreXML, archivoXML, codigoHASH, firma, ref mensajeRetorno);
         }
     }
 }

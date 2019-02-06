@@ -27,14 +27,14 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 LlenarMontosIGV(Comprobante, ref invoice);
                 LlenarMontosTotales(Comprobante, ref invoice);
                 LlenarDetalle(Comprobante, ref invoice);
-                string codigoHASH = "", codigoQR = "", nombreXML = "";
+                string codigoHASH = "", nombreXML = "", firma = "";
                 byte[] archivoXML = null;
                 nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
-                CrearXML(ref invoice, Comprobante, ref codigoHASH, ref archivoXML);
+                CrearXML(ref invoice, Comprobante, ref codigoHASH, ref archivoXML, ref firma);
 
                 string mensajeRetorno = "";
                 Lp_Comprobante lpComprobante = new Lp_Comprobante();
-                bool resultado = lpComprobante.InsertarComprobante(Comprobante, nombreXML, archivoXML, codigoHASH, codigoQR, ref mensajeRetorno);
+                bool resultado = lpComprobante.InsertarComprobante(Comprobante, nombreXML, archivoXML, codigoHASH, firma, ref mensajeRetorno);
 
                 oRespuesta.Codigo = (resultado) ? "0" : "99";
                 oRespuesta.Descripcion = mensajeRetorno;
@@ -385,7 +385,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
         }
 
-        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante, ref string codigoHASH, ref byte[] archivoXML)
+        void CrearXML(ref InvoiceType invoice, En_ComprobanteElectronico Comprobante, ref string codigoHASH, ref byte[] archivoXML, ref string firma)
         {
             XmlSerializer oxmlSerializer = new XmlSerializer(typeof(InvoiceType));
             var xmlNameSpaceNom = new XmlSerializerNamespaces();
@@ -432,7 +432,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             var document = new XmlDocument();
             document.Load(ruta);
             // Enviamos el RUC de la empresa, para ello el certificado debe estar registrado
-            objFirma.FirmarXml(document, Comprobante.Emisor.NumeroDocumentoIdentidad, ref codigoHASH);
+            objFirma.FirmarXml(document, Comprobante.Emisor.NumeroDocumentoIdentidad, ref codigoHASH, ref firma);
             document.Save(ruta);
 
             archivoXML = File.ReadAllBytes(ruta);

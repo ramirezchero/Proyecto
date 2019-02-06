@@ -8,7 +8,7 @@ namespace FactElec.Firma
     public class FirmaComprobante
     {
         private readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(FirmaComprobante));
-        public XmlDocument FirmarXml(XmlDocument xmlDoc, string ruc, ref string codigoHash)
+        public XmlDocument FirmarXml(XmlDocument xmlDoc, string ruc, ref string codigoHash, ref string firma)
         {
             XmlDocument xmlDocument = null;
             try
@@ -18,7 +18,7 @@ namespace FactElec.Firma
                     ArgumentException nex = new ArgumentException("El documento XML generado es nulo.");
                     throw nex;
                 }
-                
+
                 SignedXml signedXml = new SignedXml(xmlDoc);
                 Reference reference = new Reference()
                 {
@@ -55,6 +55,7 @@ namespace FactElec.Firma
                     log.Info("Se firmó satisfactoriamente el comprobante.");
                 }
                 codigoHash = xmlDigitalSignature.ChildNodes[0].ChildNodes[2].ChildNodes[2].InnerText;
+                firma = xmlDigitalSignature.ChildNodes[1].InnerText;
                 keyInfo = null;
                 reference = null;
                 signedXml = null;
