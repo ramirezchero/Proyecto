@@ -1,6 +1,7 @@
 ﻿using FactElec.CapaEntidad.RegistroComprobante;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -51,7 +52,7 @@ namespace FactElec.CapaDatos
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@TotalDescuento", SqlDbType = SqlDbType.Decimal, Value = comprobante.TotalDescuento });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@TotalCargo", SqlDbType = SqlDbType.Decimal, Value = comprobante.TotalCargo });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@ImporteTotal", SqlDbType = SqlDbType.Decimal, Value = comprobante.ImporteTotal });
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@FechaVencimiento", SqlDbType = SqlDbType.VarChar, Size = 50, Value = comprobante.FechaVencimiento });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@FechaVencimiento", SqlDbType = SqlDbType.VarChar, Size = 50, Value = comprobante.FechaVencimiento ?? "" });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@HoraEmision", SqlDbType = SqlDbType.VarChar, Size = 8, Value = comprobante.HoraEmision });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@Moneda", SqlDbType = SqlDbType.VarChar, Size = 5, Value = comprobante.Moneda });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@TipoOperacion", SqlDbType = SqlDbType.VarChar, Size = 4, Value = comprobante.TipoOperacion });
@@ -59,7 +60,26 @@ namespace FactElec.CapaDatos
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@ArchivoXML", SqlDbType = SqlDbType.VarBinary, Value = archivoXML });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoHash", SqlDbType = SqlDbType.VarChar, Value = codigoHASH });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoQR", SqlDbType = SqlDbType.VarChar, Value = firmaQR.ToString() });
-            
+            if (comprobante.MontoTotales != null && comprobante.MontoTotales.Gravado != null)
+            {
+                En_GrabadoIGV gravadoIGV = comprobante.MontoTotales.Gravado.GravadoIGV;
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoTributo1001", SqlDbType = SqlDbType.VarChar, Size = 4, Value = "1001" });
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@MontoOperaciones1001", SqlDbType = SqlDbType.Decimal, Value = gravadoIGV.MontoBase });
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@MontoTotalImpuesto1001", SqlDbType = SqlDbType.Decimal, Value = gravadoIGV.MontoTotalImpuesto });
+            }
+
+            if (comprobante.DocumentoReferenciaNota != null && comprobante.DocumentoReferenciaNota.Count > 0)
+            {
+                DataTable tablaReferenciados = ToDataTable(comprobante.DocumentoReferenciaNota);
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@ComprobanteReferenciaNota", SqlDbType = SqlDbType.Structured, Value = tablaReferenciados });
+            }
+            if (comprobante.DocumentoSustentoNota != null)
+            {
+                En_DocumentoSustentoNota sustentoNota = comprobante.DocumentoSustentoNota;
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@SerieNumeroDocumentoSustento", SqlDbType = SqlDbType.VarChar, Size = 30, Value = sustentoNota.SerieNumero });
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@CodigoAnulacionDocumentoSustento", SqlDbType = SqlDbType.VarChar, Size = 10, Value = sustentoNota.CodigoMotivoAnulacion });
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@MotivoAnulacionDocumentoSustento", SqlDbType = SqlDbType.VarChar, Size = 500, Value = sustentoNota.MotivoAnulacion });
+            }
             try
             {
                 cn.Open();
@@ -82,6 +102,22 @@ namespace FactElec.CapaDatos
                 log.Error(mensajeRetorno, ex);
                 return false;
             }
+        }
+
+        public DataTable ToDataTable<T>(IList<T> data)
+        {
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
         }
     }
 }

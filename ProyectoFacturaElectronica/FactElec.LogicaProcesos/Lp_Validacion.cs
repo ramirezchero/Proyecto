@@ -111,9 +111,9 @@ namespace FactElec.LogicaProceso
                     respuesta = ValidarEntidad(validaciones, comprobante.MontoTotales.Gravado, ref esValido);
                     if (!esValido) return respuesta;
 
-                    if (comprobante.MontoTotales.Gravado.GrabadoIGV != null)
+                    if (comprobante.MontoTotales.Gravado.GravadoIGV != null)
                     {
-                        respuesta = ValidarEntidad(validaciones, comprobante.MontoTotales.Gravado.GrabadoIGV, ref esValido);
+                        respuesta = ValidarEntidad(validaciones, comprobante.MontoTotales.Gravado.GravadoIGV, ref esValido);
                         if (!esValido) return respuesta;
                     }
                 }

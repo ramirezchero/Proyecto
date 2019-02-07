@@ -362,11 +362,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>286.08</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>51.49</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -392,7 +392,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FV01-72</fac:SerieNumero>
+            <fac:SerieNumero>FV01-703</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
                     
@@ -896,7 +896,7 @@
 
             <fac:Leyenda>
                <fac:En_Leyenda>                  
-                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Codigo>1000</fac:Codigo>                  
                   <fac:Valor>VEINTIDOS CON 89/100 SOLES</fac:Valor>
                </fac:En_Leyenda>
             </fac:Leyenda>
@@ -904,11 +904,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>19.24</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>3.46</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>3.46</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -934,7 +934,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FC03-1</fac:SerieNumero>
+            <fac:SerieNumero>FC03-100</fac:SerieNumero>
             <fac:TipoComprobante>07</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
             <fac:TotalCargo>0.19</fac:TotalCargo>

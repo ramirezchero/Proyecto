@@ -10,7 +10,7 @@ namespace FactElec.CapaEntidad.RegistroComprobante
     {
         
         public decimal Total { get; set; }
-        public En_GrabadoIGV GrabadoIGV { get; set; }
+        public En_GrabadoIGV GravadoIGV { get; set; }
 
     }
 }

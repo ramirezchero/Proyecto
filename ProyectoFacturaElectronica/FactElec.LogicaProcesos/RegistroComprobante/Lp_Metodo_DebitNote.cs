@@ -369,9 +369,9 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             {
                 if (Comprobante.MontoTotales.Gravado != null)
                 {
-                    if (Comprobante.MontoTotales.Gravado.GrabadoIGV != null)
+                    if (Comprobante.MontoTotales.Gravado.GravadoIGV != null)
                     {
-                        TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoBase, Comprobante.MontoTotales.Gravado.GrabadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GrabadoIGV.Porcentaje, "1000", "IGV", "VAT");
+                        TaxSubtotalType oTotalGravado = LlenarSubTotalCabecera(Comprobante.MontoTotales.Gravado.GravadoIGV.MontoBase, Comprobante.MontoTotales.Gravado.GravadoIGV.MontoTotalImpuesto, Comprobante.Moneda, Comprobante.MontoTotales.Gravado.GravadoIGV.Porcentaje, "1000", "IGV", "VAT");
                         oListaSubtotal.Add(oTotalGravado);
                     }
 
