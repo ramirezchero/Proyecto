@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC89258E-F2F4-4E67-B49F-A7CB75A74140}</ProjectGuid>
+    <ProjectGuid>{A63AF367-6334-4EC6-A6A3-DEC1003BA35D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServicioRepresentImpresa.Entidad</RootNamespace>
-    <AssemblyName>ServicioRepresentImpresa.Entidad</AssemblyName>
+    <RootNamespace>ServicioRepresentImpresa.Log</RootNamespace>
+    <AssemblyName>ServicioRepresentImpresa.Log</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,11 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComprobanteElectronico\CreditNote\CreditNote.cs" />
-    <Compile Include="ComprobanteElectronico\DebitNote\DebitNoteType.cs" />
-    <Compile Include="ComprobanteElectronico\Invoice\InvoiceType.cs" />
-    <Compile Include="En_Archivo.cs" />
+    <Compile Include="ConfiguracionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServicioRepresentImpresa.Negocio\ServicioRepresentImpresa.Negocio.csproj">
+      <Project>{2dfa87d7-7985-44e4-ab19-363cd9af4e22}</Project>
+      <Name>ServicioRepresentImpresa.Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
