@@ -347,8 +347,8 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>2018-12-12</fac:FechaEmision>   
-            <fac:FechaVencimiento>2018-12-30</fac:FechaVencimiento>         
+            <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>${#Project#FechaVencimiento}</fac:FechaVencimiento>         
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>337.57</fac:ImporteTotal>  
 
@@ -392,7 +392,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FV01-703</fac:SerieNumero>
+            <fac:SerieNumero>FV01-72</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
                     
@@ -493,9 +493,12 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>            
-            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>
+            
+            <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>${#Project#FechaVencimiento}</fac:FechaVencimiento> 
+            
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
+
             <fac:ImporteTotal>1012.72</fac:ImporteTotal>  
 
             <fac:Leyenda>
@@ -508,11 +511,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>858.24</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>154.48</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>154.48</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -618,8 +621,8 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
-            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
+           <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>${#Project#FechaVencimiento}</fac:FechaVencimiento>        
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>357.57</fac:ImporteTotal>  
 
@@ -633,11 +636,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>286.08</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>51.49</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -744,8 +747,8 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>   
-            <fac:FechaVencimiento>2018-11-30</fac:FechaVencimiento>         
+            <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>   
+            <fac:FechaVencimiento>${#Project#FechaVencimiento}</fac:FechaVencimiento>          
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>317.57</fac:ImporteTotal>  
 
@@ -759,11 +762,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>286.08</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>51.49</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>51.49</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -890,7 +893,8 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>            
+            <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>               
+                       
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>22.89</fac:ImporteTotal>  
 
@@ -934,7 +938,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FC03-100</fac:SerieNumero>
+            <fac:SerieNumero>FC03-1</fac:SerieNumero>
             <fac:TipoComprobante>07</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
             <fac:TotalCargo>0.19</fac:TotalCargo>
@@ -1035,13 +1039,13 @@
                <fac:Urbanizacion>Urbanizacion</fac:Urbanizacion>
             </fac:Emisor>
             
-            <fac:FechaEmision>${#TestSuite#FechaEmision}</fac:FechaEmision>            
+            <fac:FechaEmision>${#Project#FechaEmision}</fac:FechaEmision>            
             <fac:HoraEmision>09:00:00</fac:HoraEmision>
             <fac:ImporteTotal>22.89</fac:ImporteTotal>  
 
             <fac:Leyenda>
                <fac:En_Leyenda>                  
-                  <fac:Codigo>10000</fac:Codigo>                  
+                  <fac:Codigo>1000</fac:Codigo>                  
                   <fac:Valor>VEINTIDOS CON 89/100 SOLES</fac:Valor>
                </fac:En_Leyenda>
             </fac:Leyenda>
@@ -1049,11 +1053,11 @@
             <fac:Moneda>PEN</fac:Moneda>            
             <fac:MontoTotales>               
                <fac:Gravado>                  
-                  <fac:GrabadoIGV>                     
+                  <fac:GravadoIGV>                     
                      <fac:MontoBase>19.24</fac:MontoBase>                     
                      <fac:MontoTotalImpuesto>3.46</fac:MontoTotalImpuesto>                     
                      <fac:Porcentaje>18.00</fac:Porcentaje>
-                  </fac:GrabadoIGV>                  
+                  </fac:GravadoIGV>                  
                   <fac:Total>3.46</fac:Total>
                </fac:Gravado>
             </fac:MontoTotales>           
@@ -1090,4 +1094,4 @@
          </tem:Comprobante>
       </tem:RegistroComprobante>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ffee8193-fff6-452e-ae2f-37b720dec7db"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-10-28</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-11-04</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ffee8193-fff6-452e-ae2f-37b720dec7db"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2018-10-28</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>FechaEmision</con:name><con:value>2019-02-09</con:value></con:property><con:property><con:name>FechaVencimiento</con:name><con:value>2019-02-20</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
