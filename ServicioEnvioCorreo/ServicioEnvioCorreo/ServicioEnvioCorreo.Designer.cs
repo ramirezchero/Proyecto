@@ -1,0 +1,57 @@
+﻿namespace ServicioEnvioCorreo
+{
+    partial class ServicioEnvioCorreo
+    {
+        /// <summary> 
+        /// Variable del diseñador necesaria.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Código generado por el Diseñador de componentes
+
+        /// <summary> 
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.BgwEnviarCorreos = new System.ComponentModel.BackgroundWorker();
+            this.BgwPrepararCorreo = new System.ComponentModel.BackgroundWorker();
+            // 
+            // BgwEnviarCorreos
+            // 
+            this.BgwEnviarCorreos.WorkerReportsProgress = true;
+            this.BgwEnviarCorreos.WorkerSupportsCancellation = true;
+            this.BgwEnviarCorreos.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwEnviarCorreos_DoWork);
+            // 
+            // BgwPrepararCorreo
+            // 
+            this.BgwPrepararCorreo.WorkerReportsProgress = true;
+            this.BgwPrepararCorreo.WorkerSupportsCancellation = true;
+            this.BgwPrepararCorreo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwPrepararCorreo_DoWork);
+            // 
+            // ServicioEnvioCorreo
+            // 
+            this.ServiceName = "Service1";
+
+        }
+
+        #endregion
+
+        private System.ComponentModel.BackgroundWorker BgwEnviarCorreos;
+        private System.ComponentModel.BackgroundWorker BgwPrepararCorreo;
+    }
+}
