@@ -20,7 +20,7 @@ namespace ServicioRepresentImpresa.Datos
             };
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@IdComprobante", SqlDbType = SqlDbType.BigInt, Value = archivo.IdComprobante });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@NombreRepresentacionImpresa", SqlDbType = SqlDbType.VarChar, Value = archivo.NombrePdf });
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@Archivo", SqlDbType = SqlDbType.VarBinary, Value = archivo.ArchivoXML });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@Archivo", SqlDbType = SqlDbType.VarBinary, Value = archivo.ArchivoPdf  });
 
             try
             {
