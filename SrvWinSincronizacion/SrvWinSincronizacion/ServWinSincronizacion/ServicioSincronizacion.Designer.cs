@@ -1,6 +1,6 @@
 ﻿namespace ServWinSincronizacion
 {
-    partial class Service1
+    partial class ServicioSincronizacion
     {
         /// <summary> 
         /// Variable del diseñador necesaria.

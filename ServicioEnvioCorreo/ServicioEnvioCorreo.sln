@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioEnvioCorreo.Log", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioEnvioCorreo.Formulario", "ServicioEnvioCorreo.Formulario\ServicioEnvioCorreo.Formulario.csproj", "{1B4B23F2-34CF-410E-BEF9-7E1B16ACEEF2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServicioEnvioCorreo.Installer", "ServicioEnvioCorreo.Installer\ServicioEnvioCorreo.Installer.vdproj", "{96EB92F5-5FB8-49B0-B736-BDE3309028F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,8 @@ Global
 		{1B4B23F2-34CF-410E-BEF9-7E1B16ACEEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B4B23F2-34CF-410E-BEF9-7E1B16ACEEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B4B23F2-34CF-410E-BEF9-7E1B16ACEEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96EB92F5-5FB8-49B0-B736-BDE3309028F4}.Debug|Any CPU.ActiveCfg = Debug
+		{96EB92F5-5FB8-49B0-B736-BDE3309028F4}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

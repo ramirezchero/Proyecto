@@ -14,18 +14,18 @@ using Timer = System.Timers.Timer;
 [assembly: FactElec.Log.Configuracion("SwinSE")]
 namespace ServWinSincronizacion
 {
-    public partial class Service1 : ServiceBase
+    public partial class ServicioSincronizacion : ServiceBase
     {
         readonly log4net.ILog log = null;
         //public Service1() => log = log4net.LogManager.GetLogger(typeof(Service1));
 
         Timer temporizador = new Timer();
-        public Service1()
+        public ServicioSincronizacion()
         {
             InitializeComponent();
             //Empiece en un segundo
             temporizador = new Timer(1 * 1000);
-            log = log4net.LogManager.GetLogger(typeof(Service1));
+            log = log4net.LogManager.GetLogger(typeof(ServicioSincronizacion));
             //ejecutamos el evento
             temporizador.Elapsed += new ElapsedEventHandler(Temporizador_Elapsed);
         }

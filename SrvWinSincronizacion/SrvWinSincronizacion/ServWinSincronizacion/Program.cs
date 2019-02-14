@@ -17,7 +17,7 @@ namespace ServWinSincronizacion
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new ServicioSincronizacion()
             };
             ServiceBase.Run(ServicesToRun);
         }

@@ -376,7 +376,7 @@
                <fac:CodigoPais>PE</fac:CodigoPais>               
                <fac:CodigoUbigeo>020202</fac:CodigoUbigeo>
                <fac:Contacto>                  
-                  <fac:Correo>receptor@tci.net.pe</fac:Correo>                  
+                  <fac:Correo>amilcar.huaman@gmail.com</fac:Correo>                  
                   <fac:Nombre>contacto receptor</fac:Nombre>                  
                   <fac:Telefono>999999999</fac:Telefono>
                </fac:Contacto>               
@@ -392,7 +392,7 @@
                <fac:Urbanizacion>Urbanizacion marquez 2</fac:Urbanizacion>
             </fac:Receptor>
             
-            <fac:SerieNumero>FV01-72</fac:SerieNumero>
+            <fac:SerieNumero>FV01-95</fac:SerieNumero>
             <fac:TipoComprobante>01</fac:TipoComprobante>
             <fac:TipoOperacion>0101</fac:TipoOperacion> 
                     

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioEnvio.Formulario", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioEnvio.Log", "ServicioEnvio.Log\ServicioEnvio.Log.csproj", "{A63AF367-6334-4EC6-A6A3-DEC1003BA35D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServicioEnvio.Installer", "ServicioEnvio.Installer\ServicioEnvio.Installer.vdproj", "{A3231B5F-BD3D-4054-BA3B-78E595C1D755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,8 @@ Global
 		{A63AF367-6334-4EC6-A6A3-DEC1003BA35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A63AF367-6334-4EC6-A6A3-DEC1003BA35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A63AF367-6334-4EC6-A6A3-DEC1003BA35D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3231B5F-BD3D-4054-BA3B-78E595C1D755}.Debug|Any CPU.ActiveCfg = Debug
+		{A3231B5F-BD3D-4054-BA3B-78E595C1D755}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

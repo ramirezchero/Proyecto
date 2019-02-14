@@ -99,7 +99,7 @@ namespace ServicioEnvioCorreo.Negocio
                     case "07": tipoComprobante = "Nota de crédito"; break;
                     case "08": tipoComprobante = "Nota de débito"; break;
                 }
-                string rutaPlantilla = Path.Combine(Directory.GetCurrentDirectory(), "PlantillaCorreo.txt");
+                string rutaPlantilla = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PlantillaCorreo.txt");
                 string cuerpoCorreo = File.ReadAllText(rutaPlantilla);
                 cuerpoCorreo = string.Format(cuerpoCorreo, archivo.RazonSocial.ToUpper(),
                     tipoComprobante, archivo.SerieNumero, archivo.FechaEmision);

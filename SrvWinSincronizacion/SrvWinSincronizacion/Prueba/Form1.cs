@@ -19,7 +19,7 @@ namespace Prueba
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ServWinSincronizacion.Service1 oservicio = new ServWinSincronizacion.Service1();
+            ServWinSincronizacion.ServicioSincronizacion oservicio = new ServWinSincronizacion.ServicioSincronizacion();
             oservicio.Iniciando();
         }
     }
