@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -26,7 +27,12 @@ namespace FactElec.Firma
                 };
                 reference.AddTransform(new XmlDsigEnvelopedSignatureTransform());
                 signedXml.AddReference(reference);
-                X509Certificate2 certificado = DevuelveCertificado(ruc);
+                string carpetaCertificado = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Certificado");
+                string nombreArchivoCertificado = string.Format("{0}.pfx", ruc);
+                byte[] bytesCertificado = File.ReadAllBytes(Path.Combine(carpetaCertificado, nombreArchivoCertificado));
+                X509Certificate2 certificado = new X509Certificate2(bytesCertificado, ruc); //DevuelveCertificado(ruc);
+                string subjectName = certificado.SubjectName.Name;
+
                 KeyInfo keyInfo = new KeyInfo();
                 try
                 {
@@ -38,7 +44,7 @@ namespace FactElec.Firma
                     throw nex;
                 }
                 KeyInfoX509Data kData = new KeyInfoX509Data(certificado);
-                kData.AddSubjectName(certificado.SubjectName.Name.ToString());
+                kData.AddSubjectName(subjectName);
                 keyInfo.AddClause(kData);
                 signedXml.KeyInfo = keyInfo;
                 signedXml.Signature.Id = "signatureKG";

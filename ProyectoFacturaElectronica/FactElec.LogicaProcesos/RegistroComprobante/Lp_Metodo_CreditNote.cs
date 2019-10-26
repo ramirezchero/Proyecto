@@ -16,6 +16,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         {
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
+            string rutaXML = "";
 
             try
             {
@@ -28,6 +29,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 LlenarMontosIGV(Comprobante, ref creditNote);
                 LlenarMontosTotales(Comprobante, ref creditNote);
                 LlenarDetalle(Comprobante, ref creditNote);
+
                 string codigoHASH = "", nombreXML = "", firma = "";
                 byte[] archivoXML = null;
                 nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
@@ -39,11 +41,16 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
                 oRespuesta.Codigo = (resultado) ? "0" : "99";
                 oRespuesta.Descripcion = mensajeRetorno;
+
+                string carpetaTemp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temporal");                
+                rutaXML = Path.Combine(carpetaTemp, nombreXML);
+                if (File.Exists(rutaXML)) File.Delete(rutaXML);
             }
             catch (Exception ex)
             {
                 oRespuesta.Codigo = "99";
                 oRespuesta.Descripcion = "Ocurrió un error general, mensaje: " + ex.Message.ToString();
+                if (rutaXML != "" && File.Exists(rutaXML)) File.Delete(rutaXML);
             }
             return oRespuesta;
         }
@@ -450,7 +457,9 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
             xmlNameSpaceNom.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
-            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+            string carpetaTemp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temporal");
+            string nombreXml = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+            string ruta = Path.Combine(carpetaTemp, nombreXml);
 
             string sxml = "";
             Encoding utf8noBOM = new UTF8Encoding(false);

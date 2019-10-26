@@ -1,0 +1,13 @@
+delete from ComprobanteCorreo
+delete from ComprobanteRespuestaHistorial
+delete from ComprobanteRespuesta
+delete from CDRSunatPendiente 
+DELETE FROM CDRSunatProcesado
+DELETE FROM ComprobanteRespuestaHistorial
+delete from ComprobanteDocumento
+delete from ComprobanteMontos
+delete from ComprobanteReferenciaNota
+delete from ComprobanteSustentoNota
+delete from RepresentacionImpresa
+delete from Comprobante 
+delete from PendienteEnvio

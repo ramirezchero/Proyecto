@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,8 @@ namespace ServicioEnvio.Negocio
             CrearArchivo(rutaArchivoXML, contenido);
             Comprimir(rutaArchivoZIP, rutaCarpetaXML);
             EliminarCarpeta(rutaCarpetaXML);
+
+            ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
 
             byte[] archivoZip = File.ReadAllBytes(rutaArchivoZIP);
             wsSUNAT.sendBillRequest sendBill = new wsSUNAT.sendBillRequest();

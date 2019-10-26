@@ -16,6 +16,66 @@ namespace FactElec.CapaDatos
         readonly string connectionString = ConfigurationManager.ConnectionStrings["cnx"].ConnectionString;
         readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Da_Comprobante));
 
+        public En_Emisor ObtenerEmisor(string numeroDocumentoIdentidad, ref string mensajeRetorno)
+        {
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("dbo.usp_ObtenerEmisor", cn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@numeroDocumentoIdentidad", SqlDbType = SqlDbType.VarChar, Size = 20, Value = numeroDocumentoIdentidad });
+
+            try
+            {
+                En_Emisor emisor = null;
+
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                if (dr.Read())
+                {
+                    emisor = new En_Emisor
+                    {
+                        CodigoDomicilioFiscal = (dr.IsDBNull(dr.GetOrdinal("CodigoDomicilioFiscal"))) ? "" : dr.GetString(dr.GetOrdinal("CodigoDomicilioFiscal")),
+                        CodigoPais = (dr.IsDBNull(dr.GetOrdinal("CodigoPais"))) ? "" : dr.GetString(dr.GetOrdinal("CodigoPais")),
+                        CodigoUbigeo = (dr.IsDBNull(dr.GetOrdinal("CodigoUbigeo"))) ? "" : dr.GetString(dr.GetOrdinal("CodigoUbigeo")),
+                        Contacto = new En_Contacto
+                        {
+                            Correo = (dr.IsDBNull(dr.GetOrdinal("ContactoCorreo"))) ? "" : dr.GetString(dr.GetOrdinal("ContactoCorreo")),
+                            Nombre = (dr.IsDBNull(dr.GetOrdinal("ContactoNombre"))) ? "" : dr.GetString(dr.GetOrdinal("ContactoNombre")),
+                            Telefono = (dr.IsDBNull(dr.GetOrdinal("ContactoTelefono"))) ? "" : dr.GetString(dr.GetOrdinal("ContactoTelefono"))
+                        },
+                        Departamento = (dr.IsDBNull(dr.GetOrdinal("Departamento"))) ? "" : dr.GetString(dr.GetOrdinal("Departamento")),
+                        Direccion = (dr.IsDBNull(dr.GetOrdinal("Direccion"))) ? "" : dr.GetString(dr.GetOrdinal("Direccion")),
+                        Distrito = (dr.IsDBNull(dr.GetOrdinal("Distrito"))) ? "" : dr.GetString(dr.GetOrdinal("Distrito")),
+                        NombreComercial = (dr.IsDBNull(dr.GetOrdinal("NombreComercial"))) ? "" : dr.GetString(dr.GetOrdinal("NombreComercial")),
+                        NumeroDocumentoIdentidad = (dr.IsDBNull(dr.GetOrdinal("NumeroDocumentoIdentidad"))) ? "" : dr.GetString(dr.GetOrdinal("NumeroDocumentoIdentidad")),
+                        PaginaWeb = (dr.IsDBNull(dr.GetOrdinal("PaginaWeb"))) ? "" : dr.GetString(dr.GetOrdinal("PaginaWeb")),
+                        Provincia = (dr.IsDBNull(dr.GetOrdinal("Provincia"))) ? "" : dr.GetString(dr.GetOrdinal("Provincia")),
+                        RazonSocial = (dr.IsDBNull(dr.GetOrdinal("RazonSocial"))) ? "" : dr.GetString(dr.GetOrdinal("RazonSocial")),
+                        TipoDocumentoIdentidad = (dr.IsDBNull(dr.GetOrdinal("TipoDocumentoIdentidad"))) ? "" : dr.GetString(dr.GetOrdinal("TipoDocumentoIdentidad")),
+                        Urbanizacion = (dr.IsDBNull(dr.GetOrdinal("Urbanizacion"))) ? "" : dr.GetString(dr.GetOrdinal("Urbanizacion")),
+                    };
+                }
+
+                cn.Close();
+                return emisor;
+            }
+            catch (SqlException ex)
+            {
+                if (cn.State == ConnectionState.Open) { cn.Close(); }
+                mensajeRetorno = ex.Message.ToString();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                if (cn.State == ConnectionState.Open) { cn.Close(); }
+                mensajeRetorno = "Ocurrió un error al registrar el comprobante, revisar el log.";
+                log.Error(mensajeRetorno, ex);
+                return null;
+            }
+        }
+
         public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string firma, ref string mensajeRetorno)
         {
             StringBuilder firmaQR = new StringBuilder();

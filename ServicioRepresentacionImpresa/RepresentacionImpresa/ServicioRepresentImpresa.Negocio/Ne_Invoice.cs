@@ -40,8 +40,10 @@ namespace ServicioRepresentImpresa.Negocio
             fila = dtCabecera.NewRow();
             fila["SerieNumero"] = FnValidarNulo(ocomprobante.ID.Value.ToString());
             fila["FechaEmision"] = FnValidarNulo(ocomprobante.IssueDate.Value.ToString());
-            fila["FechaVencimiento"] = FnValidarNulo(ocomprobante.DueDate.Value.ToString());
-
+            if (ocomprobante.DueDate != null)
+            {
+                fila["FechaVencimiento"] = FnValidarNulo(ocomprobante.DueDate.Value.ToString());
+            }
             if (ocomprobante.InvoiceTypeCode.Value.ToString() == "01") fila["TipoComprobante"] = "FACTURA ELECTRÓNICA";
             if (ocomprobante.InvoiceTypeCode.Value.ToString() == "03") fila["TipoComprobante"] = "BOLETA ELECTRÓNICA";
 

@@ -16,6 +16,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         {
             log.Info("Invocación al método RegistroComprobante");
             En_Respuesta oRespuesta = new En_Respuesta();
+            string rutaXML = "";
 
             try
             {
@@ -27,6 +28,7 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 LlenarMontosIGV(Comprobante, ref invoice);
                 LlenarMontosTotales(Comprobante, ref invoice);
                 LlenarDetalle(Comprobante, ref invoice);
+
                 string codigoHASH = "", nombreXML = "", firma = "";
                 byte[] archivoXML = null;
                 nombreXML = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
@@ -38,11 +40,16 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
                 oRespuesta.Codigo = (resultado) ? "0" : "99";
                 oRespuesta.Descripcion = mensajeRetorno;
+
+                string carpetaTemp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temporal");                
+                rutaXML = Path.Combine(carpetaTemp, nombreXML);
+                if (File.Exists(rutaXML)) File.Delete(rutaXML);
             }
             catch (Exception ex)
             {
                 oRespuesta.Codigo = "99";
                 oRespuesta.Descripcion = "Ocurrió un error general, mensaje: " + ex.Message.ToString();
+                if (rutaXML != "" && File.Exists(rutaXML)) File.Delete(rutaXML);
             }
             return oRespuesta;
         }
@@ -222,46 +229,48 @@ namespace FactElec.LogicaProceso.RegistroComprobante
         {
             List<AllowanceChargeType> oListaDescuentoCargo = new List<AllowanceChargeType>();
 
-            foreach (En_DescuentoCargo oDescar in Comprobante.DescuentoCargo)
+            if (Comprobante.DescuentoCargo != null)
             {
-                AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
+                foreach (En_DescuentoCargo oDescar in Comprobante.DescuentoCargo)
                 {
-                    AllowanceChargeReason = new AllowanceChargeReasonType[]
+                    AllowanceChargeType oDescuentoCargo = new AllowanceChargeType
                     {
+                        AllowanceChargeReason = new AllowanceChargeReasonType[]
+                        {
                         new AllowanceChargeReasonType{ Value =oDescar.Motivo }
-                    },
-                    ChargeIndicator = new ChargeIndicatorType
-                    {
-                        Value = oDescar.Indicador
-                    },
+                        },
+                        ChargeIndicator = new ChargeIndicatorType
+                        {
+                            Value = oDescar.Indicador
+                        },
 
-                    AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
-                    {
-                        listAgencyName = "PE:SUNAT",
-                        listName = "Cargo/descuento",
-                        listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
-                        Value = oDescar.CodigoMotivo
-                    },
-                    MultiplierFactorNumeric = new MultiplierFactorNumericType
-                    {
-                        Value = oDescar.Factor
-                    },
-                    Amount = new AmountType2
-                    {
-                        Value = oDescar.MontoTotal,
-                        currencyID = Comprobante.Moneda.Trim()
-                    },
-                    BaseAmount = new BaseAmountType
-                    {
-                        Value = oDescar.MontoBase,
-                        currencyID = Comprobante.Moneda.Trim()
-                    }
+                        AllowanceChargeReasonCode = new AllowanceChargeReasonCodeType
+                        {
+                            listAgencyName = "PE:SUNAT",
+                            listName = "Cargo/descuento",
+                            listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo53",
+                            Value = oDescar.CodigoMotivo
+                        },
+                        MultiplierFactorNumeric = new MultiplierFactorNumericType
+                        {
+                            Value = oDescar.Factor
+                        },
+                        Amount = new AmountType2
+                        {
+                            Value = oDescar.MontoTotal,
+                            currencyID = Comprobante.Moneda.Trim()
+                        },
+                        BaseAmount = new BaseAmountType
+                        {
+                            Value = oDescar.MontoBase,
+                            currencyID = Comprobante.Moneda.Trim()
+                        }
 
-                };
-                oListaDescuentoCargo.Add(oDescuentoCargo);
+                    };
+                    oListaDescuentoCargo.Add(oDescuentoCargo);
+                }
+                invoice.AllowanceCharge = oListaDescuentoCargo.ToArray();
             }
-            invoice.AllowanceCharge = oListaDescuentoCargo.ToArray();
-
         }
 
         void LlenarMontosTotales(En_ComprobanteElectronico Comprobante, ref InvoiceType invoice)
@@ -397,7 +406,9 @@ namespace FactElec.LogicaProceso.RegistroComprobante
             xmlNameSpaceNom.Add("sac", "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1");
             xmlNameSpaceNom.Add("udt", "urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2");
 
-            string ruta = string.Format(@"D:\XML\{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+            string carpetaTemp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temporal");
+            string nombreXml = string.Format("{0}-{1}-{2}.xml", Comprobante.Emisor.NumeroDocumentoIdentidad, Comprobante.TipoComprobante, Comprobante.SerieNumero);
+            string ruta = Path.Combine(carpetaTemp, nombreXml);
 
             string sxml = "";
             Encoding utf8noBOM = new UTF8Encoding(false);
@@ -460,10 +471,14 @@ namespace FactElec.LogicaProceso.RegistroComprobante
                 Value = "2.1"
             };
 
-            invoice.DueDate = new DueDateType
+            if (!string.IsNullOrEmpty(Comprobante.FechaVencimiento))
             {
-                Value = Comprobante.FechaVencimiento
-            };
+                invoice.DueDate = new DueDateType
+                {
+                    Value = Comprobante.FechaVencimiento
+                };
+            }
+
             invoice.IssueDate = new IssueDateType
             {
                 Value = Comprobante.FechaEmision
@@ -513,29 +528,32 @@ namespace FactElec.LogicaProceso.RegistroComprobante
 
             List<DocumentReferenceType> oListadocumento = new List<DocumentReferenceType>();
 
-            foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferenciaDespacho)
+            if (Comprobante.DocumentoReferenciaDespacho != null)
             {
-                DocumentReferenceType odocumento = new DocumentReferenceType
+                foreach (En_DocumentoReferencia oreferen in Comprobante.DocumentoReferenciaDespacho)
                 {
-                    ID = new IDType
+                    DocumentReferenceType odocumento = new DocumentReferenceType
                     {
-                        Value = oreferen.SerieNumero.Trim()
-                    },
-                    IssueDate = new IssueDateType
-                    {
-                        Value = oreferen.Fecha.Trim()
-                    },
-                    DocumentTypeCode = new DocumentTypeCodeType
-                    {
-                        Value = oreferen.TipoDocumento.Trim(),
-                        listAgencyName = "PE:SUNAT",
-                        listName = "SUNAT:Identificador de guía relacionada",
-                        listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12"
-                    }
+                        ID = new IDType
+                        {
+                            Value = oreferen.SerieNumero.Trim()
+                        },
+                        IssueDate = new IssueDateType
+                        {
+                            Value = oreferen.Fecha.Trim()
+                        },
+                        DocumentTypeCode = new DocumentTypeCodeType
+                        {
+                            Value = oreferen.TipoDocumento.Trim(),
+                            listAgencyName = "PE:SUNAT",
+                            listName = "SUNAT:Identificador de guía relacionada",
+                            listURI = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12"
+                        }
+                    };
+                    oListadocumento.Add(odocumento);
                 };
-                oListadocumento.Add(odocumento);
-            };
-            invoice.DespatchDocumentReference = oListadocumento.ToArray();
+                invoice.DespatchDocumentReference = oListadocumento.ToArray();
+            }
         }
 
         void LlenarEmisor(En_Emisor Emisor, ref InvoiceType invoice)

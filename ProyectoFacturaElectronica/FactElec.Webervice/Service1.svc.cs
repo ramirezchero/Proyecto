@@ -14,6 +14,20 @@ namespace FactElec.WebService
         {
             log.Info("Inicio del proceso.");
             En_Respuesta oRespuesta = null;
+            string mensajeRetorno = "";
+
+            Lp_Comprobante lpComprobante = new Lp_Comprobante();
+            Comprobante.Emisor = lpComprobante.ObtenerEmisor(Comprobante.Emisor.NumeroDocumentoIdentidad, ref mensajeRetorno);
+            if(Comprobante.Emisor == null)
+            {
+                oRespuesta = new En_Respuesta
+                {
+                    Codigo = "99",
+                    Descripcion = mensajeRetorno
+                };
+                log.Info("Fin del proceso");
+                return oRespuesta;
+            }
 
             bool esValido = true;
             oRespuesta = Lp_Validacion.ComprobanteValido(Comprobante, ref esValido);

@@ -10,6 +10,11 @@ namespace FactElec.LogicaProceso
 {
     public class Lp_Comprobante
     {
+        public En_Emisor ObtenerEmisor(string numeroDocumentoIdentidad, ref string mensajeRetorno)
+        {
+            Da_Comprobante daComprobante = new Da_Comprobante();
+            return daComprobante.ObtenerEmisor(numeroDocumentoIdentidad, ref mensajeRetorno);
+        }
         public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string firma, ref string mensajeRetorno)
         {
             Da_Comprobante daComprobante = new Da_Comprobante();
