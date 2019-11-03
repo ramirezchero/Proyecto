@@ -75,7 +75,7 @@ namespace FactElec.CapaDatos
                 return null;
             }
         }
-
+        
         public bool InsertarComprobante(En_ComprobanteElectronico comprobante, string nombreXML, byte[] archivoXML, string codigoHASH, string firma, ref string mensajeRetorno)
         {
             StringBuilder firmaQR = new StringBuilder();
@@ -178,6 +178,36 @@ namespace FactElec.CapaDatos
                 table.Rows.Add(row);
             }
             return table;
+        }
+
+        public bool InsertarProgramacion(ref string mensajeRetorno)
+        {
+            SqlConnection cn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("dbo.usp_InsertarProgramacion", cn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            try
+            {
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+                mensajeRetorno = "Se registró la programación satisfactoriamente.";                
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                if (cn.State == ConnectionState.Open) { cn.Close(); }
+                mensajeRetorno = ex.Message.ToString();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                if (cn.State == ConnectionState.Open) { cn.Close(); }
+                mensajeRetorno = "Ocurrió un error al registrar el comprobante, excepción: " + ex.Message.ToString();               
+                return false;
+            }
         }
     }
 }

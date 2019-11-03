@@ -20,5 +20,10 @@ namespace FactElec.LogicaProceso
             Da_Comprobante daComprobante = new Da_Comprobante();
             return daComprobante.InsertarComprobante(comprobante, nombreXML, archivoXML, codigoHASH, firma, ref mensajeRetorno);
         }
+        public bool InsertarProgramacion(ref string mensajeRetorno)
+        {
+            Da_Comprobante daComprobante = new Da_Comprobante();
+            return daComprobante.InsertarProgramacion(ref mensajeRetorno);
+        }
     }
 }
